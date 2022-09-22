@@ -24,10 +24,22 @@ pygame.display.set_icon(icon)
 player_img = pygame.image.load('Tryouts/Niels/img/player.png')
 player_x = 370
 player_y = 480
+player_x_change = 0
 
 
 def player(x, y):
     screen.blit(player_img, (x, y))
+
+
+# alien1
+alien_1_img = pygame.image.load('Tryouts/Niels/img/alien1.png')
+alien_1_x = 370
+alien_1_y = 50
+alien_1_x_change = 0
+
+
+def alien_1(x, y):
+    screen.blit(alien_1_img, (x, y))
 
 
 # Game loop
@@ -41,5 +53,27 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
+        # If keystroke is pressed check wether it's left or right
+        if event.type == pygame.KEYDOWN:
+            # Go left
+            if event.key == pygame.K_a:
+                player_x_change = -0.3
+            # Go right
+            if event.key == pygame.K_d:
+                player_x_change = 0.6
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_a or event.key == pygame.K_d:
+                player_x_change = 0
+
+    # Moving the player
+    player_x += player_x_change
+
+    if player_x <= 0:
+        player_x = 0
+    elif player_x >= 736:
+        player_x = 736
+
     player(player_x, player_y)
+    alien_1(alien_1_x, alien_1_y)
+
     pygame.display.update()

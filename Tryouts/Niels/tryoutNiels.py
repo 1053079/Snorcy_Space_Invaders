@@ -36,7 +36,8 @@ def player(x, y):
 alien_1_img = pygame.image.load('Tryouts/Niels/img/alien1.png')
 alien_1_x = random.randint(0, 800)
 alien_1_y = random.randint(50, 150)
-alien_1_x_change = 0
+alien_1_x_change = 0.3
+alien_1_y_change = 40
 
 
 def alien_1(x, y):
@@ -69,10 +70,22 @@ while running:
     # Moving the player
     player_x += player_x_change
 
+    # Checking for boundries
     if player_x <= 0:
         player_x = 0
     elif player_x >= 736:
         player_x = 736
+
+    # Enemy movement
+    alien_1_x += alien_1_x_change
+
+    # Aliens check for boundry, and change direction
+    if alien_1_x <= 0:
+        alien_1_x_change = 0.3
+        alien_1_y += alien_1_y_change
+    elif alien_1_x >= 736:
+        alien_1_x_change = -0.3
+        alien_1_y += alien_1_y_change
 
     player(player_x, player_y)
     alien_1(alien_1_x, alien_1_y)

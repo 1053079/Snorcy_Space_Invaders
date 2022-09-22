@@ -1,3 +1,4 @@
+import random
 import pygame
 
 # Initialzing the game
@@ -33,8 +34,8 @@ def player(x, y):
 
 # alien1
 alien_1_img = pygame.image.load('Tryouts/Niels/img/alien1.png')
-alien_1_x = 370
-alien_1_y = 50
+alien_1_x = random.randint(0, 800)
+alien_1_y = random.randint(50, 150)
 alien_1_x_change = 0
 
 

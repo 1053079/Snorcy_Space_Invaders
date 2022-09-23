@@ -37,15 +37,23 @@ def player(x, y):
 
 
 # alien1
-alien_1_img = pygame.image.load('Tryouts/Niels/img/alien1.png')
-alien_1_x = random.randint(0, 735)
-alien_1_y = random.randint(50, 150)
-alien_1_x_change = 3
-alien_1_y_change = 40
+alien_1_img = []
+alien_1_x = []
+alien_1_y = []
+alien_1_x_change = []
+alien_1_y_change = []
+num_of_aliens = 6
+
+for i in range(num_of_aliens):
+    alien_1_img.append(pygame.image.load('Tryouts/Niels/img/alien1.png'))
+    alien_1_x.append(random.randint(0, 735))
+    alien_1_y.append(random.randint(50, 150))
+    alien_1_x_change.append(3)
+    alien_1_y_change.append(40)
 
 
-def alien_1(x, y):
-    screen.blit(alien_1_img, (x, y))
+def alien_1(x, y, i):
+    screen.blit(alien_1_img[i], (x, y))
 
 
 # bullet
@@ -120,15 +128,29 @@ while running:
         player_x = 736
 
     # Enemy movement
-    alien_1_x += alien_1_x_change
+    for i in range(num_of_aliens):
+        alien_1_x[i] += alien_1_x_change[i]
 
     # Aliens check for boundry, and change direction
-    if alien_1_x <= 0:
-        alien_1_x_change = 3
-        alien_1_y += alien_1_y_change
-    elif alien_1_x >= 736:
-        alien_1_x_change = -3
-        alien_1_y += alien_1_y_change
+        if alien_1_x[i] <= 0:
+            alien_1_x_change[i] = 3
+            alien_1_y[i] += alien_1_y_change[i]
+        elif alien_1_x[i] >= 736:
+            alien_1_x_change[i] = -3
+            alien_1_y[i] += alien_1_y_change[i]
+
+        # Colission
+        collision = is_collision(
+            alien_1_x[i], alien_1_y[i], bullet_x, bullet_y)
+        if collision:
+            bullet_y = 480
+            bullet_state = "ready"
+            score += 1
+            print(score)
+            alien_1_x[i] = random.randint(0, 735)
+            alien_1_y[i] = random.randint(50, 150)
+
+        alien_1(alien_1_x[i], alien_1_y[i], i)
 
     # Bullet movement
     if bullet_y <= -32:
@@ -139,17 +161,6 @@ while running:
         fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
 
-    # Colission
-    collision = is_collision(alien_1_x, alien_1_y, bullet_x, bullet_y)
-    if collision:
-        bullet_y = 480
-        bullet_state = "ready"
-        score += 1
-        print(score)
-        alien_1_x = random.randint(0, 735)
-        alien_1_y = random.randint(50, 150)
-
     player(player_x, player_y)
-    alien_1(alien_1_x, alien_1_y)
 
     pygame.display.update()

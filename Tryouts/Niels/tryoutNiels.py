@@ -91,12 +91,31 @@ bullet_state = "ready"
 
 # Score
 score_value = 0
-font = pygame.font.Font('freesansbold.ttf', 32)
 
 text_x = 10
 text_y = 10
 
+# Font
+font = pygame.font.Font('freesansbold.ttf', 32)
+intro_font = pygame.font.Font('freesansbold.ttf', 64)
 over_font = pygame.font.Font('freesansbold.ttf', 64)
+
+# Game intro screen
+
+
+def game_intro():
+    intro = True
+
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        screen.fill(BLACK)
+        intro_text = intro_font.render("Space Invader", True, WHITE)
+        screen.blit(intro_text, (200, 250))
+        pygame.display.update()
 
 
 def show_score(x, y):
@@ -133,19 +152,6 @@ def is_collision_alien_2(alien_2_x, alien_2_y, bullet_x, bullet_y):
         return True
     else:
         return False
-
-
-# Game intro screen
-def game_intro():
-    intro = True
-
-    while intro:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-
-        screen.fill(BLACK)
 
 
 # Game loop
@@ -259,6 +265,7 @@ while running:
         fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
 
+    game_intro()
     show_score(text_x, text_y)
     player(player_x, player_y)
 

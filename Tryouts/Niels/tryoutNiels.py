@@ -79,10 +79,17 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 text_x = 10
 text_y = 10
 
+over_font = pygame.font.Font('freesansbold.ttf', 64)
+
 
 def show_score(x, y):
     score = font.render("Score: " + str(score_value), True, (WHITE))
     screen.blit(score, (x, y))
+
+
+def game_over_text():
+    over_text = over_font.render("GAME OVER", True, (WHITE))
+    screen.blit(over_text, (200, 250))
 
 
 def fire_bullet(x, y):
@@ -147,6 +154,14 @@ while running:
 
     # Enemy movement
     for i in range(num_of_aliens):
+
+        # Game over text
+        if alien_1_y[i] > 440:
+            for j in range(num_of_aliens):
+                alien_1_y[j] = 2000
+            game_over_text()
+            break
+
         alien_1_x[i] += alien_1_x_change[i]
 
     # Aliens check for boundry, and change direction

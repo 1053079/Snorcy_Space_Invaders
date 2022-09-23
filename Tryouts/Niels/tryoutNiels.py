@@ -17,12 +17,14 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 background = pygame.image.load('Tryouts/Niels/img/background.png')
 
 # Background music
-mixer.music.load('Tryouts/Niels/sound/background.wav')
-mixer.music.play(-1)
+# mixer.music.load('Tryouts/Niels/sound/background.wav')
+# mixer.music.play(-1)
 
 # Colors
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
+GREY = 169, 169, 169
+LIGHT_GREY = 211, 211, 211
 
 # Title and icon
 pygame.display.set_caption("Space Invaders")
@@ -96,9 +98,33 @@ text_x = 10
 text_y = 10
 
 # Font
-font = pygame.font.Font('freesansbold.ttf', 32)
+score_font = pygame.font.Font('freesansbold.ttf', 32)
 intro_font = pygame.font.Font('freesansbold.ttf', 64)
 over_font = pygame.font.Font('freesansbold.ttf', 64)
+button_font = pygame.font.Font('freesansbold.ttf', 32)
+
+# Buttons
+start_button = (325, 300, 150, 40)
+
+
+class Button:
+    def __init__(self, text, width, height, pos):
+        # Top rectangle
+        self.top_rect = pygame.Rect(pos, (width, height))
+        self.top_color = WHITE
+
+        # Text
+        self.text_surf = button_font.render(text, True, BLACK)
+        self.text_rect = self.text_surf.get_rect(center=self.top_rect.center)
+
+    def draw(self):
+        pygame.draw.rect(screen, self.top_color, self.top_rect)
+        screen.blit(self.text_surf, self.text_rect)
+
+
+button_start = Button('Start', 200, 40, (325, 300))
+button_high_score = Button('High Scores', 200, 40, (325, 360))
+button_quit = Button('Quit', 200, 40, (325, 420))
 
 # Game intro screen
 
@@ -113,13 +139,17 @@ def game_intro():
                 quit()
 
         screen.fill(BLACK)
+        button_start.draw()
+        button_high_score.draw()
+        button_quit.draw()
         intro_text = intro_font.render("Space Invader", True, WHITE)
-        screen.blit(intro_text, (200, 250))
+        screen.blit(intro_text, (200, 200))
+
         pygame.display.update()
 
 
 def show_score(x, y):
-    score = font.render("Score: " + str(score_value), True, (WHITE))
+    score = score_font.render("Score: " + str(score_value), True, (WHITE))
     screen.blit(score, (x, y))
 
 

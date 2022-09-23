@@ -1,5 +1,5 @@
+import math
 import random
-from timeit import repeat
 import pygame
 
 # Initialzing the game
@@ -38,7 +38,7 @@ def player(x, y):
 
 # alien1
 alien_1_img = pygame.image.load('Tryouts/Niels/img/alien1.png')
-alien_1_x = random.randint(0, 800)
+alien_1_x = random.randint(0, 735)
 alien_1_y = random.randint(50, 150)
 alien_1_x_change = 3
 alien_1_y_change = 40
@@ -57,11 +57,25 @@ bullet_y_change = 10
 # You can't see the bullet (bullet_state = fire -> bullet moving)
 bullet_state = "ready"
 
+# Score
+score = 0
+
 
 def fire_bullet(x, y):
     global bullet_state
     bullet_state = "fire"
     screen.blit(bullet_img, (x + 16, y + 10))
+
+# Collision function
+
+
+def is_collision(alien_1_x, alien_1_y, bullet_x, bullet_y):
+    distance = math.sqrt(math.pow(alien_1_x - bullet_x, 2) +
+                         math.pow(alien_1_y - bullet_y, 2))
+    if distance < 27:
+        return True
+    else:
+        return False
 
 
 # Game loop
@@ -124,6 +138,16 @@ while running:
     if bullet_state == "fire":
         fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
+
+    # Colission
+    collision = is_collision(alien_1_x, alien_1_y, bullet_x, bullet_y)
+    if collision:
+        bullet_y = 480
+        bullet_state = "ready"
+        score += 1
+        print(score)
+        alien_1_x = random.randint(0, 735)
+        alien_1_y = random.randint(50, 150)
 
     player(player_x, player_y)
     alien_1(alien_1_x, alien_1_y)

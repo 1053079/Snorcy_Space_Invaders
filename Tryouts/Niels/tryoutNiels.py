@@ -23,9 +23,6 @@ mixer.music.play(-1)
 # Colors
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
-RED = 255, 0, 0
-GREEN = 0, 255, 0
-BLUE = 0, 0, 255
 
 # Title and icon
 pygame.display.set_caption("Space Invaders")
@@ -43,24 +40,44 @@ def player(x, y):
     screen.blit(player_img, (x, y))
 
 
-# alien1
+# Alien 1
 alien_1_img = []
 alien_1_x = []
 alien_1_y = []
 alien_1_x_change = []
 alien_1_y_change = []
-num_of_aliens = 6
+num_of_aliens_1 = 6
 
-for i in range(num_of_aliens):
+for i in range(num_of_aliens_1):
     alien_1_img.append(pygame.image.load('Tryouts/Niels/img/alien1.png'))
     alien_1_x.append(random.randint(0, 735))
     alien_1_y.append(random.randint(50, 150))
-    alien_1_x_change.append(3)
+    alien_1_x_change.append(2.7)
     alien_1_y_change.append(40)
 
 
 def alien_1(x, y, i):
     screen.blit(alien_1_img[i], (x, y))
+
+
+# Alien 2
+alien_2_x = []
+alien_2_img = []
+alien_2_y = []
+alien_2_x_change = []
+alien_2_y_change = []
+num_of_aliens_2 = 1
+
+for ij in range(num_of_aliens_2):
+    alien_2_img.append(pygame.image.load('Tryouts/Niels/img/alien2.png'))
+    alien_2_x.append(random.randint(0, 735))
+    alien_2_y.append(random.randint(0, 75))
+    alien_2_x_change.append(1)
+    alien_2_y_change.append(40)
+
+
+def alien_2(x, y, ij):
+    screen.blit(alien_2_img[ij], (x, y))
 
 
 # bullet
@@ -100,13 +117,35 @@ def fire_bullet(x, y):
 # Collision function
 
 
-def is_collision(alien_1_x, alien_1_y, bullet_x, bullet_y):
+def is_collision_alien_1(alien_1_x, alien_1_y, bullet_x, bullet_y):
     distance = math.sqrt(math.pow(alien_1_x - bullet_x, 2) +
                          math.pow(alien_1_y - bullet_y, 2))
     if distance < 27:
         return True
     else:
         return False
+
+
+def is_collision_alien_2(alien_2_x, alien_2_y, bullet_x, bullet_y):
+    distance = math.sqrt(math.pow(alien_2_x - bullet_x, 2) +
+                         math.pow(alien_2_y - bullet_y, 2))
+    if distance < 27:
+        return True
+    else:
+        return False
+
+
+# Game intro screen
+def game_intro():
+    intro = True
+
+    while intro:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        screen.fill(BLACK)
 
 
 # Game loop
@@ -153,29 +192,42 @@ while running:
         player_x = 736
 
     # Enemy movement
-    for i in range(num_of_aliens):
+    for i in range(num_of_aliens_1) or ij in range(num_of_aliens_2):
 
         # Game over text
-        if alien_1_y[i] > 440:
-            for j in range(num_of_aliens):
+        if alien_1_y[i] > 450:
+            for j in range(num_of_aliens_1):
                 alien_1_y[j] = 2000
+            game_over_text()
+            break
+        elif alien_2_y[ij] > 450:
+            for iji in range(num_of_aliens_2):
+                alien_2_y[iji] = 2000
             game_over_text()
             break
 
         alien_1_x[i] += alien_1_x_change[i]
+        alien_2_x[ij] += alien_2_x_change[ij]
 
     # Aliens check for boundry, and change direction
         if alien_1_x[i] <= 0:
-            alien_1_x_change[i] = 3
+            alien_1_x_change[i] = 2.7
             alien_1_y[i] += alien_1_y_change[i]
         elif alien_1_x[i] >= 736:
-            alien_1_x_change[i] = -3
+            alien_1_x_change[i] = -2.7
             alien_1_y[i] += alien_1_y_change[i]
 
+        if alien_2_x[ij] <= 0:
+            alien_2_x_change[ij] = 1
+            alien_2_y[ij] += alien_2_y_change[ij]
+        elif alien_2_x[ij] >= 736:
+            alien_2_x_change[ij] = -1
+            alien_2_y[ij] += alien_2_y_change[ij]
+
         # Colission
-        collision = is_collision(
+        collision_alien_1 = is_collision_alien_1(
             alien_1_x[i], alien_1_y[i], bullet_x, bullet_y)
-        if collision:
+        if collision_alien_1:
             explosion_sound = mixer.Sound('Tryouts/Niels/sound/explosion.wav')
             explosion_sound.play()
             bullet_y = 480
@@ -184,7 +236,19 @@ while running:
             alien_1_x[i] = random.randint(0, 735)
             alien_1_y[i] = random.randint(50, 150)
 
+        collision_alien_2 = is_collision_alien_2(
+            alien_2_x[ij], alien_2_y[ij], bullet_x, bullet_y)
+        if collision_alien_2:
+            explosion_sound = mixer.Sound('Tryouts/Niels/sound/explosion.wav')
+            explosion_sound.play()
+            bullet_y = 480
+            bullet_state = "ready"
+            score_value += 4
+            alien_2_x[ij] = random.randint(0, 735)
+            alien_2_y[ij] = random.randint(0, 75)
+
         alien_1(alien_1_x[i], alien_1_y[i], i)
+        alien_2(alien_2_x[ij], alien_2_y[ij], ij)
 
     # Bullet movement
     if bullet_y <= -32:

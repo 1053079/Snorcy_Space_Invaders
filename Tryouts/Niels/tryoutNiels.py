@@ -86,8 +86,11 @@ while running:
             # Go right
             if event.key == pygame.K_d:
                 player_x_change = 5
+            # Fire key
             if event.key == pygame.K_SPACE:
-                fire_bullet(player_x, player_y)
+                if bullet_state == "ready":
+                    bullet_x = player_x
+                    fire_bullet(bullet_x, player_y)
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a or event.key == pygame.K_d:
@@ -114,8 +117,12 @@ while running:
         alien_1_y += alien_1_y_change
 
     # Bullet movement
-    if bullet_state is "fire":
-        fire_bullet(player_x, bullet_y)
+    if bullet_y <= -32:
+        bullet_y = 480
+        bullet_state = "ready"
+
+    if bullet_state == "fire":
+        fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
 
     player(player_x, player_y)

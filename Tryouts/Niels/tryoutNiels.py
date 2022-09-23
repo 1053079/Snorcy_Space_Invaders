@@ -1,6 +1,9 @@
 import math
 import random
+
 import pygame
+from pygame import mixer
+
 
 # Initialzing the game
 pygame.init()
@@ -12,6 +15,10 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Background
 background = pygame.image.load('Tryouts/Niels/img/background.png')
+
+# Background music
+mixer.music.load('Tryouts/Niels/sound/background.wav')
+mixer.music.play(-1)
 
 # Colors
 BLACK = 0, 0, 0
@@ -66,7 +73,16 @@ bullet_y_change = 10
 bullet_state = "ready"
 
 # Score
-score = 0
+score_value = 0
+font = pygame.font.Font('freesansbold.ttf', 32)
+
+text_x = 10
+text_y = 10
+
+
+def show_score(x, y):
+    score = font.render("Score: " + str(score_value), True, (WHITE))
+    screen.blit(score, (x, y))
 
 
 def fire_bullet(x, y):
@@ -111,6 +127,8 @@ while running:
             # Fire key
             if event.key == pygame.K_SPACE:
                 if bullet_state == "ready":
+                    bullet_sound = mixer.Sound('Tryouts/Niels/sound/laser.wav')
+                    bullet_sound.play()
                     bullet_x = player_x
                     fire_bullet(bullet_x, player_y)
 
@@ -143,10 +161,11 @@ while running:
         collision = is_collision(
             alien_1_x[i], alien_1_y[i], bullet_x, bullet_y)
         if collision:
+            explosion_sound = mixer.Sound('Tryouts/Niels/sound/explosion.wav')
+            explosion_sound.play()
             bullet_y = 480
             bullet_state = "ready"
-            score += 1
-            print(score)
+            score_value += 1
             alien_1_x[i] = random.randint(0, 735)
             alien_1_y[i] = random.randint(50, 150)
 
@@ -161,6 +180,7 @@ while running:
         fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
 
+    show_score(text_x, text_y)
     player(player_x, player_y)
 
     pygame.display.update()

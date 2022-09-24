@@ -20,6 +20,9 @@ background = pygame.image.load('Tryouts/Niels/img/background.png')
 # mixer.music.load('Tryouts/Niels/sound/background.wav')
 # mixer.music.play(-1)
 
+# Clock
+clock = pygame.time.Clock()
+
 # Colors
 BLACK = 0, 0, 0
 WHITE = 255, 255, 255
@@ -101,6 +104,14 @@ for ij in range(num_of_aliens_2):
 
 def alien_2(x, y, ij):
     screen.blit(alien_2_img[ij], (x, y))
+
+
+# Asteroid
+asteroid_1_img = pygame.image.load('Tryouts/Niels/img/asteroid1.png')
+asteroid_1_x = random.randint(0, 300)
+asteroid_1_y = random.randint(-75, -5)
+asteroid_1_x_speed = 150
+asteroid_1_y_speed = 170
 
 
 # Score function
@@ -252,7 +263,7 @@ while running:
         alien_1(alien_1_x[i], alien_1_y[i], i)
         alien_2(alien_2_x[ij], alien_2_y[ij], ij)
 
-        # Bullet movement
+    # Bullet movement
     if bullet_y <= -32:
         bullet_y = 480
         bullet_state = "ready"
@@ -260,6 +271,18 @@ while running:
     if bullet_state == "fire":
         fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
+
+    # Asteroid
+    screen.blit(asteroid_1_img, (asteroid_1_x, asteroid_1_y))
+    mili_sec = clock.tick()
+    seconds = mili_sec/1000.
+    # Astroid movement x direction
+    dmx = seconds * asteroid_1_x_speed
+    # Asteroid movement y direction
+    dmy = seconds * asteroid_1_y_speed
+
+    asteroid_1_x += dmx
+    asteroid_1_y += dmy
 
     show_score(text_x, text_y)
     player(player_x, player_y)

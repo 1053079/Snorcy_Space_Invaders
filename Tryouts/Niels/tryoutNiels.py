@@ -26,6 +26,18 @@ WHITE = 255, 255, 255
 GREY = 169, 169, 169
 LIGHT_GREY = 211, 211, 211
 
+# Score
+score_value = 0
+
+text_x = 10
+text_y = 10
+
+# Font
+score_font = pygame.font.Font('freesansbold.ttf', 32)
+intro_font = pygame.font.Font('freesansbold.ttf', 64)
+over_font = pygame.font.Font('freesansbold.ttf', 64)
+button_font = pygame.font.Font('freesansbold.ttf', 32)
+
 # Title and icon
 pygame.display.set_caption("Space Invaders")
 icon = pygame.image.load('Tryouts/Niels/img/ufo.png')
@@ -41,6 +53,15 @@ player_x_change = 0
 def player(x, y):
     screen.blit(player_img, (x, y))
 
+
+# bullet
+bullet_x = 0
+bullet_y = 480
+bullet_img = pygame.image.load('Tryouts/Niels/img/bullet.png')
+bullet_x_change = 0
+bullet_y_change = 10
+# You can't see the bullet (bullet_state = fire -> bullet moving)
+bullet_state = "ready"
 
 # Alien 1
 alien_1_img = []
@@ -81,81 +102,95 @@ for ij in range(num_of_aliens_2):
 def alien_2(x, y, ij):
     screen.blit(alien_2_img[ij], (x, y))
 
-
-# bullet
-bullet_x = 0
-bullet_y = 480
-bullet_img = pygame.image.load('Tryouts/Niels/img/bullet.png')
-bullet_x_change = 0
-bullet_y_change = 10
-# You can't see the bullet (bullet_state = fire -> bullet moving)
-bullet_state = "ready"
-
-# Score
-score_value = 0
-
-text_x = 10
-text_y = 10
-
-# Font
-score_font = pygame.font.Font('freesansbold.ttf', 32)
-intro_font = pygame.font.Font('freesansbold.ttf', 64)
-over_font = pygame.font.Font('freesansbold.ttf', 64)
-button_font = pygame.font.Font('freesansbold.ttf', 32)
-
 # Buttons
-start_button = (325, 300, 150, 40)
 
 
 class Button:
-    def __init__(self, text, width, height, pos):
+    def __init__(self, text, width, height, pos, elevation, action=None):
+        # Core attributes
+        self.pressed = False
+        self.elevation = elevation
+        self.dynamic_elevation = elevation
+        self.original_y_position = pos[1]
+        self.action = action
+
         # Top rectangle
         self.top_rect = pygame.Rect(pos, (width, height))
         self.top_color = WHITE
+
+        # Botton rectangle
+        self.bottom_rect = pygame.Rect(pos, (width, height))
+        self.bottom_color = LIGHT_GREY
 
         # Text
         self.text_surf = button_font.render(text, True, BLACK)
         self.text_rect = self.text_surf.get_rect(center=self.top_rect.center)
 
     def draw(self):
-        pygame.draw.rect(screen, self.top_color, self.top_rect)
+        # Elevation logic
+        self.top_rect.y = self.original_y_position - self.dynamic_elevation
+        self.text_rect.center = self.top_rect.center
+
+        self.bottom_rect.midtop = self.top_rect.midtop
+        self.bottom_rect.height = self.top_rect.height + self.dynamic_elevation
+
+        pygame.draw.rect(screen, self.bottom_color,
+                         self.bottom_rect, border_radius=10)
+
+        pygame.draw.rect(screen, self.top_color,
+                         self.top_rect, border_radius=10)
         screen.blit(self.text_surf, self.text_rect)
+        self.check_click()
+
+    def check_click(self):
+        mouse_pos = pygame.mouse.get_pos()
+
+        if self.top_rect.collidepoint(mouse_pos):
+            self.top_color = GREY
+            # Logic so button get pressed once
+            if pygame.mouse.get_pressed()[0]:
+                self.dynamic_elevation = 0
+                self.pressed = True
+            else:
+                self.dynamic_elevation = self.elevation
+                if self.pressed == True:
+                    # Logic for what the button does
+                    if self.action != None:
+                        if self.action == "play":
+                            print("Play")
+                        elif self.action == "high_scores":
+                            print("High scores")
+                        elif self.action == "quit":
+                            print("quit")
+                            pygame.quit()
+                            quit()
+
+                    self.pressed = False
+        else:
+            self.dynamic_elevation = self.elevation
+            self.top_color = WHITE
 
 
-button_start = Button('Start', 200, 40, (325, 300))
-button_high_score = Button('High Scores', 200, 40, (325, 360))
-button_quit = Button('Quit', 200, 40, (325, 420))
+button_start = Button('Start', 225, 40, (325, 300), 6, "play")
+button_high_score = Button('High Scores', 225, 40,
+                           (325, 360), 6, "high_scores")
+button_quit = Button('Quit', 225, 40, (325, 420), 6, "quit")
 
-# Game intro screen
-
-
-def game_intro():
-    intro = True
-
-    while intro:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-
-        screen.fill(BLACK)
-        button_start.draw()
-        button_high_score.draw()
-        button_quit.draw()
-        intro_text = intro_font.render("Space Invader", True, WHITE)
-        screen.blit(intro_text, (200, 200))
-
-        pygame.display.update()
+# Score function
 
 
 def show_score(x, y):
     score = score_font.render("Score: " + str(score_value), True, (WHITE))
     screen.blit(score, (x, y))
 
+# Game over text
+
 
 def game_over_text():
     over_text = over_font.render("GAME OVER", True, (WHITE))
     screen.blit(over_text, (200, 250))
+
+# Firing bullets
 
 
 def fire_bullet(x, y):
@@ -184,8 +219,25 @@ def is_collision_alien_2(alien_2_x, alien_2_y, bullet_x, bullet_y):
         return False
 
 
+# Start screen loop
+game_intro = True
+while game_intro:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+
+    screen.fill(BLACK)
+    button_start.draw()
+    button_high_score.draw()
+    button_quit.draw()
+    intro_text = intro_font.render("Space Invader", True, WHITE)
+    screen.blit(intro_text, (200, 200))
+
+    pygame.display.update()
+
 # Game loop
-running = True
+running = False
 while running:
 
     # Color of game window
@@ -295,7 +347,6 @@ while running:
         fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
 
-    game_intro()
     show_score(text_x, text_y)
     player(player_x, player_y)
 

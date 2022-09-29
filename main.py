@@ -1,5 +1,5 @@
 import pygame
-from enemy
+from enemy import Enemy
 
 # Screen
 SCREEN_WIDTH = 800
@@ -17,12 +17,14 @@ RED = (255, 0, 0)
 
 class Game():
     def __init__(self):
-        pass
+        enemey_sprite = Enemy()
+        self.enemy = pygame.sprite.GroupSingle(enemey_sprite)
 
-    def run():
-        pass
+    def run(self):
+        self.enemy.draw(screen)
 
 
+game = Game()
 running = True
 
 while running:
@@ -30,4 +32,8 @@ while running:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            runnnig = False
+            running = False
+
+    game.run()
+
+    pygame.display.update()

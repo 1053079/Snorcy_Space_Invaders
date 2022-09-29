@@ -1,15 +1,27 @@
 import math
-import pygame
-
 import random
+
+import pygame
 from pygame import mixer
 
+
+# Initialzing the game
 pygame.init()
 
-# Screen
-WIDTH = 600
-HEIGHT = 800
+# Create the screen
+WIDTH = 800
+HEIGHT = 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+# Background
+background = pygame.image.load('Tryouts/Niels/img/background.png')
+
+# Background music
+# mixer.music.load('Tryouts/Niels/sound/background.wav')
+# mixer.music.play(-1)
+
+# Clock
+clock = pygame.time.Clock()
 
 # Colors
 BLACK = 0, 0, 0
@@ -17,26 +29,17 @@ WHITE = 255, 255, 255
 GREY = 169, 169, 169
 LIGHT_GREY = 211, 211, 211
 
-# Font
-score_font = pygame.font.Font('freesansbold.ttf', 32)
-intro_font = pygame.font.Font('freesansbold.ttf', 64)
-over_font = pygame.font.Font('freesansbold.ttf', 64)
-button_font = pygame.font.Font('freesansbold.ttf', 32)
-
-# Background
-background = pygame.image.load('Tryouts/Niels/img/background.png')
-
-# Background music
-mixer.music.load('Tryouts/Niels/sound/background.wav')
-mixer.music.play(-1)
-
-
 # Score
 score_value = 0
 
 text_x = 10
 text_y = 10
 
+# Font
+score_font = pygame.font.Font('freesansbold.ttf', 32)
+intro_font = pygame.font.Font('freesansbold.ttf', 64)
+over_font = pygame.font.Font('freesansbold.ttf', 64)
+button_font = pygame.font.Font('freesansbold.ttf', 32)
 
 # Title and icon
 pygame.display.set_caption("Space Invaders")
@@ -62,6 +65,26 @@ bullet_x_change = 0
 bullet_y_change = 10
 # You can't see the bullet (bullet_state = fire -> bullet moving)
 bullet_state = "ready"
+
+
+class Alien():
+    def __init__(self, img, x, y, x_change, y_change, num):
+        # Core atributes
+        file_path = f'Tryouts/Niels/img/{img}.png'
+        self.alien_img = []
+        # alien_x = x
+        self.alien_x = [x]
+
+        self.alien_y = [y]
+        self.alien_x_change = [x_change]
+        self.alien_y_change = [y_change]
+        self.alien_num = num
+
+        # Alien list
+        for i in range(self.alien_num):
+            self.alien_img.append(pygame.image.load(file_path))
+            self.alien_x = random.randint((0, 735))
+
 
 # Alien 1
 alien_1_img = []
@@ -103,76 +126,12 @@ def alien_2(x, y, ij):
     screen.blit(alien_2_img[ij], (x, y))
 
 
-# Power up 1
+# Asteroid
 asteroid_1_img = pygame.image.load('Tryouts/Niels/img/asteroid1.png')
-asteroid_1_x = random.randint(0, 740)
-asteroid_1_y = random.randint(-100, -5)
-asteroid_1_x_change = 2
-asteroid_1_y_change = 5
-
-
-def asteroid_1(x, y):
-    screen.blit((x, y))
-
-
-class Button:
-    def __init__(self, text, width, height, pos, elevation, screen, this_loop, next_loop, action=None):
-        # Core attributes
-        self.pressed = False
-        self.elevation = elevation
-        self.dynamic_elevation = elevation
-        self.original_x_position = pos[0]
-        self.original_y_position = pos[1]
-        self.action = action
-        self.screen = screen
-        self.this_loop = this_loop
-        self.next_loop = next_loop
-
-        # Top rectangle
-        self.top_rect = pygame.Rect(pos, (width, height))
-        self.top_color = WHITE
-
-        # Botton rectangle
-        self.bottom_rect = pygame.Rect(pos, (width, height))
-        self.bottom_color = LIGHT_GREY
-
-        # Text
-        self.text_surf = button_font.render(text, True, BLACK)
-        self.text_rect = self.text_surf.get_rect(center=self.top_rect.center)
-
-    def draw(self):
-        # Elevation logic
-        self.top_rect.y = self.original_y_position - self.dynamic_elevation
-        self.text_rect.center = self.top_rect.center
-
-        self.bottom_rect.midtop = self.top_rect.midtop
-        self.bottom_rect.height = self.top_rect.height + self.dynamic_elevation
-
-        pygame.draw.rect(screen, self.bottom_color,
-                         self.bottom_rect, border_radius=10)
-
-        pygame.draw.rect(screen, self.top_color,
-                         self.top_rect, border_radius=10)
-        screen.blit(self.text_surf, self.text_rect)
-        self.check_click()
-
-    def check_click(self):
-        mouse_pos = pygame.mouse.get_pos()
-
-        if self.top_rect.collidepoint(mouse_pos):
-            self.top_color = GREY
-            # Logic so button get pressed once
-            if pygame.mouse.get_pressed()[0]:
-                self.dynamic_elevation = 0
-                self.pressed = True
-            else:
-                self.dynamic_elevation = self.elevation
-                if self.pressed == True:
-                    self.pressed = False
-                    self.this_loop = False
-        else:
-            self.dynamic_elevation = self.elevation
-            self.top_color = WHITE
+asteroid_1_x = random.randint(0, 300)
+asteroid_1_y = random.randint(-75, -5)
+asteroid_1_x_speed = 150
+asteroid_1_y_speed = 170
 
 
 # Score function
@@ -217,8 +176,9 @@ def is_collision_alien_2(alien_2_x, alien_2_y, bullet_x, bullet_y):
     else:
         return False
 
-
 # Game loop
+
+
 running = True
 while running:
 
@@ -252,31 +212,6 @@ while running:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a or event.key == pygame.K_d:
                 player_x_change = 0
-
-    # Start screen loop
-    game_intro = True
-    while game_intro:
-
-        button_start = Button('Start', 225, 40, (325, 300), 6,
-                              screen, game_intro, running, "play")
-        button_high_score = Button('High Scores', 225, 40,
-                                   (325, 360), 6, screen, game_intro, "high_scores")
-        button_quit = Button('Quit', 225, 40, (325, 420),
-                             6, screen, game_intro, "quit")
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-
-        screen.fill((BLACK))
-        button_start.draw()
-        button_high_score.draw()
-        button_quit.draw()
-        intro_text = intro_font.render("Space Invader", True, WHITE)
-        screen.blit(intro_text, (200, 200))
-
-        pygame.display.update()
 
     # Moving the player
     player_x += player_x_change
@@ -348,7 +283,7 @@ while running:
         alien_1(alien_1_x[i], alien_1_y[i], i)
         alien_2(alien_2_x[ij], alien_2_y[ij], ij)
 
-        # Bullet movement
+    # Bullet movement
     if bullet_y <= -32:
         bullet_y = 480
         bullet_state = "ready"
@@ -356,6 +291,18 @@ while running:
     if bullet_state == "fire":
         fire_bullet(bullet_x, bullet_y)
         bullet_y -= bullet_y_change
+
+    # Asteroid
+    screen.blit(asteroid_1_img, (asteroid_1_x, asteroid_1_y))
+    mili_sec = clock.tick()
+    seconds = mili_sec/1000.
+    # Astroid movement x direction
+    dmx = seconds * asteroid_1_x_speed
+    # Asteroid movement y direction
+    dmy = seconds * asteroid_1_y_speed
+
+    asteroid_1_x += dmx
+    asteroid_1_y += dmy
 
     show_score(text_x, text_y)
     player(player_x, player_y)

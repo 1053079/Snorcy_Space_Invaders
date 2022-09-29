@@ -17,7 +17,7 @@ RED = (255, 0, 0)
 
 class Game():
     def __init__(self):
-        enemey_sprite = Enemy()
+        enemey_sprite = Enemy(SCREEN_WIDTH)
         self.enemy = pygame.sprite.GroupSingle(enemey_sprite)
 
     def run(self):

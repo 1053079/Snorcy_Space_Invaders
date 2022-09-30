@@ -16,7 +16,6 @@ class Enemy(pygame.sprite.Sprite):
         self.y_pos = random.randint(-50, 0)
         self.pos = [self.x_pos, self.y_pos]
         self.rect = self.image.get_rect()
-
         # Movement speed randomizer
         self.vel = random.randint(5, 10) / 2
 

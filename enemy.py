@@ -18,7 +18,7 @@ class Enemy(pygame.sprite.Sprite):
         # self.rect.center = (self.pos)
 
         self.direction = random.randint(0, 1)
-        self.vel = random.randint(1, 5) / 2
+        self.vel = random.randint(5, 10) / 2
 
         # if self.direction == 0:
         #     self.pos[0] = 0

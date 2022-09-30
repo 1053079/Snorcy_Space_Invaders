@@ -17,11 +17,14 @@ RED = (255, 0, 0)
 
 class Game():
     def __init__(self):
-        self.enemy_sprite = Enemy(screen, SCREEN_WIDTH, SCREEN_HEIGHT)
-        self.enemy = pygame.sprite.GroupSingle(self.enemy_sprite)
+        self.enemy_1 = Enemy('alien1')
+        self.enemy_2 = Enemy('alien2')
+        self.enemy_3 = Enemy('alien3')
 
     def run(self):
-        self.enemy_sprite.render()
+        self.enemy_1.render()
+        self.enemy_2.render()
+        self.enemy_3.render()
 
 
 game = Game()

@@ -22,7 +22,19 @@ class Enemy(pygame.sprite.Sprite):
         self.vel = random.randint(5, 10) / 2
 
     def move(self):
-        self.pos[1] += self.vel
+        random_num = random.randint(1, 4)
+
+        if random_num == 1:
+            self.pos[1] += self.vel
+        if random_num == 2:
+            self.pos[0] += self.vel
+        if random_num == 3:
+            self.pos[0] += self.vel
+            self.pos[1] += self.vel
+        if random_num == 4:
+            self.pos[0] -= self.vel
+            self.pos[1] += self.vel
+
         if self.pos[1] > SCREEN_HEIGHT:
             # self.trigger()
             self.pos[0] = random.randint(0, 800)

@@ -11,19 +11,18 @@ clock = pygame.time.Clock
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, alien):
         super().__init__()
-
+        # Initializing enmey
         self.image = pygame.image.load(f'assets/{alien}.png')
         self.x_pos = random.randint(0, SCREEN_WIDTH - 60)
         self.y_pos = random.randint(-50, 0)
         self.pos = [self.x_pos, self.y_pos]
-        self.rect = self.image.get_rect()
 
         # Movement speed randomizer
         self.vel = random.randint(5, 10) / 2
 
     def move(self):
         random_num = random.randint(1, 4)
-
+        # Random movement enemies
         if random_num == 1:
             self.pos[1] += self.vel
         if random_num == 2:
@@ -34,7 +33,7 @@ class Enemy(pygame.sprite.Sprite):
         if random_num == 4:
             self.pos[0] -= self.vel
             self.pos[1] += self.vel
-
+        # Enemies respawn
         if self.pos[1] > SCREEN_HEIGHT:
             # self.trigger()
             self.pos[0] = random.randint(0, 800)

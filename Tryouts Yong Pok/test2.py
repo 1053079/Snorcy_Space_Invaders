@@ -28,3 +28,4 @@ class Background():
         screen.blit(self.bg_img, (self.bgX1, self.bgY1))
         screen.blit(self.bg_img, (self.bgX2, self.bgY2))
 
+sheesh

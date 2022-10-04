@@ -18,21 +18,24 @@ RED = (255, 0, 0)
 class Game():
     def __init__(self):
         # Creating the enemies
-
         self.enemy_1 = Enemy('alien1')
         self.enemy_2 = Enemy('alien2')
         self.enemy_3 = Enemy('alien3')
 
-    # def create_multiple(self):
-    #     self.enemies_1 = []
-    #     for e_1 in range(3):
-    #         self.enemies_1.append(Enemy('alien1'))
-    #         return self.enemies_1[e_1]
+    def create_multiple_enemy_1(self, num_enemy_1):
+        self.enemies_1 = []
+        number_of_enemies = num_enemy_1
+        for num in range(number_of_enemies):
+            self.enemies_1.append(Enemy('alien1'))
+
+        for enemies in self.enemies_1:
+            enemies.render()
 
     def run(self):
-        self.enemy_1.render()
-        self.enemy_2.render()
-        self.enemy_3.render()
+        self.create_multiple_enemy_1(3)
+        # self.enemy_1.render()
+        # self.enemy_2.render()
+        # self.enemy_3.render()
 
 
 game = Game()

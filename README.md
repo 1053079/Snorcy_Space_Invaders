@@ -12,4 +12,3 @@ Installeer pygame met pip:
 pip install -r requirements.txt
 ```
 
-# Diederik test Snorcy :)

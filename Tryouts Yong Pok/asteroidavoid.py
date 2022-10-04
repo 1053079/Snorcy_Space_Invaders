@@ -27,7 +27,7 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load("AsteroidPics/asteroid32.png")
         self.surf = pygame.Surface ((40, 40))
-        self.rect = self.surf.get_rect(center = (random.randint(40,460), 0))
+        self.rect = self.surf.get_rect(center = (random.randint(40,600), 0))
 
     def move(self):
         self.rect.move_ip(0,10)   
@@ -56,7 +56,15 @@ class Player(pygame.sprite.Sprite):
 
      if self.rect.right < sw:
         if pressedKeys[K_RIGHT]:
-         self.rect.move.ip(5, 0)  
+         self.rect.move_ip(5, 0)  
+
+     if self.rect.top > 0:
+        if pressedKeys[K_UP]:
+            self.rect.move_ip(0, -5)
+            
+     if self.rect.bottom < sh:
+        if pressedKeys[K_DOWN]:
+          self.rect.move_ip( 0, 5)
 
 P1 = Player()
 E1 = Enemy()

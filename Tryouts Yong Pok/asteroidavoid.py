@@ -1,8 +1,10 @@
-import pygame
+import pygame, time
 from pygame.locals import *
 import random
 import os
 import math
+import sys
+pygame.font.init()
 
 pygame.init()
 
@@ -14,6 +16,7 @@ framesPerSec = pygame.time.Clock()
 
 BLACK = (0, 0 ,0)
 WHITE = (255, 255, 255)
+RED = (255,0 , 0)
 
 
 window = pygame.display.set_mode ((sw, sh))
@@ -91,7 +94,7 @@ class Player(pygame.sprite.Sprite):
 
 class Background():
     def __init__(self):
-        self.backgroundImage =pygame.image.load("images/starry.jpg")  
+        self.backgroundImage =pygame.image.load("images/starry.png")  
         self.rectBGimage = self.backgroundImage.get_rect()
 
         self.bgY1 = 0
@@ -119,6 +122,14 @@ background = Background()
 
 P1 = Player()
 E1 = Enemy()
+E2 = Enemy()
+
+enemyGroup = pygame.sprite.Group()
+enemyGroup.add(E1)
+enemyGroup.add(E2)
+
+font = pygame.font.SysFont("BungeeSpice.ttf", 60)
+gameover = font.render("Game Over", True, WHITE)
 
 while True:
     background.update()
@@ -126,13 +137,21 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-            
+
+    if pygame.sprite.spritecollideany(P1, enemyGroup):
+     window.fill(RED)
+     window.blit(gameover,(400, 300))
+     pygame.display.update()
+     time.sleep(2)
+     pygame.quit()        
 
     P1.update()
-    E1.move()               
+    E1.move()    
+    E2.move()           
 
     P1.draw(window)
     E1.draw(window)
+    E2.draw(window)
 
     pygame.display.update()
     framesPerSec.tick(FPS)

@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import random
 import os
+import math
 
 pygame.init()
 
@@ -18,9 +19,31 @@ WHITE = (255, 255, 255)
 window = pygame.display.set_mode ((sw, sh))
 window.fill(BLACK)
 pygame.display.set_caption ("Asteroids")
-bg = pygame.image.load("images/background.png")
 
 SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
+
+# Bullets
+
+bulletImg = pygame.image.load('images/bullet.png')
+bulletX = 0
+bulletY = 480
+bulletX_change = 5
+bulletY_change = 20
+bullet_state = "ready"
+
+
+def fire_bullet(x, y):
+    global bullet_state
+    bullet_state = "fire"
+    window.blit(bulletImg, (x + 16, y + 10))
+
+# Collision mechanics    
+def isCollision(enemyX, enemyY, bulletX, bulletY):
+    distance = math.sqrt((math.pow(enemyX - bulletX, 2)) + (math.pow(enemyY - bulletY, 2)))
+    if distance < 27:
+        return True
+    else:
+        return False
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
@@ -64,21 +87,49 @@ class Player(pygame.sprite.Sprite):
             
      if self.rect.bottom < sh:
         if pressedKeys[K_DOWN]:
-          self.rect.move_ip( 0, 5)
+          self.rect.move_ip(0, 5)
+
+class Background():
+    def __init__(self):
+        self.backgroundImage =pygame.image.load("images/starry.jpg")  
+        self.rectBGimage = self.backgroundImage.get_rect()
+
+        self.bgY1 = 0
+        self.bgX1 = 0
+
+        self.bgY2 = -self.rectBGimage.height
+        self.bgX2 = 0     
+
+        self.moveSpeed = 5
+
+    def update(self):
+        self.bgY1 += self.moveSpeed
+        self.bgY2 += self.moveSpeed
+
+        if self.bgY1> self.rectBGimage.height:
+            self.bgY1 = -self.rectBGimage.height
+
+        if self.bgY2> self.rectBGimage.height:
+            self.bgY2 = -self.rectBGimage.height   
+    def render(self):
+        window.blit(self.backgroundImage,(self.bgX1, self.bgY1))
+        window.blit(self.backgroundImage,(self.bgX2, self.bgY2))
+
+background = Background()
 
 P1 = Player()
 E1 = Enemy()
 
 while True:
+    background.update()
+    background.render()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+            
 
     P1.update()
     E1.move()               
-
-    window.fill(BLACK)
-    window.blit(bg,(0,0))
 
     P1.draw(window)
     E1.draw(window)

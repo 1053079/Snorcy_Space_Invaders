@@ -13,6 +13,7 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
         # Initializing enmey/Maybe make a function for this (Niels)
         self.image = pygame.image.load(f'assets/{alien}.png')
+        # self.rect =
         self.x_pos = random.randint(0, SCREEN_WIDTH - 60)
         self.y_pos = random.randint(-50, 0)
         self.pos = [self.x_pos, self.y_pos]
@@ -34,7 +35,8 @@ class Enemy(pygame.sprite.Sprite):
             self.pos[0] -= self.vel
             self.pos[1] += self.vel
         # Enemies respawn
-        self.trigger()
+        self.respawn()
+        # self.trigger()
 
     def respawn(self):
         # Respawns enemy back to top screen if not killed (Niels)

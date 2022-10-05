@@ -2,6 +2,7 @@ from http.client import MOVED_PERMANENTLY
 import pygame
 import button
 
+pygame.init()
 # Create game window
 screen_width = 800
 screen_height = 600
@@ -13,15 +14,23 @@ pygame.display.set_caption("SNORCY Main Menu")
 start_img = pygame.image.load('images/start-button2.png').convert_alpha()
 exit_img = pygame.image.load('images/exit_button.png').convert_alpha()
 
+# Title Rob
+title_font = pygame.font.Font(None,80)
+
 # Create button instances
 start_button = button.Button(100, 240, start_img, 1)
 exit_button = button.Button(450, 240, exit_img, 1)
+
+# Tile 
+text_surface = title_font.render('SNORCY',True, 'Red')
+
 
 # GAME LOOP
 run = True
 while run:
 
     screen.fill((83, 41, 42))
+    screen.blit(text_surface,(290,80))
 
     if start_button.draw(screen):
         print('Start')

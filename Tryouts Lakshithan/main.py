@@ -38,7 +38,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        #player.x += 1
+        #player.x += 2
         keys_pressed = pygame.key.get_pressed()
         if keys_pressed[pygame.K_a]:
             player.x -= velocity

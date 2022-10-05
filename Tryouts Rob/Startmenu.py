@@ -35,7 +35,7 @@ while run:
     if start_button.draw(screen):
         print('Start')
     if exit_button.draw(screen):
-        print('Exit')
+        run = False
 
     # Event handler
     for event in pygame.event.get():

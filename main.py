@@ -17,10 +17,10 @@ RED = (255, 0, 0)
 
 class Game():
     def __init__(self):
-        # Creating the enemies/Temperary until the create multipe enemy
-        self.create_multiple_enemy_1(3, 2, 5)
+        # Creating the enemies
+        self.create_multiple_enemies(1, 1, 1)
 
-    def create_multiple_enemy_1(self, num_enemy_1, num_enemy_2, num_enemy_3):
+    def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
         # Function to spawn multiple enemies 1 (Niels)
         self.enemies_1 = []
         number_of_enemies = num_enemy_1
@@ -35,6 +35,7 @@ class Game():
         for num in range(number_of_enemies):
             self.enemies_2.append(Enemy('alien2'))
 
+        # Function to spawn multiple enemies 3 (Niels)
         self.enemies_3 = []
         number_of_enemies = num_enemy_3
         for num in range(number_of_enemies):
@@ -63,7 +64,9 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
+        if event.type == pygame.USEREVENT+1:
+            Enemy.TRIGGER = True
+            Enemy.trigger = 'go'
     # Calls the game class (Niels)
     game.run()
 

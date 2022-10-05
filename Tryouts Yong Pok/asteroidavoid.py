@@ -8,20 +8,25 @@ pygame.font.init()
 
 pygame.init()
 
+# Width and Height
 sw = 800
 sh = 600
 
+# Frames Per second
 FPS = 60
 framesPerSec = pygame.time.Clock()
 
+# Colours
 BLACK = (0, 0 ,0)
 WHITE = (255, 255, 255)
 RED = (255,0 , 0)
 
-
+# Screen and Menu
 window = pygame.display.set_mode ((sw, sh))
 window.fill(BLACK)
 pygame.display.set_caption ("Asteroids")
+
+speed = 5
 
 SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
 
@@ -48,6 +53,7 @@ def isCollision(enemyX, enemyY, bulletX, bulletY):
     else:
         return False
 
+# This controls the asteroid movement / speed and where they spawn.
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -58,7 +64,7 @@ class Enemy(pygame.sprite.Sprite):
     def move(self, score):
         self.rect.move_ip(0,10)   
         if(self.rect.bottom > 600):
-            self.rect.center = (random.randint(30,600), 0)
+            self.rect.center = (random.randint(30,600), (random.randint(-100,0)))
             score += 1
 
         return score
@@ -66,6 +72,7 @@ class Enemy(pygame.sprite.Sprite):
     def draw(self, surface):
      surface.blit(self.image, self.rect)           
 
+# Player Character movement and where they spawn
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -95,6 +102,7 @@ class Player(pygame.sprite.Sprite):
         if pressedKeys[K_DOWN]:
           self.rect.move_ip(0, 5)
 
+# The background looping infinitely here
 class Background():
     def __init__(self):
         self.backgroundImage =pygame.image.load("images/starry.png")  
@@ -123,6 +131,10 @@ class Background():
 
 background = Background()
 
+INCREASE_SPEED = pygame.USEREVENT + 1
+pygame.time.set_timer(INCREASE_SPEED, 3000)
+
+# This function draws the enemy and player classes
 P1 = Player()
 E1 = Enemy()
 E2 = Enemy()
@@ -133,10 +145,13 @@ enemyGroup.add(E1)
 enemyGroup.add(E2)
 enemyGroup.add(E3)
 
+# Fonts for game
 font = pygame.font.SysFont("BungeeSpice.ttf", 60)
 gameover = font.render("Game Over", True, WHITE)
 
 score = 0
+
+# Game Loop
 
 while True:
     scoreRender = font.render("Score:"+str(score), True, WHITE)
@@ -144,16 +159,19 @@ while True:
     background.render()
     window.blit(scoreRender, (0,0))
 
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+        if event.type == INCREASE_SPEED:
+            speed+= 0.5  
 
-    if pygame.sprite.spritecollideany(P1, enemyGroup):
-       window.fill(RED)
-       window.blit(gameover,(400, 300))
-       pygame.display.update()
-       time.sleep(2)
-       pygame.quit()        
+   #if pygame.sprite.spritecollideany(P1, enemyGroup):
+    #   window.fill(RED)
+    #   window.blit(gameover,(400, 300))
+    #   pygame.display.update()
+    #   time.sleep(2)
+    #   pygame.quit()        
 
     for enemy in enemyGroup:
         score = enemy.move(score)

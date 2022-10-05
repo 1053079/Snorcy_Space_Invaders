@@ -53,7 +53,7 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load("AsteroidPics/asteroid32.png")
         self.surf = pygame.Surface ((32, 32))
-        self.rect = self.surf.get_rect(center = (random.randint(32,600), 0))
+        self.rect = self.surf.get_rect(center = (random.randint(32,600), (random.randint(-100, 0))))
 
     def move(self, score):
         self.rect.move_ip(0,10)   

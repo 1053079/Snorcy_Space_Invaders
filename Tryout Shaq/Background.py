@@ -11,8 +11,8 @@ screen = pygame.display.set_mode([WIDTH, HEIGHT])
 pygame.display.set_caption("Background")
 
 #Display Background Image
-background = pygame.image.load('Background/Images/Galaxy2_Smaller.png')
-overlap = pygame.image.load('Background/Images/Galaxy2_Smaller.png')
+background = pygame.image.load('Tryout Shaq/Images/Galaxy2_Smaller.png')
+overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2_Smaller.png')
 
 #Position 1st And 2nd Background Image
 b_pos = 0

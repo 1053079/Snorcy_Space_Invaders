@@ -8,7 +8,7 @@ screen_width = 800
 screen_height = 600
 
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("SNORCY Main Menu")
+pygame.display.set_caption("SNORCY Start Menu")
 
 # Load button images
 start_img = pygame.image.load('images/start-button2.png').convert_alpha()
@@ -22,7 +22,7 @@ start_button = button.Button(100, 240, start_img, 1)
 exit_button = button.Button(450, 240, exit_img, 1)
 
 # Tile 
-text_surface = title_font.render('SNORCY',True, 'Red')
+text_surface = title_font.render('SNORCY',False, 'Red')
 
 
 # GAME LOOP

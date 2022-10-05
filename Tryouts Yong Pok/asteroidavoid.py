@@ -52,13 +52,16 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("AsteroidPics/asteroid32.png")
-        self.surf = pygame.Surface ((40, 40))
-        self.rect = self.surf.get_rect(center = (random.randint(40,600), 0))
+        self.surf = pygame.Surface ((32, 32))
+        self.rect = self.surf.get_rect(center = (random.randint(32,600), 0))
 
-    def move(self):
+    def move(self, score):
         self.rect.move_ip(0,10)   
         if(self.rect.bottom > 600):
-            self.rect.center = (random.randint(30,460), 0)
+            self.rect.center = (random.randint(30,600), 0)
+            score += 1
+
+        return score
 
     def draw(self, surface):
      surface.blit(self.image, self.rect)           
@@ -123,35 +126,42 @@ background = Background()
 P1 = Player()
 E1 = Enemy()
 E2 = Enemy()
+E3 = Enemy()
 
 enemyGroup = pygame.sprite.Group()
 enemyGroup.add(E1)
 enemyGroup.add(E2)
+enemyGroup.add(E3)
 
 font = pygame.font.SysFont("BungeeSpice.ttf", 60)
 gameover = font.render("Game Over", True, WHITE)
 
+score = 0
+
 while True:
+    scoreRender = font.render("Score:"+str(score), True, WHITE)
     background.update()
     background.render()
+    window.blit(scoreRender, (0,0))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
 
     if pygame.sprite.spritecollideany(P1, enemyGroup):
-     window.fill(RED)
-     window.blit(gameover,(400, 300))
-     pygame.display.update()
-     time.sleep(2)
-     pygame.quit()        
+       window.fill(RED)
+       window.blit(gameover,(400, 300))
+       pygame.display.update()
+       time.sleep(2)
+       pygame.quit()        
 
+    for enemy in enemyGroup:
+        score = enemy.move(score)
+        enemy.draw(window)
+    
     P1.update()
-    E1.move()    
-    E2.move()           
-
     P1.draw(window)
-    E1.draw(window)
-    E2.draw(window)
+  
 
     pygame.display.update()
     framesPerSec.tick(FPS)

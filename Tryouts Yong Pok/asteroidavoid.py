@@ -44,6 +44,7 @@ class Bullet(pygame.sprite.Sprite):
         self.surf = pygame.Surface((32, 32))
         self.rect = self.surf.get_rect(center=(player.rect.midtop))
         self.fired = False
+        
     # this checks for player input
     def fire(self, player):
         pressedKeys = pygame.key.get_pressed()
@@ -105,6 +106,25 @@ class Asteroid(pygame.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
+class AsteroidXY(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("AsteroidPics/asteroid64.png")
+        self.surf = pygame.Surface((32, 32))
+        self.rect = self.surf.get_rect(center=(random.randint(32, 600), (random.randint(-100, 0))))
+
+    def move(self, score, destroyed):
+        self.rect.move_ip(0, speed)
+        if (self.rect.bottom > 600) or destroyed == True:
+            self.rect.center = (random.randint(30, 600), (random.randint(-100, 0)))
+            score += 1
+
+        return score
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
+
+
     # The Enemy Class
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
@@ -114,14 +134,19 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(random.randint(64,600), (random.randint(-100, 0))))
 
     def move(self,score, destroyed):
-        self.rect.move_ip(10,5)
-        if destroyed == True:
-         score += 1       
-
+        self.rect.move_ip(1,1)    
+        if (self.rect.bottom > 600) or destroyed == True:
+           self.rect.center = (random.randint(0,0 ), (random.randint(-100, 0)))
+           score += 1
+    
         return score 
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)   
+
+    def checkoffScreen(self):
+        if self.x < -50 or self.x > sw or self.y > sh or self.y < -50:     
+            return True
 
 
 
@@ -196,7 +221,10 @@ P1 = Player()
 A1 = Asteroid()
 A2 = Asteroid()
 A3 = Asteroid()
+AXY1 = AsteroidXY()
 E1 = Enemy()
+E2 = Enemy()
+E3 = Enemy()
 B1 = Bullet(P1)
 
 asteroidGroup = pygame.sprite.Group()
@@ -204,8 +232,13 @@ asteroidGroup.add(A1)
 asteroidGroup.add(A2)
 asteroidGroup.add(A3)
 
+asteroidXYGroup = pygame.sprite.Group()
+asteroidXYGroup.add(AXY1)
+
 enemyGroup = pygame.sprite.Group()
 enemyGroup.add(E1)
+enemyGroup.add(E2)
+enemyGroup.add(E3)
 
 bullets = pygame.sprite.Group()
 bullets.add(B1)
@@ -259,6 +292,35 @@ while True:
         score = asteroid.move(score, destroyed)
         asteroid.draw(window)
 
+     # Diagnoal Asteroids
+    for asteroidXY in asteroidXYGroup:
+         if pygame.sprite.spritecollideany(P1, asteroidXYGroup):
+          damage = pygame.mixer.Sound('wav/thud.wav')
+          damage.play()
+          window.fill(RED)
+          window.blit(gameover, (400, 300))
+          pygame.display.update()
+          time.sleep(2)
+          pygame.quit()
+
+    for asteroidXY in asteroidXYGroup:
+     if pygame.sprite.spritecollide(asteroidXY, bullets, False):
+            explosion = pygame.mixer.Sound('wav/explosion.wav')
+            explosion.set_volume(0.5)
+            explosion.play()
+            destroyed = True
+            score = score + 5
+            asteroidXY.move(score, destroyed)
+            window.blit(asteroidXY.image, asteroidXY.rect)
+            B1.resetPos()
+            destroyed = False     
+    
+    for asteroidXY in asteroidXYGroup:
+        score = asteroidXY.move(score, destroyed)
+        asteroidXY.draw(window)
+        
+
+     # Enemy mechanics
     for enemy in enemyGroup:
         if pygame.sprite.spritecollideany(P1, enemyGroup):
          damage = pygame.mixer.Sound('wav/thud.wav')
@@ -276,8 +338,8 @@ while True:
             explosion.play()
             destroyed = True
             score = score + 5
-            asteroid.move(score, destroyed)
-            window.blit(asteroid.image, asteroid.rect)
+            enemy.move(score, destroyed)
+            window.blit(enemy.image, enemy.rect)
             B1.resetPos()
             destroyed = False   
 

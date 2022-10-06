@@ -3,6 +3,9 @@ from pygame.locals import *
 import random
 import math
 import sys
+
+from pygame import mixer
+
 pygame.font.init()
 
 pygame.init()
@@ -29,6 +32,8 @@ speed = 5
 
 SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
 
+# game mechanics
+lives = 3
 
 # Bullets
 
@@ -204,6 +209,8 @@ while True:
             speed += 0.5
 
     if pygame.sprite.spritecollideany(P1, enemyGroup):
+        damage = pygame.mixer.Sound('wav/thud.wav')
+        damage.play()
         window.fill(RED)
         window.blit(gameover, (400, 300))
         pygame.display.update()
@@ -215,6 +222,8 @@ while True:
 
     for enemy in enemyGroup:
         if pygame.sprite.spritecollide(enemy, bullets, False):
+            explosion = pygame.mixer.Sound('wav/explosion.wav')
+            explosion.play()
             destroyed = True
             score = score + 5
             enemy.move(score, destroyed)

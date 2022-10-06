@@ -11,7 +11,7 @@ clock = pygame.time.Clock
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, alien):
         super().__init__()
-        # Initializing enmey/Maybe make a function for this (Niels)
+        # Initializing enmey (Niels)
         self.image = pygame.image.load(f'assets/{alien}.png')
         self.rect = self.image.get_rect()
         self.x_pos = random.randint(0, SCREEN_WIDTH - 60)
@@ -19,11 +19,15 @@ class Enemy(pygame.sprite.Sprite):
         self.pos = [self.x_pos, self.y_pos]
 
         # Movement speed randomizer (Niels)
-        self.vel = random.randint(5, 10) / 2
+        self.vel = random.randint(3, 10) / 2
 
+        # Makes the enemies wait for so many seconds (Niels)
+        self.TRIGGER = pygame.USEREVENT + 1
+        pygame.time.set_timer(self.TRIGGER, 7500)
+
+    # Function for random movement for enemies (Niels)
     def move(self):
         random_num = random.randint(1, 5)
-        # Random movement for enemies (Niels)
         if random_num == 1:
             self.pos[1] += self.vel
         if random_num == 2:
@@ -34,31 +38,15 @@ class Enemy(pygame.sprite.Sprite):
         if random_num == 4 or random_num == 5:
             self.pos[0] -= self.vel
             self.pos[1] += self.vel
-        # Enemies respawn
-        self.respawn()
-        # self.trigger()
 
-    # Not functional yet (Niels)
-
-    def trigger(self):
-        # Makes the respawn wait 5 seconds (Niels)
-        TRIGGER = False
-        pygame.time.set_timer(TRIGGER, 5000)
-
-        if self.respawn() and TRIGGER:
-            if trigger == 'wait':
-                trigger = 'wait'
-            elif trigger == 'go':
-                self.respawn()
-
+    # Function to respawns enemy back to top screen if not killed (Niels)
     def respawn(self):
-        # Respawns enemy back to top screen if not killed (Niels)
         if self.pos[1] > SCREEN_HEIGHT:
             # self.trigger()
             self.pos[0] = random.randint(0, SCREEN_WIDTH)
             self.pos[1] = random.randint(-50, 0)
 
+    # Function that draws everything on the screen (Niels)
     def render(self):
-        # Draws everything on the screen (Niels)
         screen.blit(self.image, (self.pos))
         self.move()

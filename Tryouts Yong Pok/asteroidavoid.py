@@ -41,16 +41,16 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, player):
         super().__init__()
         self.image = pygame.image.load("images/bullet.png")
-        self.surf = pygame.Surface((10, 10))
+        self.surf = pygame.Surface((32, 32))
         self.rect = self.surf.get_rect(center=(player.rect.midtop))
         self.fired = False
-
+    # this checks for player input
     def fire(self, player):
         pressedKeys = pygame.key.get_pressed()
         if pressedKeys[K_SPACE] and self.fired == False:
             self.rect = (self.surf.get_rect(center=(player.rect.midtop)))
             self.fired = True
-
+         # Speed of the bullets
         if self.fired == True:
             window.blit(self.image, self.rect)
             self.rect.move_ip(0, -5)
@@ -87,7 +87,7 @@ class Bullet(pygame.sprite.Sprite):
 
 
 # This controls the asteroid movement / speed and where they spawn.
-class Enemy(pygame.sprite.Sprite):
+class Asteroid(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("AsteroidPics/asteroid32.png")
@@ -105,8 +105,27 @@ class Enemy(pygame.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
-    # Player Character movement and where they spawn
+    # The Enemy Class
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("images/ufo.png")
+        self.surf = pygame.Surface((64,64))
+        self.rect = self.surf.get_rect(center=(random.randint(64,600), (random.randint(-100, 0))))
 
+    def move(self,score, destroyed):
+        self.rect.move_ip(10,5)
+        if destroyed == True:
+         score += 1       
+
+        return score 
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)   
+
+
+
+    # Player Character movement and where they spawn
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -174,15 +193,19 @@ pygame.time.set_timer(INCREASE_SPEED, 3000)
 
 # This function draws the enemy and player classes
 P1 = Player()
+A1 = Asteroid()
+A2 = Asteroid()
+A3 = Asteroid()
 E1 = Enemy()
-E2 = Enemy()
-E3 = Enemy()
 B1 = Bullet(P1)
+
+asteroidGroup = pygame.sprite.Group()
+asteroidGroup.add(A1)
+asteroidGroup.add(A2)
+asteroidGroup.add(A3)
 
 enemyGroup = pygame.sprite.Group()
 enemyGroup.add(E1)
-enemyGroup.add(E2)
-enemyGroup.add(E3)
 
 bullets = pygame.sprite.Group()
 bullets.add(B1)
@@ -208,7 +231,7 @@ while True:
         if event.type == INCREASE_SPEED:
             speed += 0.5
 
-    if pygame.sprite.spritecollideany(P1, enemyGroup):
+    if pygame.sprite.spritecollideany(P1, asteroidGroup):
         damage = pygame.mixer.Sound('wav/thud.wav')
         damage.play()
         window.fill(RED)
@@ -220,20 +243,48 @@ while True:
     for entity in bullets:
         entity.fire(P1)
 
-    for enemy in enemyGroup:
-        if pygame.sprite.spritecollide(enemy, bullets, False):
+    for asteroid in asteroidGroup:
+        if pygame.sprite.spritecollide(asteroid, bullets, False):
             explosion = pygame.mixer.Sound('wav/explosion.wav')
+            explosion.set_volume(0.5)
             explosion.play()
             destroyed = True
             score = score + 5
-            enemy.move(score, destroyed)
-            window.blit(enemy.image, enemy.rect)
+            asteroid.move(score, destroyed)
+            window.blit(asteroid.image, asteroid.rect)
             B1.resetPos()
             destroyed = False
+
+    for asteroid in asteroidGroup:
+        score = asteroid.move(score, destroyed)
+        asteroid.draw(window)
+
+    for enemy in enemyGroup:
+        if pygame.sprite.spritecollideany(P1, enemyGroup):
+         damage = pygame.mixer.Sound('wav/thud.wav')
+         damage.play()
+         window.fill(RED)
+         window.blit(gameover, (400, 300))
+         pygame.display.update()
+         time.sleep(2)
+         pygame.quit()
+
+    for enemy in enemyGroup:
+        if pygame.sprite.spritecollide(enemy, bullets, False):
+            explosion = pygame.mixer.Sound('wav/explosion.wav')
+            explosion.set_volume(0.5)
+            explosion.play()
+            destroyed = True
+            score = score + 5
+            asteroid.move(score, destroyed)
+            window.blit(asteroid.image, asteroid.rect)
+            B1.resetPos()
+            destroyed = False   
 
     for enemy in enemyGroup:
         score = enemy.move(score, destroyed)
         enemy.draw(window)
+
 
     P1.update()
     P1.draw(window)

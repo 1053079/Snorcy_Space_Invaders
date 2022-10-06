@@ -1,5 +1,6 @@
 import pygame
 from enemy import Enemy
+from player import Player
 
 # Screen
 SCREEN_WIDTH = 800
@@ -44,6 +45,17 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+            # Keybindings
+            keys = pygame.key.get_pressed()
+        if keys[pygame.K_a] and player.x - player_vel > 0: # Left
+            player.x -= player_vel
+        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # Right
+            player.x += player_vel
+        if keys[pygame.K_w] and player.y - player_vel > 0: # Up
+            player.y -= player_vel
+        if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
+            player.y += player_vel
 
     game.run()
 

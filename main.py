@@ -1,6 +1,9 @@
 import pygame
 from enemy import Enemy
 from player import Player
+import button
+
+pygame.init()
 
 # Screen
 SCREEN_WIDTH = 800
@@ -10,10 +13,19 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # Clock
 clock = pygame.time.Clock()
 
+# Start menu (Rob)
+start_menu = True
+
+
 # Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
+
+# Load button images (Rob)
+start_img = pygame.image.load('images/start-button2.png').convert_alpha()
+exit_img = pygame.image.load('images/exit_button.png').convert_alpha()
+
 
 
 class Game():
@@ -53,12 +65,40 @@ class Game():
         for enemies in self.enemies_3:
             enemies.render()
 
+# Create button instances
+start_button = button.Button(100, 240, start_img, 1)
+exit_button = button.Button(450, 240, exit_img, 1)
+
 
 game = Game()
 running = True
 
 while running:
     screen.fill((BLACK))
+    screen.fill((83, 41, 42))
+
+    if start_menu == True:
+        if exit_button.draw(screen):
+            running = False
+        if start_button.draw(screen):
+            start_menu = False
+    else:
+
+        #     Keybindings (Rhandell)
+        #    keys = pygame.key.get_pressed()
+        # if keys[pygame.K_a] and player.x - player_vel > 0: # Left
+        #    player.x -= player_vel
+        # if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # Right
+        #    player.x += player_vel
+        # if keys[pygame.K_w] and player.y - player_vel > 0: # Up
+        #    player.y -= player_vel
+        # if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
+        #    player.y += player_vel
+
+        game.run()
+
+    # Puts game on 60fps (Niels)
+    clock.tick(60)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -67,22 +107,8 @@ while running:
             # Respawns enemies every 7.5 seconds (Niels)
             game.create_multiple_enemies(2, 2, 2)
 
-            # Keybindings (Rhandell)
-        #    keys = pygame.key.get_pressed()
-        #if keys[pygame.K_a] and player.x - player_vel > 0: # Left
-        #    player.x -= player_vel
-        #if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # Right
-        #    player.x += player_vel
-        #if keys[pygame.K_w] and player.y - player_vel > 0: # Up
-        #    player.y -= player_vel
-        #if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
-        #    player.y += player_vel
-
-    game.run()
-
-    # Puts game on 60fps (Niels)
-    clock.tick(60)
-
     # Update the screen (Niels)
     pygame.display.update()
+
+pygame.quit()
     

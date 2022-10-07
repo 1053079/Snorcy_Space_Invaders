@@ -1,4 +1,5 @@
 import pygame
+import os
 
 # Load Player ship image
 PLAYER_SHIP = pygame.image.load(os.path.join("assets", "playership.png"))
@@ -11,13 +12,13 @@ clock = pygame.time.Clock
 
 # Player Class
 
-class Player(Ship):
-    def __init__(self)
+class Player():
+    def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.ship_img = PLAYER_SHIP
         self.rect = self.image.get_rect()
-        self.rect.centerx = WIDTH/2
-        self.rect.y = HEIGHT - 10
+        self.rect.centerx = SCREEN_WIDTH/2
+        self.rect.y = SCREEN_HEIGHT - 10
         self.mask = pygame.mask.from_surface(self.ship_img)
 
     def update(self):

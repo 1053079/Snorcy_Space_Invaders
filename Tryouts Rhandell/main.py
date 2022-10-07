@@ -179,22 +179,22 @@ def main():
 
         # Game Controls
             
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] and player.x - player_vel > 0:
-            player.x -= player_vel
-        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH:
-            player.x += player_vel
-        if keys[pygame.K_w] and player.y - player_vel > 0:
-            player.y -= player_vel 
-        if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT:
-            player.y += player_vel
-        if keys[]
+        # keys = pygame.key.get_pressed()
+        #if keys[pygame.K_a] and player.x - player_vel > 0:
+        #    player.x -= player_vel
+        #if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH:
+        #    player.x += player_vel
+        #if keys[pygame.K_w] and player.y - player_vel > 0:
+        #    player.y -= player_vel 
+        #if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT:
+        #    player.y += player_vel
+        #if keys[]
 
-        for enemy in enemies[:]:
-            enemy.move(enemy_vel)
-            if enemy.y + enemy.get_height() > HEIGHT:
-                lives -= 1
-                enemies.remove(enemy)
+        #for enemy in enemies[:]:
+        #    enemy.move(enemy_vel)
+        #    if enemy.y + enemy.get_height() > HEIGHT:
+        #        lives -= 1
+        #        enemies.remove(enemy)
 
 
 main()

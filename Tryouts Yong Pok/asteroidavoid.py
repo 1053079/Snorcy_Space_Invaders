@@ -305,7 +305,7 @@ while True:
          
     for asteroidXY in asteroidXYGroup:
      if pygame.sprite.spritecollide(asteroidXY, bullets, False):
-            explosion = pygame.mixer.Sound('wav/explosion2 .wav')
+            explosion = pygame.mixer.Sound('wav/explosion2.wav')
             explosion.set_volume(0.5)
             explosion.play()
             destroyed = True

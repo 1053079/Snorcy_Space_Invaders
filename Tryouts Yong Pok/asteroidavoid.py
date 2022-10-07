@@ -116,7 +116,7 @@ class AsteroidXY(pygame.sprite.Sprite):
     def move(self, score, destroyed):
         self.rect.move_ip(1,2)
         if (self.rect.bottom > 600) or destroyed == True:
-            self.rect.center = (random.randint(0, 0), (random.randint(-100, 0)))
+            self.rect.center = (random.randint(0, 0), (random.randint(-50, 0)))
             score += 1
 
         return score
@@ -244,11 +244,17 @@ bullets = pygame.sprite.Group()
 bullets.add(B1)
 
 # Fonts for game
-font = pygame.font.SysFont("BungeeSpice.ttf", 60)
+font = pygame.font.SysFont("fonts/BungeeSpice.ttf", 60)
 gameover = font.render("Game Over", True, WHITE)
+lost_font = pygame.font.Font('fonts/Bullpen3D.ttf', 128)
+
+def game_over_text():
+    over_text = lost_font.render("You DIED", True, (255, 0, 0))
+    window.blit(over_text, (sw/2 -over_text.get_width()/2, 200))
 
 score = 0
 destroyed = False
+
 
 # Game Loop
 
@@ -267,11 +273,8 @@ while True:
     if pygame.sprite.spritecollideany(P1, asteroidGroup):
         damage = pygame.mixer.Sound('wav/thud.wav')
         damage.play()
-        window.fill(RED)
-        window.blit(gameover, (400, 300))
+        game_over_text()
         pygame.display.update()
-        time.sleep(2)
-        pygame.quit()
 
     for entity in bullets:
         entity.fire(P1)
@@ -297,15 +300,12 @@ while True:
          if pygame.sprite.spritecollideany(P1, asteroidXYGroup):
           damage = pygame.mixer.Sound('wav/thud.wav')
           damage.play()
-          window.fill(RED)
-          window.blit(gameover, (400, 300))
+          game_over_text()
           pygame.display.update()
-          time.sleep(2)
-          pygame.quit()
-
+         
     for asteroidXY in asteroidXYGroup:
      if pygame.sprite.spritecollide(asteroidXY, bullets, False):
-            explosion = pygame.mixer.Sound('wav/explosion.wav')
+            explosion = pygame.mixer.Sound('wav/explosion2 .wav')
             explosion.set_volume(0.5)
             explosion.play()
             destroyed = True
@@ -325,11 +325,9 @@ while True:
         if pygame.sprite.spritecollideany(P1, enemyGroup):
          damage = pygame.mixer.Sound('wav/thud.wav')
          damage.play()
-         window.fill(RED)
-         window.blit(gameover, (400, 300))
+         game_over_text()
          pygame.display.update()
-         time.sleep(2)
-         pygame.quit()
+        
 
     for enemy in enemyGroup:
         if pygame.sprite.spritecollide(enemy, bullets, False):

@@ -10,7 +10,7 @@ WIDTH = 800
 HEIGHT = 600
 
 # Initialize the pygame
-surface = pygame.display.set_mode((600, 400))
+
 pygame.init()
 
 # Create the screen

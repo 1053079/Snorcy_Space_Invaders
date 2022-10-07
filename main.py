@@ -18,22 +18,40 @@ RED = (255, 0, 0)
 
 class Game():
     def __init__(self):
-        # Creating the enemies
+        # Initial enemy spawn (Niels)
+        self.create_multiple_enemies(2, 2, 2)
 
-        self.enemy_1 = Enemy('alien1')
-        self.enemy_2 = Enemy('alien2')
-        self.enemy_3 = Enemy('alien3')
+    # Function to spawn multiple enemies 1 (Niels)
+    def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
+        # Push as many enemies 1 in a list (Niels)
+        self.enemies_1 = []
+        number_of_enemies = num_enemy_1
+        for num in range(number_of_enemies):
+            self.enemies_1.append(Enemy('alien1'))
 
-    # def create_multiple(self):
-    #     self.enemies_1 = []
-    #     for e_1 in range(3):
-    #         self.enemies_1.append(Enemy('alien1'))
-    #         return self.enemies_1[e_1]
+        # Push as many enemies 2 in a list (Niels)
+        self.enemies_2 = []
+        number_of_enemies = num_enemy_2
+        for num in range(number_of_enemies):
+            self.enemies_2.append(Enemy('alien2'))
 
+        # Push as many enemies 3 in a list (Niels)
+        self.enemies_3 = []
+        number_of_enemies = num_enemy_3
+        for num in range(number_of_enemies):
+            self.enemies_3.append(Enemy('alien3'))
+
+    # Function for what the game needs to run (Niels)
     def run(self):
-        self.enemy_1.render()
-        self.enemy_2.render()
-        self.enemy_3.render()
+        # Loops through the enemy 1 list and renders the enemies (Niels)
+        for enemies in self.enemies_1:
+            enemies.render()
+        # Loops through the enemy 2 list and renders the enemies (Niels)
+        for enemies in self.enemies_2:
+            enemies.render()
+        # Loops through the enemy 3 list and renders the enemies (Niels)
+        for enemies in self.enemies_3:
+            enemies.render()
 
 
 game = Game()
@@ -45,8 +63,12 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.USEREVENT+1:
+            # Respawns enemies every 7.5 seconds (Niels)
+            game.create_multiple_enemies(2, 2, 2)
 
-            # Keybindings
+<<<<<<< HEAD
+            # Keybindings (Rhandell)
             keys = pygame.key.get_pressed()
         if keys[pygame.K_a] and player.x - player_vel > 0: # Left
             player.x -= player_vel
@@ -57,8 +79,14 @@ while running:
         if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
             player.y += player_vel
 
+=======
+    # Calls the game class (Niels)
+>>>>>>> cacd1dbe62e21659dcb1e4feabaca3c1f62fa355
     game.run()
 
+    # Puts game on 60fps (Niels)
     clock.tick(60)
 
+    # Update the screen (Niels)
     pygame.display.update()
+    

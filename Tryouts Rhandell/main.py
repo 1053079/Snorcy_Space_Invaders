@@ -177,7 +177,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-        # WASD Controls
+        # Game Controls
             
         keys = pygame.key.get_pressed()
         if keys[pygame.K_a] and player.x - player_vel > 0:
@@ -188,6 +188,7 @@ def main():
             player.y -= player_vel 
         if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT:
             player.y += player_vel
+        if keys[]
 
         for enemy in enemies[:]:
             enemy.move(enemy_vel)

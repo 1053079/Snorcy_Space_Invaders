@@ -67,21 +67,17 @@ while running:
             # Respawns enemies every 7.5 seconds (Niels)
             game.create_multiple_enemies(2, 2, 2)
 
-<<<<<<< HEAD
             # Keybindings (Rhandell)
-            keys = pygame.key.get_pressed()
-        if keys[pygame.K_a] and player.x - player_vel > 0: # Left
-            player.x -= player_vel
-        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # Right
-            player.x += player_vel
-        if keys[pygame.K_w] and player.y - player_vel > 0: # Up
-            player.y -= player_vel
-        if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
-            player.y += player_vel
+        #    keys = pygame.key.get_pressed()
+        #if keys[pygame.K_a] and player.x - player_vel > 0: # Left
+        #    player.x -= player_vel
+        #if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # Right
+        #    player.x += player_vel
+        #if keys[pygame.K_w] and player.y - player_vel > 0: # Up
+        #    player.y -= player_vel
+        #if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
+        #    player.y += player_vel
 
-=======
-    # Calls the game class (Niels)
->>>>>>> cacd1dbe62e21659dcb1e4feabaca3c1f62fa355
     game.run()
 
     # Puts game on 60fps (Niels)

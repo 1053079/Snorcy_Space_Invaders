@@ -1,4 +1,3 @@
-@@ -0,0 +1,30 @@
 import pygame
 
 # Button class
@@ -15,7 +14,7 @@ class Button():
         action = False
         # Get mouse position
         pos = pygame.mouse.get_pos()
-
+        
         # Check mouseover and clicked conditions
         if self.rect.collidepoint(pos):
             if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
@@ -28,4 +27,4 @@ class Button():
         # Draw button on screen
         surface.blit(self.image,(self.rect.x, self.rect.y))
 
-        return action
+        return action 

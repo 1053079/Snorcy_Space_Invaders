@@ -2,6 +2,7 @@ import pygame
 from lib.enemy import Enemy
 from lib.asteroid import Asteroid
 from lib.button import Button
+from lib.player import Player
 
 pygame.init()
 
@@ -75,7 +76,6 @@ running = True
 
 while running:
     screen.fill((BLACK))
-
 
     if start_menu == True:
         screen.fill((83, 41, 42))

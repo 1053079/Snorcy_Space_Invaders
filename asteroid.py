@@ -103,7 +103,7 @@ class Asteroid(pygame.sprite.Sprite):
 class AsteroidXY(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("Assets/asteroid64.png")
+        self.image = pygame.image.load("assets/asteroid64.png")
         self.surf = pygame.Surface((64, 64))
         self.rect = self.surf.get_rect(center=(random.randint(32, 600), (random.randint(-100, 0))))
 

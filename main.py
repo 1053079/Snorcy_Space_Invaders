@@ -1,6 +1,6 @@
 import pygame
 from enemy import Enemy
-from asteroid import Asteroid
+from asteroid import Asteroid, AsteroidXY
 import button
 
 pygame.init()

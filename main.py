@@ -75,9 +75,10 @@ running = True
 
 while running:
     screen.fill((BLACK))
-    screen.fill((83, 41, 42))
+
 
     if start_menu == True:
+        screen.fill((83, 41, 42))
         if exit_button.draw(screen):
             running = False
         if start_button.draw(screen):

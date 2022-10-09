@@ -1,7 +1,7 @@
 import pygame
-from enemy import Enemy
-from asteroid import Asteroid
-import button
+from lib.enemy import Enemy
+from lib.asteroid import Asteroid
+import lib.button
 
 pygame.init()
 
@@ -25,7 +25,6 @@ RED = (255, 0, 0)
 # Load button images (Rob)
 start_img = pygame.image.load('images/start-button2.png').convert_alpha()
 exit_img = pygame.image.load('images/exit_button.png').convert_alpha()
-
 
 
 class Game():
@@ -64,6 +63,7 @@ class Game():
         # Loops through the enemy 3 list and renders the enemies (Niels)
         for enemies in self.enemies_3:
             enemies.render()
+
 
 # Create button instances
 start_button = button.Button(100, 240, start_img, 1)
@@ -111,4 +111,3 @@ while running:
     pygame.display.update()
 
 pygame.quit()
-    

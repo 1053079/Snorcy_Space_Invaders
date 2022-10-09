@@ -1,8 +1,7 @@
-
+import pygame
 from lib.enemy import Enemy
 from lib.asteroid import Asteroid
 from lib.button import Button
-
 
 pygame.init()
 
@@ -67,8 +66,8 @@ class Game():
 
 
 # Create button instances
-start_button = button.Button(100, 240, start_img, 1)
-exit_button = button.Button(450, 240, exit_img, 1)
+start_button = Button(100, 240, start_img, 1)
+exit_button = Button(450, 240, exit_img, 1)
 
 
 game = Game()
@@ -76,9 +75,10 @@ running = True
 
 while running:
     screen.fill((BLACK))
-    screen.fill((83, 41, 42))
+
 
     if start_menu == True:
+        screen.fill((83, 41, 42))
         if exit_button.draw(screen):
             running = False
         if start_button.draw(screen):

@@ -1,7 +1,10 @@
 import pygame
 from lib.enemy import Enemy
-from lib.asteroid import Asteroid
+from lib.asteroid import Asteroid, AsteroidXY
 from lib.button import Button
+from pygame.locals import *
+import random
+
 
 pygame.init()
 
@@ -25,6 +28,29 @@ RED = (255, 0, 0)
 # Load button images (Rob)
 start_img = pygame.image.load('images/start-button2.png').convert_alpha()
 exit_img = pygame.image.load('images/exit_button.png').convert_alpha()
+
+class Bullet(pygame.sprite.Sprite):
+    def __init__(self, player):
+        super().__init__()
+        self.image = pygame.image.load("assets/bullet.png")
+        self.surf = pygame.Surface((32, 32))
+        self.rect = self.surf.get_rect(center=(player.rect.midtop))
+        self.fired = False
+        
+    # this checks for player input
+    def fire(self, player):
+        pressedKeys = pygame.key.get_pressed()
+        if pressedKeys[K_SPACE] and self.fired == False:
+            self.rect = (self.surf.get_rect(center=(player.rect.midtop)))
+            self.fired = True
+         # Speed of the bullets
+        if self.fired == True:
+            screen.blit(self.image, self.rect)
+            self.rect.move_ip(0, -5)
+
+            if (self.rect.top < 1):
+                self.rect.top = 600
+                self.fired = False
 
 
 class Game():
@@ -64,11 +90,94 @@ class Game():
         for enemies in self.enemies_3:
             enemies.render()
 
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("assets/playership.png")
+        self.surf = pygame.Surface((100, 150))
+        self.rect = self.surf.get_rect(center=(400, 525))
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
+
+    def update(self):
+        pressedKeys = pygame.key.get_pressed()
+
+        if self.rect.left > 0:
+            if pressedKeys[K_LEFT]:
+                self.rect.move_ip(-5, 0)
+
+        if self.rect.right < SCREEN_WIDTH:
+            if pressedKeys[K_RIGHT]:
+                self.rect.move_ip(5, 0)
+
+        if self.rect.top > 0:
+            if pressedKeys[K_UP]:
+                self.rect.move_ip(0, -5)
+
+        if self.rect.bottom < SCREEN_HEIGHT:
+            if pressedKeys[K_DOWN]:
+                self.rect.move_ip(0, 5)
+
+
+class Asteroid(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("assets/asteroid32.png")
+        self.surf = pygame.Surface((32, 32))
+        self.rect = self.surf.get_rect(center=(random.randint(32, 600), (random.randint(-100, 0))))
+
+    def move(self, score, destroyed):
+        self.rect.move_ip(0, 1)
+        if (self.rect.bottom > 600) or destroyed == True:
+            self.rect.center = (random.randint(30, 600), (random.randint(-100, 0)))
+            score += 1
+
+        return score
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
+
+class AsteroidXY(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("assets/asteroid64.png")
+        self.surf = pygame.Surface((64, 64))
+        self.rect = self.surf.get_rect(center=(random.randint(32, 600), (random.randint(-100, 0))))
+
+    def move(self, score, destroyed):
+        self.rect.move_ip(1,2)
+        if (self.rect.bottom > 600) or destroyed == True:
+            self.rect.center = (random.randint(0, 0), (random.randint(-50, 0)))
+            score += 1
+
+        return score
+
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
 
 # Create button instances
 start_button = Button(100, 240, start_img, 1)
 exit_button = Button(450, 240, exit_img, 1)
 
+P1 = Player()
+A1 = Asteroid()
+A2 = Asteroid()
+A3 = Asteroid()
+AXY1 = AsteroidXY()
+
+bullets = Bullet(P1)
+
+asteroidGroup = pygame.sprite.Group()
+asteroidGroup.add(A1)
+asteroidGroup.add(A2)
+asteroidGroup.add(A3)
+
+asteroidXYGroup = pygame.sprite.Group()
+asteroidXYGroup.add(AXY1)
+
+score = 0
+destroyed = False
 
 game = Game()
 running = True
@@ -108,7 +217,13 @@ while running:
             # Respawns enemies every 7.5 seconds (Niels)
             game.create_multiple_enemies(2, 2, 2)
 
+    for asteroid in asteroidGroup:
+        score = asteroid.move(score, destroyed)
+        asteroid.draw(screen)
+
+    for asteroidXY in asteroidXYGroup:
+        score = asteroidXY.move(score, destroyed)
+        asteroidXY.draw(screen)    
     # Update the screen (Niels)
     pygame.display.update()
-
 pygame.quit()

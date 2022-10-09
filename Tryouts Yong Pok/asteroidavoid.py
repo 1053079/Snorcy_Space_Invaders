@@ -346,8 +346,7 @@ while True:
         enemy.draw(window)
 
 
-    P1.update()
-    P1.draw(window)
+   
 
     pygame.display.update()
     framesPerSec.tick(FPS)

@@ -2,9 +2,8 @@ import pygame
 from lib.enemy import Enemy
 from lib.asteroid import Asteroid, AsteroidXY
 from lib.button import Button
-from pygame.locals import *
+from lib.player import Player
 import random
-
 
 pygame.init()
 
@@ -184,7 +183,6 @@ running = True
 
 while running:
     screen.fill((BLACK))
-
 
     if start_menu == True:
         screen.fill((83, 41, 42))

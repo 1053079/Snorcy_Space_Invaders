@@ -1,7 +1,7 @@
 import pygame
 from lib.enemy import Enemy
 from lib.asteroid import Asteroid
-import lib.button
+from lib.button import Button
 
 pygame.init()
 
@@ -66,8 +66,8 @@ class Game():
 
 
 # Create button instances
-start_button = button.Button(100, 240, start_img, 1)
-exit_button = button.Button(450, 240, exit_img, 1)
+start_button = Button(100, 240, start_img, 1)
+exit_button = Button(450, 240, exit_img, 1)
 
 
 game = Game()

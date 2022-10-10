@@ -3,16 +3,16 @@ import pygame
 pygame.init()
 
 #Width And Height Of Screen
-WIDTH = 600
-HEIGHT = 600
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 600
 
 #Display Settings
-screen = pygame.display.set_mode([WIDTH, HEIGHT])
+screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 pygame.display.set_caption("Background")
 
 #Display Background Image
-background = pygame.image.load('Tryout Shaq/Images/Galaxy2_Smaller.png')
-overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2_Smaller.png')
+background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
+overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 
 #Position 1st And 2nd Background Image
 b_pos = 0
@@ -40,10 +40,10 @@ running = True
 
 #Game Loop
 while running:
-    if b_pos >= +HEIGHT:
-        b_pos = -HEIGHT
-    if o_pos >= +HEIGHT:
-        o_pos = -HEIGHT
+    if b_pos >= +SCREEN_HEIGHT:
+        b_pos = -SCREEN_HEIGHT
+    if o_pos >= +SCREEN_HEIGHT:
+        o_pos = -SCREEN_HEIGHT
 
     b_pos += speed
     o_pos += speed

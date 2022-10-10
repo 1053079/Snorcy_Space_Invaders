@@ -23,11 +23,21 @@ RED = (255, 0, 0)
 
 # Load button images (Rob)
 start_img = pygame.image.load('images/start-button2.png').convert_alpha()
-exit_img = pygame.image.load('images/exit_button.png').convert_alpha()
+exit_img = pygame.image.load('images/exit_button2.png').convert_alpha()
 
 # Display Background Image (Shaq)
 background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
+
+# Caption and icon (Rob)
+pygame.display.set_caption("SNORCY")
+icon = pygame.image.load('images/Snow1.png').convert()
+pygame.display.set_icon(icon)
+
+# Title Game (Rob)
+font = pygame.font.Font('assets/Pixeltype.ttf',120) 
+title_surface = font.render('Space Shooter',False, (252,194,3))
+title_rect = title_surface.get_rect(midtop = (400,110))
 
 # Position 1st And 2nd Background Image (Shaq)
 b_pos = 0
@@ -52,8 +62,8 @@ lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
 level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
 
 # Create button instances
-start_button = Button(100, 240, start_img, 1)
-exit_button = Button(450, 240, exit_img, 1)
+start_button = Button(SCREEN_WIDTH /8, 240, start_img, 1)
+exit_button = Button(SCREEN_WIDTH/2, 240, exit_img, 1)
 
 score = 0
 destroyed = False
@@ -66,6 +76,7 @@ while running:
 
     if start_menu == True:
         screen.fill((83, 41, 42))
+        screen.blit(title_surface,title_rect)
         if exit_button.draw(screen):
             running = False
         if start_button.draw(screen):
@@ -74,6 +85,10 @@ while running:
         # Draw Background Image On Screen (Shaq)
         screen.blit(background, (0, b_pos))
         screen.blit(overlap, (0, o_pos))
+
+        # Draw Text On Screen (Shaq)
+        screen.blit(lives_label, (10, 50))
+        screen.blit(level_label, (10, 10))
 
         game.run()
         #     Keybindings (Rhandell)
@@ -104,9 +119,6 @@ while running:
     b_pos += speed
     o_pos += speed
 
-    # Draw Text On Screen (Shaq)
-    screen.blit(lives_label, (10, 50))
-    screen.blit(level_label, (10, 10))
 
     # Puts game on 60fps (Niels)
     clock.tick(60)

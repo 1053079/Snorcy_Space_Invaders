@@ -28,6 +28,32 @@ RED = (255, 0, 0)
 start_img = pygame.image.load('images/start-button2.png').convert_alpha()
 exit_img = pygame.image.load('images/exit_button.png').convert_alpha()
 
+#Display Background Image (Shaq)
+background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
+overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
+
+#Position 1st And 2nd Background Image (Shaq)
+b_pos = 0
+o_pos = -600
+
+#Speed Automatic Scroller (Shaq)
+speed = 0.5
+
+#Rotate The Image With Degrees (Shaq)
+background = pygame.transform.rotate(background, 90)
+overlap = pygame.transform.rotate(overlap, 90)
+
+#Default Value For Level & Lives (Shaq)
+level = 1
+lives = 5
+
+#Font for text (Shaq)
+font = pygame.font.SysFont("Showcard Gothic", 30)
+
+#Draw Text (Shaq)
+lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
+level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
+
 class Game():
     def __init__(self):
         # Initial enemy spawn (Niels)
@@ -126,6 +152,7 @@ destroyed = False
 game = Game()
 running = True
 
+
 while running:
     screen.fill((BLACK))
 
@@ -150,6 +177,10 @@ while running:
 
         game.run()
 
+        #Draw Background Image On Screen (Shaq)
+        screen.blit(background, (0, b_pos))
+        screen.blit(overlap, (0, o_pos))
+
     # Puts game on 60fps (Niels)
     clock.tick(60)
 
@@ -168,7 +199,21 @@ while running:
 
     for asteroidXY in asteroidXYGroup:
         score = asteroidXY.move(score, destroyed)
-        asteroidXY.draw(screen)    
+        asteroidXY.draw(screen)
+
+    #Background Slider (Shaq)
+    if b_pos >= +SCREEN_HEIGHT:
+        b_pos = -SCREEN_HEIGHT
+    if o_pos >= +SCREEN_HEIGHT:
+        o_pos = -SCREEN_HEIGHT
+
+    #Speed Of Slider (Shaq)
+    b_pos += speed
+    o_pos += speed
+
+    #Draw Text On Screen (Shaq)
+    screen.blit(lives_label, (10, 50))
+    screen.blit(level_label, (10, 10))    
         
     # Update the screen (Niels)
     pygame.display.update()

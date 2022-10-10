@@ -147,7 +147,15 @@ while running:
         #    player.y -= player_vel
         # if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
         #    player.y += player_vel
+    
+    # Draws the asteroids on screen (Yong Pok)
+      for asteroid in asteroidGroup:
+        score = asteroid.move(score, destroyed)
+        asteroid.draw(screen)
 
+      for asteroidXY in asteroidXYGroup:
+        score = asteroidXY.move(score, destroyed)
+        asteroidXY.draw(screen)    
         game.run()
 
     # Puts game on 60fps (Niels)
@@ -159,17 +167,7 @@ while running:
         if event.type == pygame.USEREVENT+1:
             # Respawns enemies every 7.5 seconds (Niels)
             game.create_multiple_enemies(2, 2, 2)
-
-   # Draws the asteroids on screen (Yong Pok)
-
-    for asteroid in asteroidGroup:
-        score = asteroid.move(score, destroyed)
-        asteroid.draw(screen)
-
-    for asteroidXY in asteroidXYGroup:
-        score = asteroidXY.move(score, destroyed)
-        asteroidXY.draw(screen)    
-        
+   
     # Update the screen (Niels)
     pygame.display.update()
 pygame.quit()

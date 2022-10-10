@@ -91,43 +91,6 @@ class Game():
         for enemies in self.enemies_3:
             enemies.render()
 
-# Function for where asteroids spawn and how they move (Yong Pok)
-class Asteroid(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.image.load("assets/asteroid32.png")
-        self.surf = pygame.Surface((32, 32))
-        self.rect = self.surf.get_rect(center=(random.randint(32, 800), (random.randint(-100, 0))))
-
-    def move(self, score, destroyed):
-        self.rect.move_ip(0, 3)
-        if (self.rect.bottom > 600) or destroyed == True:
-            self.rect.center = (random.randint(30, 600), (random.randint(-100, 0)))
-            score += 1
-
-        return score
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-# Function for the diagonal asteroid (Yong Pok)
-class AsteroidXY(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.image.load("assets/asteroid64.png")
-        self.surf = pygame.Surface((64, 64))
-        self.rect = self.surf.get_rect(center=(random.randint(32, 600), (random.randint(-100, 0))))
-
-    def move(self, score, destroyed):
-        self.rect.move_ip(2,3)
-        if (self.rect.bottom > 600) or destroyed == True:
-            self.rect.center = (random.randint(0, 0), (random.randint(-50, 0)))
-            score += 1
-
-        return score
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
-
 # Create button instances
 start_button = Button(100, 240, start_img, 1)
 exit_button = Button(450, 240, exit_img, 1)
@@ -174,7 +137,15 @@ while running:
         #    player.y -= player_vel
         # if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
         #    player.y += player_vel
+    
+        # Draws the asteroids on screen (Yong Pok)
+        for asteroid in asteroidGroup:
+        score = asteroid.move(score, destroyed)
+        asteroid.draw(screen)
 
+      for asteroidXY in asteroidXYGroup:
+        score = asteroidXY.move(score, destroyed)
+        asteroidXY.draw(screen)    
         game.run()
 
         #Draw Background Image On Screen (Shaq)
@@ -214,7 +185,7 @@ while running:
     #Draw Text On Screen (Shaq)
     screen.blit(lives_label, (10, 50))
     screen.blit(level_label, (10, 10))    
-        
+
     # Update the screen (Niels)
     pygame.display.update()
 pygame.quit()

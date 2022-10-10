@@ -128,6 +128,20 @@ while running:
         if start_button.draw(screen):
             start_menu = False
     else:
+        # Draw Background Image On Screen (Shaq)
+        screen.blit(background, (0, b_pos))
+        screen.blit(overlap, (0, o_pos))
+
+        game.run()
+
+        # Draws the asteroids on screen (Yong Pok)
+        for asteroid in asteroidGroup:
+            score = asteroid.move(score, destroyed)
+            asteroid.draw(screen)
+
+        for asteroidXY in asteroidXYGroup:
+            score = asteroidXY.move(score, destroyed)
+            asteroidXY.draw(screen)
 
         #     Keybindings (Rhandell)
         #    keys = pygame.key.get_pressed()
@@ -140,20 +154,6 @@ while running:
         # if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
         #    player.y += player_vel
 
-        # Draws the asteroids on screen (Yong Pok)
-        for asteroid in asteroidGroup:
-            score = asteroid.move(score, destroyed)
-            asteroid.draw(screen)
-
-        for asteroidXY in asteroidXYGroup:
-            score = asteroidXY.move(score, destroyed)
-            asteroidXY.draw(screen)
-        game.run()
-
-        # Draw Background Image On Screen (Shaq)
-        screen.blit(background, (0, b_pos))
-        screen.blit(overlap, (0, o_pos))
-
     # Puts game on 60fps (Niels)
     clock.tick(60)
 
@@ -163,16 +163,6 @@ while running:
         if event.type == pygame.USEREVENT+1:
             # Respawns enemies every 7.5 seconds (Niels)
             game.create_multiple_enemies(2, 2, 2)
-
-   # Draws the asteroids on screen (Yong Pok)
-
-    for asteroid in asteroidGroup:
-        score = asteroid.move(score, destroyed)
-        asteroid.draw(screen)
-
-    for asteroidXY in asteroidXYGroup:
-        score = asteroidXY.move(score, destroyed)
-        asteroidXY.draw(screen)
 
     # Background Slider (Shaq)
     if b_pos >= +SCREEN_HEIGHT:
@@ -190,4 +180,5 @@ while running:
 
     # Update the screen (Niels)
     pygame.display.update()
+
 pygame.quit()

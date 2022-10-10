@@ -40,6 +40,7 @@ class Enemy(pygame.sprite.Sprite):
             self.pos[1] += self.vel
 
     # Function to respawns enemy back to top screen if not killed (Niels)
+
     def respawn(self):
         if self.pos[1] > SCREEN_HEIGHT:
             # self.trigger()

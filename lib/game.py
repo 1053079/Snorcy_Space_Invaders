@@ -11,7 +11,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 class Game():
     def __init__(self):
         # Initial enemy spawn (Niels)
-        self.create_multiple_enemies(2, 2, 2)
+        self.create_multiple_enemies(2)
 
         # Adds the Asteroids into the game
         A1 = Asteroid()
@@ -29,35 +29,24 @@ class Game():
         self.asteroidXYGroup.add(AXY1)
 
     # Function to spawn multiple enemies 1 (Niels)
-    def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
+    def create_multiple_enemies(self, num_enemies):
         # Push as many enemies 1 in a list (Niels)
-        self.enemies_1 = []
-        number_of_enemies = num_enemy_1
+        self.enemies = []
+        number_of_enemies = num_enemies
         for num in range(number_of_enemies):
-            self.enemies_1.append(Enemy('alien1'))
+            self.enemies.append(Enemy('alien1'))
+        for num in range(number_of_enemies):
+            self.enemies.append(Enemy('alien2'))
+        for num in range(number_of_enemies):
+            self.enemies.append(Enemy('alien3'))
 
-        # Push as many enemies 2 in a list (Niels)
-        self.enemies_2 = []
-        number_of_enemies = num_enemy_2
-        for num in range(number_of_enemies):
-            self.enemies_2.append(Enemy('alien2'))
-
-        # Push as many enemies 3 in a list (Niels)
-        self.enemies_3 = []
-        number_of_enemies = num_enemy_3
-        for num in range(number_of_enemies):
-            self.enemies_3.append(Enemy('alien3'))
+    # def enemy_to_enemy_collision(self):
+    #     if self.enemies.
 
     # Function for what the game needs to run (Niels)
     def run(self):
         # Loops through the enemy 1 list and renders the enemies (Niels)
-        for enemies in self.enemies_1:
-            enemies.render()
-        # Loops through the enemy 2 list and renders the enemies (Niels)
-        for enemies in self.enemies_2:
-            enemies.render()
-        # Loops through the enemy 3 list and renders the enemies (Niels)
-        for enemies in self.enemies_3:
+        for enemies in self.enemies:
             enemies.render()
 
         # Draws the asteroids on screen (Yong Pok)

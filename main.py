@@ -28,31 +28,32 @@ RED = (255, 0, 0)
 start_img = pygame.image.load('images/start-button2.png').convert_alpha()
 exit_img = pygame.image.load('images/exit_button.png').convert_alpha()
 
-#Display Background Image (Shaq)
+# Display Background Image (Shaq)
 background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 
-#Position 1st And 2nd Background Image (Shaq)
+# Position 1st And 2nd Background Image (Shaq)
 b_pos = 0
 o_pos = -600
 
-#Speed Automatic Scroller (Shaq)
+# Speed Automatic Scroller (Shaq)
 speed = 0.5
 
-#Rotate The Image With Degrees (Shaq)
+# Rotate The Image With Degrees (Shaq)
 background = pygame.transform.rotate(background, 90)
 overlap = pygame.transform.rotate(overlap, 90)
 
-#Default Value For Level & Lives (Shaq)
+# Default Value For Level & Lives (Shaq)
 level = 1
 lives = 5
 
-#Font for text (Shaq)
+# Font for text (Shaq)
 font = pygame.font.SysFont("Showcard Gothic", 30)
 
-#Draw Text (Shaq)
+# Draw Text (Shaq)
 lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
 level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
+
 
 class Game():
     def __init__(self):
@@ -90,6 +91,7 @@ class Game():
         # Loops through the enemy 3 list and renders the enemies (Niels)
         for enemies in self.enemies_3:
             enemies.render()
+
 
 # Create button instances
 start_button = Button(100, 240, start_img, 1)
@@ -137,18 +139,18 @@ while running:
         #    player.y -= player_vel
         # if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
         #    player.y += player_vel
-    
+
         # Draws the asteroids on screen (Yong Pok)
         for asteroid in asteroidGroup:
-        score = asteroid.move(score, destroyed)
-        asteroid.draw(screen)
+            score = asteroid.move(score, destroyed)
+            asteroid.draw(screen)
 
-      for asteroidXY in asteroidXYGroup:
-        score = asteroidXY.move(score, destroyed)
-        asteroidXY.draw(screen)    
+        for asteroidXY in asteroidXYGroup:
+            score = asteroidXY.move(score, destroyed)
+            asteroidXY.draw(screen)
         game.run()
 
-        #Draw Background Image On Screen (Shaq)
+        # Draw Background Image On Screen (Shaq)
         screen.blit(background, (0, b_pos))
         screen.blit(overlap, (0, o_pos))
 
@@ -172,19 +174,19 @@ while running:
         score = asteroidXY.move(score, destroyed)
         asteroidXY.draw(screen)
 
-    #Background Slider (Shaq)
+    # Background Slider (Shaq)
     if b_pos >= +SCREEN_HEIGHT:
         b_pos = -SCREEN_HEIGHT
     if o_pos >= +SCREEN_HEIGHT:
         o_pos = -SCREEN_HEIGHT
 
-    #Speed Of Slider (Shaq)
+    # Speed Of Slider (Shaq)
     b_pos += speed
     o_pos += speed
 
-    #Draw Text On Screen (Shaq)
+    # Draw Text On Screen (Shaq)
     screen.blit(lives_label, (10, 50))
-    screen.blit(level_label, (10, 10))    
+    screen.blit(level_label, (10, 10))
 
     # Update the screen (Niels)
     pygame.display.update()

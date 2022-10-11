@@ -48,7 +48,7 @@ font_turtorial = pygame.font.Font('assets/Pixeltype.ttf',30)
 turtorial_text_surface = font_turtorial.render("Welcom to our game. In this game you need to move around to avoid the", False,(252,194,3))
 turtorial_rect = turtorial_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
 
-# pause menu (Rob)******
+# pause menu (Rob)
 font_pause = pygame.font.Font('assets/Pixeltype.ttf',30)
 pause_text_surface = font_pause.render("Press Esc to pause", False,(252,194,3))
 pause_rect = pause_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
@@ -76,7 +76,7 @@ font = pygame.font.SysFont("Showcard Gothic", 30)
 lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
 level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
 
-# Create button instances
+# Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH /8, 240, start_img, 1)
 exit_button = Button(SCREEN_WIDTH/2, 240, exit_img, 1)
 turtorial_button = Button(-2, 5, turtorial_image, 1)
@@ -113,8 +113,6 @@ while running:
         # Draw Text On Screen (Shaq)
         screen.blit(lives_label, (10, 50))
         screen.blit(level_label, (10, 10))
-
-        # event handler (Rob)
 
         game.run()
         #     Keybindings (Rhandell)

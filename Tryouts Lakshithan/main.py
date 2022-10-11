@@ -1,3 +1,4 @@
+from tkinter import W
 import pygame
 import os
 
@@ -13,6 +14,8 @@ BLACK = (0, 0, 0)
 spaceshipWidth = 30
 spaceshipHeight = 30
 velocity = 3
+laser_Speed = 6
+bullet_list = [ ]
 
 #loading images
 playerImg = pygame.image.load((os.path.join('Tryouts Lakshithan', 'Assets', 'spaceship.png')))
@@ -23,15 +26,31 @@ background = pygame.image.load(os.path.join('Tryouts Lakshithan','Assets', 'BACK
 #scaled_background = pygame.transform.scale(laserImg(Width, Height))
 
 
+class Lasers(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = scaled_laserImg
+        self.rect = self.image.get_rect()
+        self.rect.center = [x, y]
+    
+    def update(self):
+        self.rect.y -= 5
+
+        if self.rect.x >= Width + 200:
+            self.kill()
+    
+
 def draw_window(player):
     WIN.fill(BLACK)
-    WIN.blit(scaled_PlayerImg,(player.x, player.y) )
+    WIN.blit(scaled_PlayerImg,(player.x, player.y))
     pygame.display.update()
     
+
 
 def main():
     player = pygame.Rect(100, 500, spaceshipWidth, spaceshipHeight)
 
+    
 
     running = True
     while running:
@@ -44,12 +63,31 @@ def main():
             player.x -= velocity
         if keys_pressed[pygame.K_d]:
             player.x += velocity
+        if keys_pressed[pygame.K_w]:
+            player.y -= velocity
+        if keys_pressed[pygame.K_s]:
+            player.y += velocity
+            
+        if keys_pressed[pygame.K_SPACE]:
+            bullet_list.append([player.x + 15, player.y - 20])
 
 
 
+        
 
         draw_window(player)
+
+        for bullet in bullet_list:
+            pygame.draw.rect(WIN, (100, 100, 0),
+                        [*bullet, 20, 20])
+            bullet[1] -= 5
+
+        for bullet in bullet_list[:]:
+            if bullet[1] < 0:
+                bullet_list.remove(bullet)
+        pygame.display.update()
     pygame.QUIT
+
 
 
 if __name__ == "__main__":

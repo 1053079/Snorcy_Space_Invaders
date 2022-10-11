@@ -11,7 +11,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 class Game():
     def __init__(self):
         # Initial enemy spawn (Niels)
-        self.create_multiple_enemies(2)
+        self.create_multiple_enemies(2, 2, 2)
 
         # Adds the Asteroids into the game
         A1 = Asteroid()
@@ -28,20 +28,30 @@ class Game():
         self.asteroidXYGroup = pygame.sprite.Group()
         self.asteroidXYGroup.add(AXY1)
 
-    # Function to spawn multiple enemies 1 (Niels)
-    def create_multiple_enemies(self, num_enemies):
-        # Push as many enemies 1 in a list (Niels)
-        self.enemies = []
-        number_of_enemies = num_enemies
-        for num in range(number_of_enemies):
-            self.enemies.append(Enemy('alien1'))
-        for num in range(number_of_enemies):
-            self.enemies.append(Enemy('alien2'))
-        for num in range(number_of_enemies):
-            self.enemies.append(Enemy('alien3'))
+    # def self_collision(self):
+    #     collision_tolerance = 10
+    #     for enemy in self.enemies:
+    #         if enemy.colliderect(enemy):
+    #             if (enemy.bottom - enemy.top) < collision_tolerance:
+    #                 enemy.pos[0] *= -enemy.vel
+    #                 print('col')
+    #             if (enemy.right - enemy.left) < collision_tolerance:
+    #                 enemy.pos[1] *= -enemy.vel
+    #                 print('col')
 
-    # def enemy_to_enemy_collision(self):
-    #     if self.enemies.
+    # Function to spawn multiple enemies 1 (Niels)
+
+    def create_multiple_enemies(self, num_enemies_1, num_enemies_2, num_enemies_3):
+        self.enemies = []
+        number_of_enemies_1 = num_enemies_1
+        number_of_enemies_2 = num_enemies_2
+        number_of_enemies_3 = num_enemies_3
+        for num in range(number_of_enemies_1):
+            self.enemies.append(Enemy('alien1', self.enemies))
+        for num in range(number_of_enemies_2):
+            self.enemies.append(Enemy('alien2', self.enemies))
+        for num in range(number_of_enemies_3):
+            self.enemies.append(Enemy('alien3', self.enemies))
 
     # Function for what the game needs to run (Niels)
     def run(self):

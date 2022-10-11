@@ -92,7 +92,7 @@ while running:
             running = False
         if event.type == pygame.USEREVENT+1:
             # Respawns enemies every 7.5 seconds (Niels)
-            game.create_multiple_enemies(2)
+            game.create_multiple_enemies(2, 2, 2)
 
     # Background Slider (Shaq)
     if b_pos >= +SCREEN_HEIGHT:

@@ -9,35 +9,74 @@ clock = pygame.time.Clock
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, alien):
+    def __init__(self, alien, obstacles):
         super().__init__()
         # Initializing enmey (Niels)
         self.image = pygame.image.load(f'assets/{alien}.png')
-        self.rect = self.image.get_rect()
-        self.x_pos = random.randint(0, SCREEN_WIDTH - 60)
-        self.y_pos = random.randint(-50, 0)
-        self.pos = [self.x_pos, self.y_pos]
 
-        # Movement speed randomizer (Niels)
-        self.vel = random.randint(3, 10) / 2
+        # Initial placement
+        self.pos = [random.randint(
+            0, (SCREEN_WIDTH - 60)), random.randint(-250, -100)]
 
-        # Makes the enemies wait for so many seconds (Niels)
+        self.rect = self.image.get_rect(center=self.pos)
+        self.old_rect = self.rect.copy()
+
+        # Making a list of enemies without self (Niels)
+        self.obstacles_without_self = []
+        for obstacle in obstacles:
+            if obstacle != self:
+                self.obstacles_without_self.append(obstacle)
+
+        # Makes the enemies wait for so many seconds until respawn (Niels)
         self.TRIGGER = pygame.USEREVENT + 1
         pygame.time.set_timer(self.TRIGGER, 7500)
 
-    # Function for random movement for enemies (Niels)
+    # Function for random movement of enemies (Niels)
     def move(self):
-        random_num = random.randint(1, 5)
+        # Movement speed randomizer (Niels)
+        self.vel = random.randint(3, 10) / 2
+
+        random_num = random.randint(1, 7)
+        # Right
         if random_num == 1:
-            self.pos[1] += self.vel
+            self.pos[0] += self.vel
+        # Left
         if random_num == 2:
-            self.pos[0] += self.vel
-        if random_num == 3:
+            self.pos[0] -= self.vel
+        # Down and right
+        if random_num == 3 or random_num == 4:
             self.pos[0] += self.vel
             self.pos[1] += self.vel
-        if random_num == 4 or random_num == 5:
+        # Down and right
+        if random_num == 5 or random_num == 6:
             self.pos[0] -= self.vel
             self.pos[1] += self.vel
+
+    # Function for collision (Niels)
+    # def collision(self, direction='horizontal'):
+    #     collision_sprite = pygame.sprite.spritecollide(
+    #         self, self.obstacles_without_self, False)
+
+    #     if collision_sprite and self.pos[1] <= 0:
+    #         self.pos = [random.randint(
+    #             -10, (SCREEN_WIDTH - 60)), random.randint(-250, -100)]
+    #         self.move()
+    #     elif collision_sprite and direction == 'horizontal':
+    #         print('yes')
+    #         for sprite in collision_sprite:
+    #             # Collision right
+    #             if self.rect.right >= sprite.rect.left:
+    #                 self.rect.right = sprite.rect.left
+    #                 self.pos[0] = self.rect.x
+    #             # Collision left
+    #             if self.rect.left >= sprite.rect.right:
+    #                 self.rect.left = sprite.rect.right
+    #                 self.pos[0] = self.rect.x
+
+    #     elif collision_sprite and direction == 'vertical':
+    #         pass
+    #     else:
+    #         pass
 
     # Function to respawns enemy back to top screen if not killed (Niels)
 
@@ -51,3 +90,4 @@ class Enemy(pygame.sprite.Sprite):
     def render(self):
         screen.blit(self.image, (self.pos))
         self.move()
+        self.collision()

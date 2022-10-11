@@ -1,7 +1,7 @@
 import pygame
-from enemy import Enemy
-from asteroid import Asteroid
-import button
+from lib.button import Button
+from lib.player import Player
+from lib.game import Game
 
 pygame.init()
 
@@ -13,9 +13,10 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # Clock
 clock = pygame.time.Clock()
 
-# Start menu (Rob)
+# game variables Start menu (Rob)
 start_menu = True
-
+start_menu_main = "main"
+play_game = False
 
 # Colors
 BLACK = (0, 0, 0)
@@ -24,66 +25,96 @@ RED = (255, 0, 0)
 
 # Load button images (Rob)
 start_img = pygame.image.load('images/start-button2.png').convert_alpha()
-exit_img = pygame.image.load('images/exit_button.png').convert_alpha()
+exit_img = pygame.image.load('images/exit_button2.png').convert_alpha()
+turtorial_image = pygame.image.load("images/turtorial2.png").convert_alpha()
+back_image = pygame.image.load("images/button_back.png").convert_alpha()
+
+# Display Background Image (Shaq)
+background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
+overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
+
+# Caption and icon (Rob)
+pygame.display.set_caption("SNORCY")
+icon = pygame.image.load('images/Snow1.png').convert()
+pygame.display.set_icon(icon)
+
+# Title Game (Rob)
+font = pygame.font.Font('assets/Pixeltype.ttf',120) 
+title_surface = font.render('Space Shooter',False, (252,194,3))
+title_rect = title_surface.get_rect(midtop = (400,110))
+
+# Text Turtorial (Rob)
+font_turtorial = pygame.font.Font('assets/Pixeltype.ttf',30)
+turtorial_text_surface = font_turtorial.render("Welcom to our game. In this game you need to move around to avoid the", False,(252,194,3))
+turtorial_rect = turtorial_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
+
+# pause menu (Rob)
+font_pause = pygame.font.Font('assets/Pixeltype.ttf',30)
+pause_text_surface = font_pause.render("Press Esc to pause", False,(252,194,3))
+pause_rect = pause_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
 
 
+# Position 1st And 2nd Background Image (Shaq)
+b_pos = 0
+o_pos = -600
 
-class Game():
-    def __init__(self):
-        # Initial enemy spawn (Niels)
-        self.create_multiple_enemies(2, 2, 2)
+# Speed Automatic Scroller (Shaq)
+speed = 0.5
 
-    # Function to spawn multiple enemies 1 (Niels)
-    def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
-        # Push as many enemies 1 in a list (Niels)
-        self.enemies_1 = []
-        number_of_enemies = num_enemy_1
-        for num in range(number_of_enemies):
-            self.enemies_1.append(Enemy('alien1'))
+# Rotate The Image With Degrees (Shaq)
+background = pygame.transform.rotate(background, 90)
+overlap = pygame.transform.rotate(overlap, 90)
 
-        # Push as many enemies 2 in a list (Niels)
-        self.enemies_2 = []
-        number_of_enemies = num_enemy_2
-        for num in range(number_of_enemies):
-            self.enemies_2.append(Enemy('alien2'))
+# Default Value For Level & Lives (Shaq)
+level = 1
+lives = 5
 
-        # Push as many enemies 3 in a list (Niels)
-        self.enemies_3 = []
-        number_of_enemies = num_enemy_3
-        for num in range(number_of_enemies):
-            self.enemies_3.append(Enemy('alien3'))
+# Font for text (Shaq)
+font = pygame.font.SysFont("Showcard Gothic", 30)
 
-    # Function for what the game needs to run (Niels)
-    def run(self):
-        # Loops through the enemy 1 list and renders the enemies (Niels)
-        for enemies in self.enemies_1:
-            enemies.render()
-        # Loops through the enemy 2 list and renders the enemies (Niels)
-        for enemies in self.enemies_2:
-            enemies.render()
-        # Loops through the enemy 3 list and renders the enemies (Niels)
-        for enemies in self.enemies_3:
-            enemies.render()
+# Draw Text (Shaq)
+lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
+level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
 
-# Create button instances
-start_button = button.Button(100, 240, start_img, 1)
-exit_button = button.Button(450, 240, exit_img, 1)
+# Create button instances (Rob)
+start_button = Button(SCREEN_WIDTH /8, 240, start_img, 1)
+exit_button = Button(SCREEN_WIDTH/2, 240, exit_img, 1)
+turtorial_button = Button(-2, 5, turtorial_image, 1)
+back_button = Button(5, 5, back_image, 0.8)
 
+score = 0
+destroyed = False
 
 game = Game()
 running = True
 
 while running:
     screen.fill((BLACK))
-    screen.fill((83, 41, 42))
 
     if start_menu == True:
-        if exit_button.draw(screen):
-            running = False
-        if start_button.draw(screen):
-            start_menu = False
+        screen.fill((83, 41, 42))
+        if start_menu_main == "main":
+            screen.blit(title_surface,title_rect)
+            if exit_button.draw(screen):
+                running = False
+            if turtorial_button.draw(screen):
+                start_menu_main = "turtorial"
+            if start_button.draw(screen):
+                start_menu = False
+        if start_menu_main == "turtorial":
+            screen.blit(turtorial_text_surface,turtorial_rect)
+            if back_button.draw(screen):
+                start_menu_main = "main"
     else:
+        # Draw Background Image On Screen (Shaq)
+        screen.blit(background, (0, b_pos))
+        screen.blit(overlap, (0, o_pos))
 
+        # Draw Text On Screen (Shaq)
+        screen.blit(lives_label, (10, 50))
+        screen.blit(level_label, (10, 10))
+
+        game.run()
         #     Keybindings (Rhandell)
         #    keys = pygame.key.get_pressed()
         # if keys[pygame.K_a] and player.x - player_vel > 0: # Left
@@ -95,11 +126,6 @@ while running:
         # if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
         #    player.y += player_vel
 
-        game.run()
-
-    # Puts game on 60fps (Niels)
-    clock.tick(60)
-
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -107,8 +133,21 @@ while running:
             # Respawns enemies every 7.5 seconds (Niels)
             game.create_multiple_enemies(2, 2, 2)
 
+    # Background Slider (Shaq)
+    if b_pos >= +SCREEN_HEIGHT:
+        b_pos = -SCREEN_HEIGHT
+    if o_pos >= +SCREEN_HEIGHT:
+        o_pos = -SCREEN_HEIGHT
+
+    # Speed Of Slider (Shaq)
+    b_pos += speed
+    o_pos += speed
+
+
+    # Puts game on 60fps (Niels)
+    clock.tick(60)
+
     # Update the screen (Niels)
     pygame.display.update()
 
 pygame.quit()
-    

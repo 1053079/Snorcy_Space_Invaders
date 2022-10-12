@@ -118,6 +118,9 @@ while running:
         screen.blit(background, (0, b_pos))
         screen.blit(overlap, (0, o_pos))
 
+        # Draw Player on screen (Rhandell)
+
+
         # Draw Text On Screen (Shaq)
         screen.blit(score_label, (10, 10))
         screen.blit(lives_label, (10, 40))

@@ -29,29 +29,30 @@ RED = (255, 0, 0)
 # Load button images (Rob)
 start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
 exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
-turtorial_image = pygame.image.load(
+tutorial_image = pygame.image.load(
     "images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
+arrowkeys_image = pygame.image.load("images/move_space4.png").convert_alpha()
 
 # Display Background Image (Shaq)
 background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 
 # Caption and icon (Rob)
-pygame.display.set_caption("The Legend of Snorcy: Galaxy Invaders")
+pygame.display.set_caption("SNORCY")
 icon = pygame.image.load('images/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
 font = pygame.font.Font('assets/Pixeltype.ttf', 120)
-title_surface = font.render('The Legend of Snorcy', False, (207, 14, 0))
+title_surface = font.render('The Return of Thanos', False, (219, 13, 13))
 title_rect = title_surface.get_rect(midtop=(400, 110))
 
 # Text Turtorial (Rob)
-font_turtorial = pygame.font.Font('assets/Pixeltype.ttf', 30)
-turtorial_text_surface = font_turtorial.render(
+font_tutorial = pygame.font.Font('assets/Pixeltype.ttf', 30)
+tutorial_text_surface = font_tutorial.render(
     "Welcom to our game. In this game you need to move around to avoid the", False, (252, 194, 3))
-turtorial_rect = turtorial_text_surface.get_rect(
+tutorial_rect = tutorial_text_surface.get_rect(
     center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
 
 # pause menu (Rob)
@@ -73,26 +74,21 @@ speed = 0.5
 background = pygame.transform.rotate(background, 90)
 overlap = pygame.transform.rotate(overlap, 90)
 
-# Default Value For Score, Lives and Time (Shaq)
-score = 0
+# Default Value For Level & Lives (Shaq)
+level = 1
 lives = 5
-time = 60
 
 # Font for text (Shaq)
 font = pygame.font.SysFont("Showcard Gothic", 30)
 
 # Draw Text (Shaq)
 lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
-score_label = font.render(f"Score: {score}", 1, (255, 255, 255))
-
-# Time user event
-timer = pygame.USEREVENT
-pygame.time.set_timer(timer, 1000)
+level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
 
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
 exit_button = Button(SCREEN_WIDTH/2, 280, exit_img, 1)
-turtorial_button = Button(-2, 5, turtorial_image, 1)
+tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(5, 5, back_image, 0.8)
 
 score = 0
@@ -110,12 +106,12 @@ while running:
             screen.blit(title_surface, title_rect)
             if exit_button.draw(screen):
                 running = False
-            if turtorial_button.draw(screen):
-                start_menu_main = "turtorial"
+            if tutorial_button.draw(screen):
+                start_menu_main = "tutorial"
             if start_button.draw(screen):
                 start_menu = False
-        if start_menu_main == "turtorial":
-            screen.blit(turtorial_text_surface, turtorial_rect)
+        if start_menu_main == "tutorial":
+            screen.blit(tutorial_text_surface, tutorial_rect)
             if back_button.draw(screen):
                 start_menu_main = "main"
     else:
@@ -124,24 +120,10 @@ while running:
         screen.blit(overlap, (0, o_pos))
 
         # Draw Text On Screen (Shaq)
-        screen.blit(score_label, (10, 10))
-        screen.blit(lives_label, (10, 40))
-
-        time_label = font.render(f"Time: {time}", 1, (255, 255, 255))
-        screen.blit(time_label, (10, 70))
+        screen.blit(lives_label, (10, 50))
+        screen.blit(level_label, (10, 10))
 
         game.run()
-
-        #     Keybindings (Rhandell)
-        #    keys = pygame.key.get_pressed()
-        # if keys[pygame.K_a] and player.x - player_vel > 0: # Left
-        #    player.x -= player_vel
-        # if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # Right
-        #    player.x += player_vel
-        # if keys[pygame.K_w] and player.y - player_vel > 0: # Up
-        #    player.y -= player_vel
-        # if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
-        #    player.y += player_vel  
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -149,8 +131,6 @@ while running:
         if event.type == pygame.USEREVENT+1:
             # Respawns enemies every 7.5 seconds (Niels)
             game.create_multiple_enemies(2, 2, 2)
-        if event.type == pygame.USEREVENT and start_menu == False:
-            time -= 1
 
     # Background Slider (Shaq)
     if b_pos >= +SCREEN_HEIGHT:

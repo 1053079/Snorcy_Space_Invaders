@@ -23,9 +23,10 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 # Load button images (Rob)
-start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
-exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
-tutorial_image = pygame.image.load("images/SnorcyTutorialButton.png").convert_alpha()
+start_img = pygame.image.load('images/start-button2.png').convert_alpha()
+exit_img = pygame.image.load('images/exit_button2.png').convert_alpha()
+turtorial_image = pygame.image.load(
+    "images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
 
 # Display Background Image (Shaq)
@@ -33,24 +34,28 @@ background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 
 # Caption and icon (Rob)
-pygame.display.set_caption("Snorcy: The Return of Thanos")
+pygame.display.set_caption("SNORCY")
 icon = pygame.image.load('images/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
-font = pygame.font.Font('assets/Pixeltype.ttf',120) 
-title_surface = font.render('The Return of Thanos',False, (219,13,13))
-title_rect = title_surface.get_rect(midtop = (400,110))
+font = pygame.font.Font('assets/Pixeltype.ttf', 120)
+title_surface = font.render('Space Shooter', False, (252, 194, 3))
+title_rect = title_surface.get_rect(midtop=(400, 110))
 
 # Text Turtorial (Rob)
-font_tutorial = pygame.font.Font('assets/Pixeltype.ttf',30)
-tutorial_text_surface = font_tutorial.render("Welcom to our game. In this game you need to move around to avoid the", False,(252,194,3))
-tutorial_rect = tutorial_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
+font_turtorial = pygame.font.Font('assets/Pixeltype.ttf', 30)
+turtorial_text_surface = font_turtorial.render(
+    "Welcom to our game. In this game you need to move around to avoid the", False, (252, 194, 3))
+turtorial_rect = turtorial_text_surface.get_rect(
+    center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
 
 # pause menu (Rob)
-font_pause = pygame.font.Font('assets/Pixeltype.ttf',30)
-pause_text_surface = font_pause.render("Press Esc to pause", False,(252,194,3))
-pause_rect = pause_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
+font_pause = pygame.font.Font('assets/Pixeltype.ttf', 30)
+pause_text_surface = font_pause.render(
+    "Press Esc to pause", False, (252, 194, 3))
+pause_rect = pause_text_surface.get_rect(
+    center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
 
 
 # Position 1st And 2nd Background Image (Shaq)
@@ -65,7 +70,7 @@ background = pygame.transform.rotate(background, 90)
 overlap = pygame.transform.rotate(overlap, 90)
 
 # Default Value For Level & Lives (Shaq)
-level = 1
+score = 0
 lives = 5
 
 # Font for text (Shaq)
@@ -73,12 +78,12 @@ font = pygame.font.SysFont("Showcard Gothic", 30)
 
 # Draw Text (Shaq)
 lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
-level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
+score_label = font.render(f"Score: {score}", 1, (255, 255, 255))
 
 # Create button instances (Rob)
-start_button = Button(SCREEN_WIDTH /8, 280, start_img, 1)
+start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
 exit_button = Button(SCREEN_WIDTH/2, 280, exit_img, 1)
-tutorial_button = Button(-2, 5, tutorial_image, 1)
+turtorial_button = Button(-2, 5, turtorial_image, 1)
 back_button = Button(5, 5, back_image, 0.8)
 
 score = 0
@@ -93,15 +98,15 @@ while running:
     if start_menu == True:
         screen.fill((83, 41, 42))
         if start_menu_main == "main":
-            screen.blit(title_surface,title_rect)
+            screen.blit(title_surface, title_rect)
             if exit_button.draw(screen):
                 running = False
-            if tutorial_button.draw(screen):
-                start_menu_main = "tutorial"
+            if turtorial_button.draw(screen):
+                start_menu_main = "turtorial"
             if start_button.draw(screen):
                 start_menu = False
-        if start_menu_main == "tutorial":
-            screen.blit(tutorial_text_surface,tutorial_rect)
+        if start_menu_main == "turtorial":
+            screen.blit(turtorial_text_surface, turtorial_rect)
             if back_button.draw(screen):
                 start_menu_main = "main"
     else:
@@ -111,9 +116,8 @@ while running:
 
         # Draw Text On Screen (Shaq)
         screen.blit(lives_label, (10, 50))
-        screen.blit(level_label, (10, 10))
+        screen.blit(score_label, (10, 10))
 
-        game.run()
         #     Keybindings (Rhandell)
         #    keys = pygame.key.get_pressed()
         # if keys[pygame.K_a] and player.x - player_vel > 0: # Left
@@ -141,7 +145,6 @@ while running:
     # Speed Of Slider (Shaq)
     b_pos += speed
     o_pos += speed
-
 
     # Puts game on 60fps (Niels)
     clock.tick(60)

@@ -53,30 +53,14 @@ class Enemy(pygame.sprite.Sprite):
             self.pos[1] += self.vel
 
     # Function for collision (Niels)
-    # def collision(self, direction='horizontal'):
-    #     collision_sprite = pygame.sprite.spritecollide(
-    #         self, self.obstacles_without_self, False)
+    def collision(self, direction='horizontal'):
+        collision_sprite = pygame.sprite.spritecollide(
+            self, self.obstacles_without_self, False)
 
-    #     if collision_sprite and self.pos[1] <= 0:
-    #         self.pos = [random.randint(
-    #             -10, (SCREEN_WIDTH - 60)), random.randint(-250, -100)]
-    #         self.move()
-    #     elif collision_sprite and direction == 'horizontal':
-    #         print('yes')
-    #         for sprite in collision_sprite:
-    #             # Collision right
-    #             if self.rect.right >= sprite.rect.left:
-    #                 self.rect.right = sprite.rect.left
-    #                 self.pos[0] = self.rect.x
-    #             # Collision left
-    #             if self.rect.left >= sprite.rect.right:
-    #                 self.rect.left = sprite.rect.right
-    #                 self.pos[0] = self.rect.x
-
-    #     elif collision_sprite and direction == 'vertical':
-    #         pass
-    #     else:
-    #         pass
+        if collision_sprite and self.pos[1] <= 0:
+            self.pos = [random.randint(
+                -10, (SCREEN_WIDTH - 60)), random.randint(-250, -100)]
+            self.move()
 
     # Function to respawns enemy back to top screen if not killed (Niels)
 

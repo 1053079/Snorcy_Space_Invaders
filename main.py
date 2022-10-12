@@ -25,7 +25,7 @@ RED = (255, 0, 0)
 # Load button images (Rob)
 start_img = pygame.image.load('images/start-button2.png').convert_alpha()
 exit_img = pygame.image.load('images/exit_button2.png').convert_alpha()
-turtorial_image = pygame.image.load("images/SnorcyTutorialButton.png").convert_alpha()
+tutorial_image = pygame.image.load("images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
 
 # Display Background Image (Shaq)
@@ -43,9 +43,9 @@ title_surface = font.render('Space Shooter',False, (252,194,3))
 title_rect = title_surface.get_rect(midtop = (400,110))
 
 # Text Turtorial (Rob)
-font_turtorial = pygame.font.Font('assets/Pixeltype.ttf',30)
-turtorial_text_surface = font_turtorial.render("Welcom to our game. In this game you need to move around to avoid the", False,(252,194,3))
-turtorial_rect = turtorial_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
+font_tutorial = pygame.font.Font('assets/Pixeltype.ttf',30)
+tutorial_text_surface = font_tutorial.render("Welcom to our game. In this game you need to move around to avoid the", False,(252,194,3))
+tutorial_rect = tutorial_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/Pixeltype.ttf',30)
@@ -78,7 +78,7 @@ level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH /8, 240, start_img, 1)
 exit_button = Button(SCREEN_WIDTH/2, 240, exit_img, 1)
-turtorial_button = Button(-2, 5, turtorial_image, 1)
+tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(5, 5, back_image, 0.8)
 
 score = 0
@@ -96,12 +96,12 @@ while running:
             screen.blit(title_surface,title_rect)
             if exit_button.draw(screen):
                 running = False
-            if turtorial_button.draw(screen):
-                start_menu_main = "turtorial"
+            if tutorial_button.draw(screen):
+                start_menu_main = "tutorial"
             if start_button.draw(screen):
                 start_menu = False
-        if start_menu_main == "turtorial":
-            screen.blit(turtorial_text_surface,turtorial_rect)
+        if start_menu_main == "tutorial":
+            screen.blit(tutorial_text_surface,tutorial_rect)
             if back_button.draw(screen):
                 start_menu_main = "main"
     else:

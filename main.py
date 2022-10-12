@@ -27,6 +27,7 @@ start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
 exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
 tutorial_image = pygame.image.load("images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
+arrowkeys_image = pygame.image.load("images/move_space4.png").convert_alpha()
 
 # Display Background Image (Shaq)
 background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
@@ -43,9 +44,9 @@ title_surface = font.render('The Return of Thanos',False, (219,13,13))
 title_rect = title_surface.get_rect(midtop = (400,110))
 
 # Text Turtorial (Rob)
-font_tutorial = pygame.font.Font('assets/Pixeltype.ttf',30)
-tutorial_text_surface = font_tutorial.render("Welcom to our game. In this game you need to move around to avoid the", False,(252,194,3))
-tutorial_rect = tutorial_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
+font_tutorial = pygame.font.Font('assets/Pixeltype.ttf',50)
+text1_surface = font_tutorial.render("Welcom to our game.", False,(252,194,3))
+text1_rect = text1_surface.get_rect(center = (400,100))
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/Pixeltype.ttf',30)
@@ -101,7 +102,8 @@ while running:
             if start_button.draw(screen):
                 start_menu = False
         if start_menu_main == "tutorial":
-            screen.blit(tutorial_text_surface,tutorial_rect)
+            screen.blit(text1_surface,text1_rect)
+            screen.blit(arrowkeys_image,(200 - 128, 150))
             if back_button.draw(screen):
                 start_menu_main = "main"
     else:

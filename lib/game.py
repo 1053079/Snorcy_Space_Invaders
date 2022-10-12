@@ -20,6 +20,7 @@ class Game():
         A1 = Asteroid()
         A2 = Asteroid()
         A3 = Asteroid()
+        A4 = Asteroid()
         #E1 = Enemy()
         AXY1 = AsteroidXY()
 
@@ -28,6 +29,7 @@ class Game():
         self.asteroidGroup.add(A1)
         self.asteroidGroup.add(A2)
         self.asteroidGroup.add(A3)
+        self.asteroidGroup.add(A4)
 
         self.asteroidXYGroup = pygame.sprite.Group()
         self.asteroidXYGroup.add(AXY1)

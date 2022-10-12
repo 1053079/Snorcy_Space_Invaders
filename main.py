@@ -69,9 +69,10 @@ speed = 0.5
 background = pygame.transform.rotate(background, 90)
 overlap = pygame.transform.rotate(overlap, 90)
 
-# Default Value For Level & Lives (Shaq)
+# Default Value For Score, Lives and Time (Shaq)
 score = 0
 lives = 5
+time = 60
 
 # Font for text (Shaq)
 font = pygame.font.SysFont("Showcard Gothic", 30)
@@ -79,6 +80,10 @@ font = pygame.font.SysFont("Showcard Gothic", 30)
 # Draw Text (Shaq)
 lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
 score_label = font.render(f"Score: {score}", 1, (255, 255, 255))
+
+# Time user event
+timer = pygame.USEREVENT
+pygame.time.set_timer(timer, 1000)
 
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
@@ -115,8 +120,13 @@ while running:
         screen.blit(overlap, (0, o_pos))
 
         # Draw Text On Screen (Shaq)
-        screen.blit(lives_label, (10, 50))
         screen.blit(score_label, (10, 10))
+        screen.blit(lives_label, (10, 40))
+
+        time_label = font.render(f"Time: {time}", 1, (255, 255, 255))
+        screen.blit(time_label, (10, 70))
+
+        game.run()
 
         #     Keybindings (Rhandell)
         #    keys = pygame.key.get_pressed()
@@ -135,6 +145,8 @@ while running:
         if event.type == pygame.USEREVENT+1:
             # Respawns enemies every 7.5 seconds (Niels)
             game.create_multiple_enemies(2, 2, 2)
+        if event.type == pygame.USEREVENT and start_menu == False:
+            time -= 1
 
     # Background Slider (Shaq)
     if b_pos >= +SCREEN_HEIGHT:

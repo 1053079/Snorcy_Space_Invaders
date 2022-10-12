@@ -25,7 +25,8 @@ RED = (255, 0, 0)
 # Load button images (Rob)
 start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
 exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
-tutorial_image = pygame.image.load("images/SnorcyTutorialButton.png").convert_alpha()
+tutorial_image = pygame.image.load(
+    "images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
 arrowkeys_image = pygame.image.load("images/move_space4.png").convert_alpha()
 
@@ -39,19 +40,23 @@ icon = pygame.image.load('images/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
-font = pygame.font.Font('assets/Pixeltype.ttf',120) 
-title_surface = font.render('The Return of Thanos',False, (219,13,13))
-title_rect = title_surface.get_rect(midtop = (400,110))
+font = pygame.font.Font('assets/Pixeltype.ttf', 120)
+title_surface = font.render('The Return of Thanos', False, (219, 13, 13))
+title_rect = title_surface.get_rect(midtop=(400, 110))
 
 # Text Turtorial (Rob)
-font_tutorial = pygame.font.Font('assets/Pixeltype.ttf',30)
-tutorial_text_surface = font_tutorial.render("Welcom to our game. In this game you need to move around to avoid the", False,(252,194,3))
-tutorial_rect = tutorial_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
+font_tutorial = pygame.font.Font('assets/Pixeltype.ttf', 30)
+tutorial_text_surface = font_tutorial.render(
+    "Welcom to our game. In this game you need to move around to avoid the", False, (252, 194, 3))
+tutorial_rect = tutorial_text_surface.get_rect(
+    center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
 
 # pause menu (Rob)
-font_pause = pygame.font.Font('assets/Pixeltype.ttf',30)
-pause_text_surface = font_pause.render("Press Esc to pause", False,(252,194,3))
-pause_rect = pause_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
+font_pause = pygame.font.Font('assets/Pixeltype.ttf', 30)
+pause_text_surface = font_pause.render(
+    "Press Esc to pause", False, (252, 194, 3))
+pause_rect = pause_text_surface.get_rect(
+    center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
 
 
 # Position 1st And 2nd Background Image (Shaq)
@@ -77,7 +82,7 @@ lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
 level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
 
 # Create button instances (Rob)
-start_button = Button(SCREEN_WIDTH /8, 280, start_img, 1)
+start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
 exit_button = Button(SCREEN_WIDTH/2, 280, exit_img, 1)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(5, 5, back_image, 0.8)
@@ -94,7 +99,7 @@ while running:
     if start_menu == True:
         screen.fill((83, 41, 42))
         if start_menu_main == "main":
-            screen.blit(title_surface,title_rect)
+            screen.blit(title_surface, title_rect)
             if exit_button.draw(screen):
                 running = False
             if tutorial_button.draw(screen):
@@ -102,7 +107,7 @@ while running:
             if start_button.draw(screen):
                 start_menu = False
         if start_menu_main == "tutorial":
-            screen.blit(tutorial_text_surface,tutorial_rect)
+            screen.blit(tutorial_text_surface, tutorial_rect)
             if back_button.draw(screen):
                 start_menu_main = "main"
     else:
@@ -115,16 +120,6 @@ while running:
         screen.blit(level_label, (10, 10))
 
         game.run()
-        #     Keybindings (Rhandell)
-        #    keys = pygame.key.get_pressed()
-        # if keys[pygame.K_a] and player.x - player_vel > 0: # Left
-        #    player.x -= player_vel
-        # if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH: # Right
-        #    player.x += player_vel
-        # if keys[pygame.K_w] and player.y - player_vel > 0: # Up
-        #    player.y -= player_vel
-        # if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
-        #    player.y += player_vel
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -142,7 +137,6 @@ while running:
     # Speed Of Slider (Shaq)
     b_pos += speed
     o_pos += speed
-
 
     # Puts game on 60fps (Niels)
     clock.tick(60)

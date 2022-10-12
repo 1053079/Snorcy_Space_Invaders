@@ -25,7 +25,7 @@ class Asteroid(pygame.sprite.Sprite):
 
     def move(self):  # score, destroyed):
         self.rect.move_ip(0, random.randint(3,5))
-        if (self.rect.bottom > 600):  # or destroyed == True:
+        if (self.rect.bottom > 620):  # or destroyed == True:
             self.rect.center = (random.randint(32, 600),(random.randint(-100, 0)))
             # score += 1
 
@@ -45,7 +45,7 @@ class AsteroidXY(pygame.sprite.Sprite):
 
     def move(self):  # , score, destroyed):
         self.rect.move_ip(1, 2)
-        if (self.rect.bottom > 600):  # or destroyed == True:
+        if (self.rect.bottom > 664):  # or destroyed == True:
             self.rect.center = (random.randint(0, 0), (random.randint(-50, 0)))
         #     score += 1
 

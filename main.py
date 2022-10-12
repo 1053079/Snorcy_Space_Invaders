@@ -4,6 +4,10 @@ from lib.game import Game
 
 pygame.init()
 
+# Background Music (Rhandell)
+pygame.mixer.music.load("assets/bgm.mp3")
+pygame.mixer.music.play(-1)  
+
 # Screen
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -23,8 +27,8 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 # Load button images (Rob)
-start_img = pygame.image.load('images/start-button2.png').convert_alpha()
-exit_img = pygame.image.load('images/exit_button2.png').convert_alpha()
+start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
+exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
 turtorial_image = pygame.image.load(
     "images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
@@ -34,13 +38,13 @@ background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 
 # Caption and icon (Rob)
-pygame.display.set_caption("SNORCY")
+pygame.display.set_caption("The Legend of Snorcy: Galaxy Invaders")
 icon = pygame.image.load('images/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
 font = pygame.font.Font('assets/Pixeltype.ttf', 120)
-title_surface = font.render('Space Shooter', False, (252, 194, 3))
+title_surface = font.render('The Legend of Snorcy', False, (207, 14, 0))
 title_rect = title_surface.get_rect(midtop=(400, 110))
 
 # Text Turtorial (Rob)
@@ -119,9 +123,6 @@ while running:
         screen.blit(background, (0, b_pos))
         screen.blit(overlap, (0, o_pos))
 
-        # Draw Player on screen (Rhandell)
-
-
         # Draw Text On Screen (Shaq)
         screen.blit(score_label, (10, 10))
         screen.blit(lives_label, (10, 40))
@@ -140,7 +141,7 @@ while running:
         # if keys[pygame.K_w] and player.y - player_vel > 0: # Up
         #    player.y -= player_vel
         # if keys[pygame.K_s] and player.y + player_vel + player.get_height() + 15 < HEIGHT: # Down
-        #    player.y += player_vel
+        #    player.y += player_vel  
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

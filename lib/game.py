@@ -11,6 +11,7 @@ SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
+
 class Game():
     def __init__(self):
         # Initial enemy spawn (Niels)
@@ -125,9 +126,9 @@ class Game():
         #      screen.blit(enemy.image, enemy.rect)
         #      destroyed = False
 
-        for enemy in self.enemyGroup:
-            score = enemy.move(score)  # , destroyed)
-            enemy.draw(screen)
+        # for enemy in self.enemyGroup:
+        #     score = enemy.move(score)  # , destroyed)
+        #     enemy.draw(screen)
 
     pygame.display.update()
     FramesPerSec.tick(FPS)

@@ -51,10 +51,11 @@ tutorial_text_surface = font_tutorial.render(
 tutorial_rect = tutorial_text_surface.get_rect(
     center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/10))
 arrowkeys_image = pygame.image.load("images/arrows.png").convert_alpha()
-arrowkeys_rect = arrowkeys_image.get_rect(midbottom = (200,350))
-font_arrow_text = pygame.font.Font('assets/Pixeltype.ttf',60)
-arrow_text_surface = font_arrow_text.render("To Move Around.", False,(252,194,3))
-arrow_rect = arrow_text_surface.get_rect(center = (40,100))
+arrowkeys_rect = arrowkeys_image.get_rect(midbottom=(200, 350))
+font_arrow_text = pygame.font.Font('assets/Pixeltype.ttf', 60)
+arrow_text_surface = font_arrow_text.render(
+    "To Move Around.", False, (252, 194, 3))
+arrow_rect = arrow_text_surface.get_rect(center=(40, 100))
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/Pixeltype.ttf', 30)
@@ -76,7 +77,7 @@ background = pygame.transform.rotate(background, 90)
 overlap = pygame.transform.rotate(overlap, 90)
 
 # Default Value For Level & Lives (Shaq)
-points = 1
+points = 0
 lives = 5
 
 # Time
@@ -94,6 +95,7 @@ points_label = font.render(f"Points: {points}", 1, (255, 255, 255))
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
 exit_button = Button(SCREEN_WIDTH/2, 280, exit_img, 1)
+restart_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(795 - 105, 595 - 62, back_image, 0.8)
 
@@ -102,6 +104,8 @@ destroyed = False
 
 game = Game()
 running = True
+game_start = False
+game_finish = False
 
 while running:
     screen.fill((BLACK))
@@ -116,12 +120,13 @@ while running:
                 start_menu_main = "tutorial"
             if start_button.draw(screen):
                 start_menu = False
+                game_start = True
         if start_menu_main == "tutorial":
             screen.blit(arrowkeys_image, arrowkeys_rect)
             screen.blit(tutorial_text_surface, tutorial_rect)
             if back_button.draw(screen):
                 start_menu_main = "main"
-    else:
+    if game_start:
         # Draw Background Image On Screen (Shaq)
         screen.blit(background, (0, b_pos))
         screen.blit(overlap, (0, o_pos))
@@ -134,6 +139,21 @@ while running:
         screen.blit(time_label, (10, 70))
 
         game.run()
+        if time == 0:
+            game_start = False
+            game_finish = True
+
+    if game_finish or lives == 0:
+        screen.fill((83, 41, 42))
+        screen.blit(title_surface, title_rect)
+        if restart_button.draw(screen):
+            game_start = True
+            time = 60
+            lives = 5
+            points = 0
+            game_finish = False
+        if exit_button.draw(screen):
+            running = False
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

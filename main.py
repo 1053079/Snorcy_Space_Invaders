@@ -76,8 +76,8 @@ lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
 level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
 
 # Create button instances (Rob)
-start_button = Button(SCREEN_WIDTH /8, 240, start_img, 1)
-exit_button = Button(SCREEN_WIDTH/2, 240, exit_img, 1)
+start_button = Button(SCREEN_WIDTH /8, 280, start_img, 1)
+exit_button = Button(SCREEN_WIDTH/2, 280, exit_img, 1)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(5, 5, back_image, 0.8)
 

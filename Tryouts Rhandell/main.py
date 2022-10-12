@@ -9,7 +9,7 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Rhandell Space Shooter Test")
 
 # Loading Images
-RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_red_small.png"))
+RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "assets\pixel_ship_red_small.png"))
 GREEN_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_green_small.png"))
 BLUE_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_blue_small.png"))
 
@@ -67,11 +67,11 @@ class Ship:
         elif self.cool_down_counter > 0:
             self.cool_down_counter += 1
 
-    def shoot(self):
-        if self.cool_down_counter == 0:
-            laser = Laser(x, y, self.laser_img)
-            self.lasers.append(laser)
-            self.cool_down_counter = 1
+    # def shoot(self):
+    #     if self.cool_down_counter == 0:
+    #         laser = Laser(x, y, self.laser_img)
+    #         self.lasers.append(laser)
+    #         self.cool_down_counter = 1
 
     def get_width(self):
         return self.ship_img.get_width()
@@ -177,24 +177,23 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-        # Game Controls
+        #Game Controls
             
-        # keys = pygame.key.get_pressed()
-        #if keys[pygame.K_a] and player.x - player_vel > 0:
-        #    player.x -= player_vel
-        #if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH:
-        #    player.x += player_vel
-        #if keys[pygame.K_w] and player.y - player_vel > 0:
-        #    player.y -= player_vel 
-        #if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT:
-        #    player.y += player_vel
-        #if keys[]
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a] and player.x - player_vel > 0:
+           player.x -= player_vel
+        if keys[pygame.K_d] and player.x + player_vel + player.get_width() < WIDTH:
+           player.x += player_vel
+        if keys[pygame.K_w] and player.y - player_vel > 0:
+           player.y -= player_vel 
+        if keys[pygame.K_s] and player.y + player_vel + player.get_height() < HEIGHT:
+           player.y += player_vel
 
-        #for enemy in enemies[:]:
-        #    enemy.move(enemy_vel)
-        #    if enemy.y + enemy.get_height() > HEIGHT:
-        #        lives -= 1
-        #        enemies.remove(enemy)
+        for enemy in enemies[:]:
+           enemy.move(enemy_vel)
+           if enemy.y + enemy.get_height() > HEIGHT:
+               lives -= 1
+               enemies.remove(enemy)
 
 
 main()

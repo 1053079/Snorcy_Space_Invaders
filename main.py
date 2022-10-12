@@ -27,26 +27,31 @@ start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
 exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
 tutorial_image = pygame.image.load("images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
-arrowkeys_image = pygame.image.load("images/move_space4.png").convert_alpha()
+arrowkeys_image = pygame.image.load("images/arrows.png").convert_alpha()
 
 # Display Background Image (Shaq)
 background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 
 # Caption and icon (Rob)
-pygame.display.set_caption("Snorcy: The Return of Thanos")
+pygame.display.set_caption("Snorcy: Shooter Game")
 icon = pygame.image.load('images/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
 font = pygame.font.Font('assets/Pixeltype.ttf',120) 
-title_surface = font.render('The Return of Thanos',False, (219,13,13))
+title_surface = font.render('Shooter Game',False, (252,194,3))
 title_rect = title_surface.get_rect(midtop = (400,110))
 
 # Text Turtorial (Rob)
-font_tutorial = pygame.font.Font('assets/Pixeltype.ttf',30)
-tutorial_text_surface = font_tutorial.render("Welcom to our game. In this game you need to move around to avoid the", False,(252,194,3))
-tutorial_rect = tutorial_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/4))
+font_tutorial = pygame.font.Font('assets/Pixeltype.ttf',60)
+tutorial_text_surface = font_tutorial.render("Welcome to our game.", False,(252,194,3))
+tutorial_rect = tutorial_text_surface.get_rect(center = (SCREEN_WIDTH/2,SCREEN_HEIGHT/10))
+arrowkeys_image = pygame.image.load("images/arrows.png").convert_alpha()
+arrowkeys_rect = arrowkeys_image.get_rect(midbottom = (200,350))
+font_arrow_text = pygame.font.Font('assets/Pixeltype.ttf',60)
+arrow_text_surface = font_arrow_text.render("To Move Around.", False,(252,194,3))
+arrow_rect = arrow_text_surface.get_rect(center = (40,100))
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/Pixeltype.ttf',30)
@@ -80,7 +85,7 @@ level_label = font.render(f"Level: {level}", 1, (255, 255, 255))
 start_button = Button(SCREEN_WIDTH /8, 280, start_img, 1)
 exit_button = Button(SCREEN_WIDTH/2, 280, exit_img, 1)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
-back_button = Button(5, 5, back_image, 0.8)
+back_button = Button(795 - 105, 595 - 62, back_image, 0.8)
 
 score = 0
 destroyed = False
@@ -102,6 +107,7 @@ while running:
             if start_button.draw(screen):
                 start_menu = False
         if start_menu_main == "tutorial":
+            screen.blit(arrowkeys_image, arrowkeys_rect)
             screen.blit(tutorial_text_surface,tutorial_rect)
             if back_button.draw(screen):
                 start_menu_main = "main"

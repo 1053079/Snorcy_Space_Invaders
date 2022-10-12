@@ -1,6 +1,7 @@
 from tkinter import W
 import pygame
 import os
+from laser import Laser
 
 pygame.init()
 
@@ -69,7 +70,7 @@ def main():
             player.y += velocity
             
         if keys_pressed[pygame.K_SPACE]:
-            bullet_list.append([player.x + 15, player.y - 20])
+            Laser.update
 
 
 

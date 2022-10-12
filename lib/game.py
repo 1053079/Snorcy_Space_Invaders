@@ -32,9 +32,8 @@ class Game():
         self.asteroidXYGroup = pygame.sprite.Group()
         self.asteroidXYGroup.add(AXY1)
 
-
-        self.enemyGroup= pygame.sprite.Group()
-        self.enemyGroup.add#(E1)
+        self.enemyGroup = pygame.sprite.Group()
+        self.enemyGroup.add  # (E1)
 
     # Function to spawn multiple enemies 1 (Niels)
 
@@ -65,15 +64,14 @@ class Game():
             score = asteroidXY.move()
             asteroidXY.draw(screen)
 
-        #for asteroid in self.asteroidGroup:
+        # for asteroid in self.asteroidGroup:
         #   if pygame.sprite.groupcollide(self.asteroidGroup, self.asteroidXYGroup,False, False):
         #      damage = pygame.mixer.Sound('assets/thud.wav')
         #      damage.play()
-    
+
         #      pygame.display.update()
 
-    
-        #for asteroid in self.asteroidGroup:
+        # for asteroid in self.asteroidGroup:
         #    if pygame.sprite.groupcollide(self.asteroidGroup, self.enemyGroup,False , False):
         #     explosion = pygame.mixer.Sound('wav/explosion.wav')
         #     explosion.set_volume(0.5)
@@ -82,21 +80,21 @@ class Game():
         #     score = score + 5
         #     asteroid.move(score, destroyed)
         #     screen.blit(asteroid.image, asteroid.rect)
-          
+
         #     destroyed = False
 
-        #for asteroid in self.asteroidGroup:
+        # for asteroid in self.asteroidGroup:
          #score = asteroid.move(score, destroyed)
-         #asteroid.draw(screen)
+         # asteroid.draw(screen)
 
      # Diagnoal Asteroids
-        #for asteroidXY in self.asteroidXYGroup:
+        # for asteroidXY in self.asteroidXYGroup:
         #     if pygame.sprite.groupcollide(self.asteroidXYGroup,self.asteroidGroup,self.enemyGroup, False):
         #      damage = pygame.mixer.Sound('assets/thud.wav')
         #      damage.play()
         #      pygame.display.update()
-         
-        #for asteroidXY in self.asteroidXYGroup:
+
+        # for asteroidXY in self.asteroidXYGroup:
         #     if pygame.sprite.groupcollide(self.asteroidXYGroup,self.asteroidGroup, self.enemyGroup, False):
         #       explosion = pygame.mixer.Sound('assets/explosion2.wav')
         #       explosion.set_volume(0.5)
@@ -105,22 +103,20 @@ class Game():
         #       #score = score + 5
         #       asteroidXY.move#(score, destroyed)
         #       screen.blit(asteroidXY.image, asteroidXY.rect)
-        #       destroyed = False     
-    
-        #for asteroidXY in self.asteroidXYGroup:
+        #       destroyed = False
+
+        # for asteroidXY in self.asteroidXYGroup:
          #score = asteroidXY.move(score, destroyed)
-         #asteroidXY.draw(screen)
-        
+         # asteroidXY.draw(screen)
 
      # Enemy mechanics
-        #for enemy in self.enemyGroup:
+        # for enemy in self.enemyGroup:
         #     if pygame.sprite.groupcollide(self.enemyGroup, self.asteroidGroup,False, False):
         #       damage = pygame.mixer.Sound('assets/thud.wav')
         #       damage.play()
         #       pygame.display.update()
-        
 
-        #for enemy in self.enemyGroup:
+        # for enemy in self.enemyGroup:
         #     if pygame.sprite.groupcollide(self.enemyGroup, self.asteroidGroup,False, False):
         #      explosion = pygame.mixer.Sound('wav/explosion.wav')
         #      explosion.set_volume(0.5)
@@ -129,13 +125,11 @@ class Game():
         #      score = score + 5
         #      enemy.move(score, destroyed)
         #      screen.blit(enemy.image, enemy.rect)
-        #      destroyed = False   
+        #      destroyed = False
 
         for enemy in self.enemyGroup:
-         score = enemy.move(score, destroyed)
-         enemy.draw(screen)
-
+            score = enemy.move(score)  # , destroyed)
+            enemy.draw(screen)
 
     pygame.display.update()
     FramesPerSec.tick(FPS)
-

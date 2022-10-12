@@ -27,6 +27,7 @@ start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
 exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
 tutorial_image = pygame.image.load("images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
+arrowkeys_image = pygame.image.load("images/move_space4.png").convert_alpha()
 
 # Display Background Image (Shaq)
 background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')

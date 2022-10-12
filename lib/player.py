@@ -12,7 +12,6 @@ clock = pygame.time.Clock
 
 # Player Class
 
-
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
@@ -71,7 +70,7 @@ class Player(Ship):
 
     player_vel = 7
 
-    player = Player(325, 650)
+#    player = Player(325, 650)
 
 
 #Game Controls

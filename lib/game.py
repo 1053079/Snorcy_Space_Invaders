@@ -1,6 +1,7 @@
 import pygame
 from lib.asteroid import Asteroid, AsteroidXY
 from lib.enemy import Enemy
+from lib.player import Player
 
 FPS = 60
 FramesPerSec = pygame.time.Clock()

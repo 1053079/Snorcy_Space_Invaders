@@ -1,6 +1,5 @@
 import pygame
 from lib.button import Button
-from lib.player import Player
 from lib.game import Game
 
 pygame.init()
@@ -18,7 +17,7 @@ start_menu = True
 start_menu_main = "main"
 play_game = False
 
-# Colors
+# Colours
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)

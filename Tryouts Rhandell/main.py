@@ -67,11 +67,11 @@ class Ship:
         elif self.cool_down_counter > 0:
             self.cool_down_counter += 1
 
-    def shoot(self):
-        if self.cool_down_counter == 0:
-            laser = Laser(x, y, self.laser_img)
-            self.lasers.append(laser)
-            self.cool_down_counter = 1
+    # def shoot(self):
+    #     if self.cool_down_counter == 0:
+    #         laser = Laser(x, y, self.laser_img)
+    #         self.lasers.append(laser)
+    #         self.cool_down_counter = 1
 
     def get_width(self):
         return self.ship_img.get_width()

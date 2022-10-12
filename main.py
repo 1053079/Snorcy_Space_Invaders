@@ -46,10 +46,8 @@ title_rect = title_surface.get_rect(midtop=(400, 110))
 
 # Text Turtorial (Rob)
 font_tutorial = pygame.font.Font('assets/Pixeltype.ttf', 60)
-tutorial_text_surface = font_tutorial.render(
-    "Welcome to our game.", False, (252, 194, 3))
-tutorial_rect = tutorial_text_surface.get_rect(
-    center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/10))
+tutorial_text_surface = font_tutorial.render("Welcome to our game.", False, (252, 194, 3))
+tutorial_rect = tutorial_text_surface.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/10))
 arrowkeys_image = pygame.image.load("images/arrows.png").convert_alpha()
 arrowkeys_rect = arrowkeys_image.get_rect(midbottom=(200, 350))
 font_arrow_text = pygame.font.Font('assets/Pixeltype.ttf', 60)
@@ -124,6 +122,7 @@ while running:
         if start_menu_main == "tutorial":
             screen.blit(arrowkeys_image, arrowkeys_rect)
             screen.blit(tutorial_text_surface, tutorial_rect)
+            screen.blit(arrow_text_surface,arrow_rect)
             if back_button.draw(screen):
                 start_menu_main = "main"
     if game_start:

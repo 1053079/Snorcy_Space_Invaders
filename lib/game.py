@@ -21,14 +21,20 @@ class Game():
         A1 = Asteroid()
         A2 = Asteroid()
         A3 = Asteroid()
+        A4 = Asteroid()
         #E1 = Enemy()
         AXY1 = AsteroidXY()
 
-    # def astroids(self):
+        # Initializing player
+        player = Player((SCREEN_WIDTH/2, SCREEN_HEIGHT))
+        self.player = pygame.sprite.GroupSingle(player)
+
+        # def astroids(self):
         self.asteroidGroup = pygame.sprite.Group()
         self.asteroidGroup.add(A1)
         self.asteroidGroup.add(A2)
         self.asteroidGroup.add(A3)
+        self.asteroidGroup.add(A4)
 
         self.asteroidXYGroup = pygame.sprite.Group()
         self.asteroidXYGroup.add(AXY1)
@@ -63,6 +69,9 @@ class Game():
             score = asteroidXY.move()
             asteroidXY.draw(screen)
 
+        self.player.draw(screen)
+        self.player.update()
+
         # for asteroid in self.asteroidGroup:
         #   if pygame.sprite.groupcollide(self.asteroidGroup, self.asteroidXYGroup,False, False):
         #      damage = pygame.mixer.Sound('assets/thud.wav')
@@ -83,8 +92,8 @@ class Game():
         #     destroyed = False
 
         # for asteroid in self.asteroidGroup:
-         #score = asteroid.move(score, destroyed)
-         # asteroid.draw(screen)
+        #score = asteroid.move(score, destroyed)
+        # asteroid.draw(screen)
 
      # Diagnoal Asteroids
         # for asteroidXY in self.asteroidXYGroup:
@@ -105,8 +114,8 @@ class Game():
         #       destroyed = False
 
         # for asteroidXY in self.asteroidXYGroup:
-         #score = asteroidXY.move(score, destroyed)
-         # asteroidXY.draw(screen)
+        #score = asteroidXY.move(score, destroyed)
+        # asteroidXY.draw(screen)
 
      # Enemy mechanics
         # for enemy in self.enemyGroup:

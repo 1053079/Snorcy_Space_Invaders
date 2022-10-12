@@ -23,8 +23,8 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 # Load button images (Rob)
-start_img = pygame.image.load('images/start-button2.png').convert_alpha()
-exit_img = pygame.image.load('images/exit_button2.png').convert_alpha()
+start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
+exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
 turtorial_image = pygame.image.load("images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
 
@@ -33,13 +33,13 @@ background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
 
 # Caption and icon (Rob)
-pygame.display.set_caption("SNORCY")
+pygame.display.set_caption("Snorcy: The Return of Thanos")
 icon = pygame.image.load('images/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
 font = pygame.font.Font('assets/Pixeltype.ttf',120) 
-title_surface = font.render('Space Shooter',False, (252,194,3))
+title_surface = font.render('The Return of Thanos',False, (219,13,13))
 title_rect = title_surface.get_rect(midtop = (400,110))
 
 # Text Turtorial (Rob)

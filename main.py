@@ -150,6 +150,8 @@ while running:
         screen.blit(background, (0, b_pos))
         screen.blit(overlap, (0, o_pos))
 
+        game.run()
+
         # Draw Text On Screen (Shaq)
         screen.blit(lives_label, (10, 10))
         screen.blit(points_label, (10, 40))
@@ -157,7 +159,6 @@ while running:
         time_label = font.render(f"Time: {time}", 1, (255, 255, 255))
         screen.blit(time_label, (10, 70))
 
-        game.run()
         if time == 0:
             game_start = False
             game_finish = True

@@ -1,12 +1,13 @@
 import pygame
 from lib.button import Button
 from lib.game import Game
+from lib.screens import Screen
 
 pygame.init()
 
 # Background Music (Rhandell)
 pygame.mixer.music.load("assets/bgm.mp3")
-pygame.mixer.music.play(-1)  
+pygame.mixer.music.play(-1)
 
 # Screen
 SCREEN_WIDTH = 800
@@ -23,7 +24,8 @@ start_menu_main = "main"
 # Load button images (Rob)
 start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
 exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
-tutorial_image = pygame.image.load("images/SnorcyTutorialButton.png").convert_alpha()
+tutorial_image = pygame.image.load(
+    "images/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
 arrowkeys_image = pygame.image.load("images/arrows.png").convert_alpha()
 
@@ -43,25 +45,33 @@ title_rect = title_surface.get_rect(midtop=(400, 110))
 
 # Text Tutorial (Rob)
 font_tutorial = pygame.font.Font('assets/Pixeltype.ttf', 60)
-tutorial_text_surface = font_tutorial.render("Welcome to our game.", False, (252, 194, 3))
+tutorial_text_surface = font_tutorial.render(
+    "Welcome to our game.", False, (252, 194, 3))
 tutorial_rect = tutorial_text_surface.get_rect(center=(400, 60))
 font_tutorial_explain = pygame.font.Font('assets/Pixeltype.ttf', 35)
-arrow_text_surface = font_tutorial_explain.render("To Move Around Use The Arrowkeys Or W.A.S.D.", False, (255, 255, 255))
+arrow_text_surface = font_tutorial_explain.render(
+    "To Move Around Use The Arrowkeys Or W.A.S.D.", False, (255, 255, 255))
 arrow_rect = arrow_text_surface.get_rect(center=(400, 240))
-spacebar_text_surface = font_tutorial_explain.render("To Shoot Lasers Use Your Spacebar",False,(255,255,255))
-spacebar_text_rect = spacebar_text_surface.get_rect(center=(400,375))
-tutorial1 = font_tutorial_explain.render("In This Game You Have One Minute To Eliminate The Aliens'.",False,(252, 194, 3))
-tutorial1_rect = tutorial1.get_rect(center=(400,100))
-tutorial2 = font_tutorial_explain.render("If You Have Survived For One Minute, You Have Won!",False,(252, 194, 3))
-tutorial2_rect = tutorial2.get_rect(center=(400,130))
-tutorial3 = font_tutorial_explain.render("You Only Have Five Lives So Be Carfull!",False,(252, 194, 3))
-tutorial3_rect = tutorial3.get_rect(center=(400,160))
-tutorial4 = font_tutorial_explain.render("If You Get Hit By A Astroid Or A Alien Get Through One Life Will Be Earesd.",False,(252, 194, 3))
-tutorial4_rect = tutorial4.get_rect(center=(400,190))
-tutorial5 = font_tutorial_explain.render("We Hope You Will Enjoy Our Game!",False,(252, 194, 3))
+spacebar_text_surface = font_tutorial_explain.render(
+    "To Shoot Lasers Use Your Spacebar", False, (255, 255, 255))
+spacebar_text_rect = spacebar_text_surface.get_rect(center=(400, 375))
+tutorial1 = font_tutorial_explain.render(
+    "In This Game You Have One Minute To Eliminate The Aliens'.", False, (252, 194, 3))
+tutorial1_rect = tutorial1.get_rect(center=(400, 100))
+tutorial2 = font_tutorial_explain.render(
+    "If You Have Survived For One Minute, You Have Won!", False, (252, 194, 3))
+tutorial2_rect = tutorial2.get_rect(center=(400, 130))
+tutorial3 = font_tutorial_explain.render(
+    "You Only Have Five Lives So Be Carfull!", False, (252, 194, 3))
+tutorial3_rect = tutorial3.get_rect(center=(400, 160))
+tutorial4 = font_tutorial_explain.render(
+    "If You Get Hit By A Astroid Or A Alien Get Through One Life Will Be Earesd.", False, (252, 194, 3))
+tutorial4_rect = tutorial4.get_rect(center=(400, 190))
+tutorial5 = font_tutorial_explain.render(
+    "We Hope You Will Enjoy Our Game!", False, (252, 194, 3))
 tutorial5_rect = tutorial5.get_rect(center=(400, 490))
-tutorial6 = font_tutorial_explain.render("GOOD LUCK!",False,(252, 194, 3))
-tutorial6_rect = tutorial6.get_rect(center=(400,520))
+tutorial6 = font_tutorial_explain.render("GOOD LUCK!", False, (252, 194, 3))
+tutorial6_rect = tutorial6.get_rect(center=(400, 520))
 
 # Images Tutorial
 arrowkeys_image = pygame.image.load("images/arrows2.png").convert_alpha()
@@ -72,8 +82,10 @@ spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/Pixeltype.ttf', 30)
-pause_text_surface = font_pause.render("Press Esc to pause", False, (252, 194, 3))
-pause_rect = pause_text_surface.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
+pause_text_surface = font_pause.render(
+    "Press Esc to pause", False, (252, 194, 3))
+pause_rect = pause_text_surface.get_rect(
+    center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
 
 
 # Position 1st And 2nd Background Image (Shaq)
@@ -92,7 +104,7 @@ points = 0
 lives = 5
 
 # Time
-time = 60
+time = 6
 TIMER = pygame.USEREVENT
 pygame.time.set_timer(TIMER, 1000)
 
@@ -113,10 +125,13 @@ back_button = Button(795 - 105, 595 - 62, back_image, 0.8)
 score = 0
 destroyed = False
 
-game = Game()
 running = True
 game_start = False
 game_finish = False
+game_lose = False
+
+game = Game()
+screens = Screen(time, points, lives)
 
 while running:
 
@@ -136,13 +151,13 @@ while running:
             screen.blit(tutorial_text_surface, tutorial_rect)
             screen.blit(arrow_text_surface, arrow_rect)
             screen.blit(spacebar_image, spacebar_rect)
-            screen.blit(spacebar_text_surface,spacebar_text_rect)
-            screen.blit(tutorial1,tutorial1_rect)
-            screen.blit(tutorial2,tutorial2_rect)
-            screen.blit(tutorial3,tutorial3_rect)
-            screen.blit(tutorial4,tutorial4_rect)
-            screen.blit(tutorial5,tutorial5_rect)
-            screen.blit(tutorial6,tutorial6_rect)
+            screen.blit(spacebar_text_surface, spacebar_text_rect)
+            screen.blit(tutorial1, tutorial1_rect)
+            screen.blit(tutorial2, tutorial2_rect)
+            screen.blit(tutorial3, tutorial3_rect)
+            screen.blit(tutorial4, tutorial4_rect)
+            screen.blit(tutorial5, tutorial5_rect)
+            screen.blit(tutorial6, tutorial6_rect)
             if back_button.draw(screen):
                 start_menu_main = "main"
     if game_start:
@@ -162,18 +177,24 @@ while running:
         if time == 0:
             game_start = False
             game_finish = True
+        if lives == 0:
+            game_start = False
+            game_lose = True
 
-    if game_finish or lives == 0:
-        screen.fill((83, 41, 42))
-        screen.blit(title_surface, title_rect)
-        if restart_button.draw(screen):
-            game_start = True
-            time = 60
-            lives = 5
-            points = 0
-            game_finish = False
-        if exit_button.draw(screen):
-            running = False
+    if game_lose:
+        screens.losing_screen(game_start, game_finish, running)
+    if game_finish:
+        screens.winning_screen(game_start, game_finish, running)
+        # screen.fill((83, 41, 42))
+        # screen.blit(title_surface, title_rect)
+        # if restart_button.draw(screen):
+        #     game_start = True
+        #     time = 60
+        #     lives = 5
+        #     points = 0
+        #     game_finish = False
+        # if exit_button.draw(screen):
+        #     running = False
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

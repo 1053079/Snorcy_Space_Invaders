@@ -75,29 +75,12 @@ arrowkeys_rect = arrowkeys_image.get_rect(center=(400, 300))
 spacebar_image = pygame.image.load("images/spacebar2.png").convert_alpha()
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
-
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/Pixeltype.ttf', 30)
 pause_text_surface = font_pause.render(
     "Press Esc to pause", False, (252, 194, 3))
 pause_rect = pause_text_surface.get_rect(
     center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
-
-# Default Value For Level & Lives (Shaq)
-points = 0
-lives = 5
-
-# Time
-time = 6
-TIMER = pygame.USEREVENT
-pygame.time.set_timer(TIMER, 1000)
-
-# Font for text (Shaq)
-font = pygame.font.SysFont("Showcard Gothic", 30)
-
-# Draw Text (Shaq)
-lives_label = font.render(f"Lives: {lives}", 1, (255, 255, 255))
-points_label = font.render(f"Points: {points}", 1, (255, 255, 255))
 
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
@@ -106,7 +89,6 @@ restart_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(795 - 105, 595 - 62, back_image, 0.8)
 
-score = 0
 destroyed = False
 
 running = True
@@ -115,7 +97,7 @@ game_finish = False
 game_lose = False
 
 game = Game()
-screens = Screen(time, points, lives)
+screens = Screen(game.time, game.points, game.lives)
 
 while running:
 
@@ -148,10 +130,10 @@ while running:
 
         game.run()
 
-        if time == 0:
+        if game.time == 0:
             game_start = False
             game_finish = True
-        if lives == 0:
+        if game.lives == 0:
             game_start = False
             game_lose = True
 
@@ -177,8 +159,8 @@ while running:
             # Respawns enemies every 7.5 seconds (Niels)
             game.create_multiple_enemies(2, 2, 2)
         if event.type == pygame.USEREVENT and start_menu == False:
-            time_label = font.render(f"Time: {time}", 1, (255, 255, 255))
-            time -= 1
+            time_label = font.render(f"Time: {game.time}", 1, (255, 255, 255))
+            game.time -= 1
 
     # Puts game on 60fps (Niels)
     clock.tick(60)

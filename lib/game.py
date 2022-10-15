@@ -15,7 +15,6 @@ class Game():
     def __init__(self):
         # Initial enemy spawn (Niels)
         self.create_multiple_enemies(2, 2, 2)
-
         # Adds the Asteroids into the game
         A1 = Asteroid()
         A2 = Asteroid()
@@ -59,7 +58,7 @@ class Game():
         self.points = 0
         self.lives = 5
         # Time
-        self.time = 6
+        self.time = 60
         TIMER = pygame.USEREVENT
         pygame.time.set_timer(TIMER, 1000)
         # Font for text (Shaq)
@@ -71,6 +70,7 @@ class Game():
             f"Points: {self.points}", 1, (255, 255, 255))
 
     # Function to spawn multiple enemies(Niels)
+
     def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
         # Push as many enemies 1 in a list (Niels)
         self.enemies = []

@@ -82,6 +82,17 @@ pause_text_surface = font_pause.render(
 pause_rect = pause_text_surface.get_rect(
     center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
 
+# Title game won (Niels)
+title_win_1 = font.render('You Have Won!', False, (219, 13, 13))
+title_win_1_rect = title_surface.get_rect(center=(550, 120))
+title_win_2 = font.render('Congratulations!', False, (219, 13, 13))
+title_win_2_rect = title_surface.get_rect(center=(500, 225))
+# Title game lost (Niels)
+title_lose_1 = font.render('You Have Lost!', False, (219, 13, 13))
+title_lose_1_rect = title_surface.get_rect(center=(525, 130))
+title_lose_2 = font.render('Try Again', False, (219, 13, 13))
+title_lose_2_rect = title_surface.get_rect(center=(630, 215))
+
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
 exit_button = Button(SCREEN_WIDTH/2, 280, exit_img, 1)
@@ -93,11 +104,11 @@ destroyed = False
 
 running = True
 game_start = False
-game_finish = False
+game_won = False
 game_lose = False
 
 game = Game()
-screens = Screen(game.time, game.points, game.lives)
+screens = Screen()
 
 while running:
 
@@ -132,25 +143,43 @@ while running:
 
         if game.time == 0:
             game_start = False
-            game_finish = True
+            game_won = True
         if game.lives == 0:
             game_start = False
             game_lose = True
 
+    if game_won:
+        screen.fill((83, 41, 42))
+        screen.blit(title_win_1, title_win_1_rect)
+        screen.blit(title_win_2, title_win_2_rect)
+        if restart_button.draw(screen):
+            game_start = True
+            # print('yes', game_start)
+            game.time = 60
+            game.lives = 5
+            game.points = 0
+            game_won = False
+        if exit_button.draw(screen):
+            print('also')
+            running = False
+
+    # screens.winning_screen(game_start, game_won, running)
     if game_lose:
-        screens.losing_screen(game_start, game_finish, running)
-    if game_finish:
-        screens.winning_screen(game_start, game_finish, running)
-        # screen.fill((83, 41, 42))
-        # screen.blit(title_surface, title_rect)
-        # if restart_button.draw(screen):
-        #     game_start = True
-        #     time = 60
-        #     lives = 5
-        #     points = 0
-        #     game_finish = False
-        # if exit_button.draw(screen):
-        #     running = False
+        screen.fill((83, 41, 42))
+        screen.blit(title_lose_1, title_lose_1_rect)
+        screen.blit(title_lose_2, title_lose_2_rect)
+
+        if restart_button.draw(screen):
+            print('yes')
+            game_start = True
+            game.time = 60
+            game.lives = 5
+            game.points = 0
+            game_finish = False
+        if exit_button.draw(screen):
+            print('also')
+            running = False
+        # screens.losing_screen(game_start, game_won, running)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

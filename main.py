@@ -29,10 +29,6 @@ tutorial_image = pygame.image.load(
 back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
 arrowkeys_image = pygame.image.load("images/arrows.png").convert_alpha()
 
-# Display Background Image (Shaq)
-background = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
-overlap = pygame.image.load('Tryout Shaq/Images/Galaxy2-800x600.png')
-
 # Caption and icon (Rob)
 pygame.display.set_caption("Snorcy: Shooter Game")
 icon = pygame.image.load('images/Snow1.png').convert()
@@ -86,18 +82,6 @@ pause_text_surface = font_pause.render(
     "Press Esc to pause", False, (252, 194, 3))
 pause_rect = pause_text_surface.get_rect(
     center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
-
-
-# Position 1st And 2nd Background Image (Shaq)
-b_pos = 0
-o_pos = -600
-
-# Speed Automatic Scroller (Shaq)
-speed = 0.5
-
-# Rotate The Image With Degrees (Shaq)
-background = pygame.transform.rotate(background, 90)
-overlap = pygame.transform.rotate(overlap, 90)
 
 # Default Value For Level & Lives (Shaq)
 points = 0
@@ -161,18 +145,8 @@ while running:
             if back_button.draw(screen):
                 start_menu_main = "main"
     if game_start:
-        # Draw Background Image On Screen (Shaq)
-        screen.blit(background, (0, b_pos))
-        screen.blit(overlap, (0, o_pos))
 
         game.run()
-
-        # Draw Text On Screen (Shaq)
-        screen.blit(lives_label, (10, 10))
-        screen.blit(points_label, (10, 40))
-
-        time_label = font.render(f"Time: {time}", 1, (255, 255, 255))
-        screen.blit(time_label, (10, 70))
 
         if time == 0:
             game_start = False
@@ -205,16 +179,6 @@ while running:
         if event.type == pygame.USEREVENT and start_menu == False:
             time_label = font.render(f"Time: {time}", 1, (255, 255, 255))
             time -= 1
-
-    # Background Slider (Shaq)
-    if b_pos >= +SCREEN_HEIGHT:
-        b_pos = -SCREEN_HEIGHT
-    if o_pos >= +SCREEN_HEIGHT:
-        o_pos = -SCREEN_HEIGHT
-
-    # Speed Of Slider (Shaq)
-    b_pos += speed
-    o_pos += speed
 
     # Puts game on 60fps (Niels)
     clock.tick(60)

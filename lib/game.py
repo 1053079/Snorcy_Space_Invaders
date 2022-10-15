@@ -11,7 +11,6 @@ SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
-
 class Game():
     def __init__(self):
         # Initial enemy spawn (Niels)
@@ -42,20 +41,77 @@ class Game():
         self.enemyGroup = pygame.sprite.Group()
         self.enemyGroup.add  # (E1)
 
-    # Function to spawn multiple enemies 1 (Niels)
+        # Display Background Image (Shaq)
+        self.background = pygame.image.load(
+            'Tryout Shaq/Images/Galaxy2-800x600.png')
+        self.overlap = pygame.image.load(
+            'Tryout Shaq/Images/Galaxy2-800x600.png')
+        # Rotate The Image With Degrees (Shaq)
+        self.background = pygame.transform.rotate(self.background, 90)
+        self.overlap = pygame.transform.rotate(self.overlap, 90)
+        # Position 1st And 2nd Background Image (Shaq)
+        self.b_pos = 0
+        self.o_pos = -600
+        # Speed Automatic Scroller (Shaq)
+        self.speed = 1
+
+        # Default Value For Level & Lives (Shaq)
+        self.points = 0
+        self.lives = 5
+        # Time
+        self.time = 6
+        TIMER = pygame.USEREVENT
+        pygame.time.set_timer(TIMER, 1000)
+        # Font for text (Shaq)
+        self.font = pygame.font.SysFont("Showcard Gothic", 30)
+        # Draw Text (Shaq)
+        self.lives_label = self.font.render(
+            f"Lives: {self.lives}", 1, (255, 255, 255))
+        self.points_label = self.font.render(
+            f"Points: {self.points}", 1, (255, 255, 255))
+
+    # Function to spawn multiple enemies(Niels)
     def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
         # Push as many enemies 1 in a list (Niels)
         self.enemies = []
-        number_of_enemies = num_enemy_1
-        for num in range(number_of_enemies):
+        num_of_enemies_1 = num_enemy_1
+        num_of_enemies_2 = num_enemy_2
+        num_of_enemies_3 = num_enemy_3
+        for num in range(num_of_enemies_1):
             self.enemies.append(Enemy('alien1', self.enemies))
-        for num in range(number_of_enemies):
+        for num in range(num_of_enemies_2):
             self.enemies.append(Enemy('alien2', self.enemies))
-        for num in range(number_of_enemies):
+        for num in range(num_of_enemies_3):
             self.enemies.append(Enemy('alien3', self.enemies))
+
+    # Function for the moving background
+    def moving_background(self):
+        # Background Slider (Shaq)
+        if self.b_pos >= +SCREEN_HEIGHT:
+            self.b_pos = -SCREEN_HEIGHT
+        if self.o_pos >= +SCREEN_HEIGHT:
+            self.o_pos = -SCREEN_HEIGHT
+
+        # Speed Of Slider (Shaq)
+        self.b_pos += self.speed
+        self.o_pos += self.speed
+
+        # Draw Background Image On Screen (Shaq)
+        screen.blit(self.background, (0, self.b_pos))
+        screen.blit(self.overlap, (0, self.o_pos))
+
+    def hud(self):
+        # Draw Text On Screen (Shaq)
+        screen.blit(self.lives_label, (10, 10))
+        screen.blit(self.points_label, (10, 40))
+
+        time_label = self.font.render(f"Time: {self.time}", 1, (255, 255, 255))
+        screen.blit(time_label, (10, 70))
 
     # Function for what the game needs to run (Niels)
     def run(self):
+        self.moving_background()
+
         # Loops through the enemies list and renders the enemies (Niels)
         for enemies in self.enemies:
             enemies.render()
@@ -71,6 +127,7 @@ class Game():
 
         self.player.draw(screen)
         self.player.update()
+        self.hud()
 
         # for asteroid in self.asteroidGroup:
         #   if pygame.sprite.groupcollide(self.asteroidGroup, self.asteroidXYGroup,False, False):

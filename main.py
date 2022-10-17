@@ -42,7 +42,7 @@ title_rect = title_surface.get_rect(midtop=(400, 110))
 # Text Tutorial (Rob)
 font_tutorial = pygame.font.Font('assets/Pixeltype.ttf', 60)
 tutorial_text_surface = font_tutorial.render(
-    "Welcome to our game.", False, (252, 194, 3))
+    "Welcome To Our Game.", False, (252, 194, 3))
 tutorial_rect = tutorial_text_surface.get_rect(center=(400, 60))
 font_tutorial_explain = pygame.font.Font('assets/Pixeltype.ttf', 35)
 arrow_text_surface = font_tutorial_explain.render(
@@ -58,10 +58,10 @@ tutorial2 = font_tutorial_explain.render(
     "If You Have Survived For One Minute, You Have Won!", False, (252, 194, 3))
 tutorial2_rect = tutorial2.get_rect(center=(400, 130))
 tutorial3 = font_tutorial_explain.render(
-    "You Only Have Five Lives So Be Carfull!", False, (252, 194, 3))
+    "You Only Have Five Lives So Be Careful!", False, (252, 194, 3))
 tutorial3_rect = tutorial3.get_rect(center=(400, 160))
 tutorial4 = font_tutorial_explain.render(
-    "If You Get Hit By A Astroid Or A Alien Get Through One Life Will Be Earesd.", False, (252, 194, 3))
+    "If You Get Hit By An Astroid Or An Alien Gets Through One Life Will Be Earesd.", False, (252, 194, 3))
 tutorial4_rect = tutorial4.get_rect(center=(400, 190))
 tutorial5 = font_tutorial_explain.render(
     "We Hope You Will Enjoy Our Game!", False, (252, 194, 3))

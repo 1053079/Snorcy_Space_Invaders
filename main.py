@@ -71,7 +71,7 @@ tutorial6 = font_tutorial_explain.render("GOOD LUCK!", False, (252, 194, 3))
 tutorial6_rect = tutorial6.get_rect(center=(400, 520))
 
 # Images Tutorial
-arrowkeys_image = pygame.image.load("images/arrows2.png").convert_alpha()
+arrowkeys_image = pygame.image.load("images/SnorcyArrowButton.png").convert_alpha()
 arrowkeys_rect = arrowkeys_image.get_rect(center=(400, 300))
 spacebar_image = pygame.image.load("images/SnorcySpaceButton.png").convert_alpha()
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))

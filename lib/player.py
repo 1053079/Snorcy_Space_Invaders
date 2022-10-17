@@ -1,4 +1,5 @@
 import pygame
+from lib.laser import Laser
 
 # Screen
 SCREEN_WIDTH = 800
@@ -19,6 +20,12 @@ class Player(pygame.sprite.Sprite):
         # self.mask = pygame.mask.from_surface(self.ship_img)
         # self.cool_down_counter = 0
 
+    def shoot(self):
+        if self.cool_down_counter == 0:
+            laser = Laser(self.x-20, self.y, self.laser_img)
+            self.lasers.append(laser)
+            self.cool_down_counter = 1
+
     def movement(self):
         keys = pygame.key.get_pressed()
         # Left
@@ -33,6 +40,9 @@ class Player(pygame.sprite.Sprite):
         # Down
         if keys[pygame.K_s]:
             self.rect.y += self.vel
+        # Shoot
+        if keys[pygame.K_SPACE]:
+            Player.shoot()
 
     def constraint(self):
         # Constraint left

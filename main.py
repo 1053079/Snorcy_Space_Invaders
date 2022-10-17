@@ -31,13 +31,13 @@ back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
 arrowkeys_image = pygame.image.load("images/arrows.png").convert_alpha()
 
 # Caption and icon (Rob)
-pygame.display.set_caption("Snorcy: Shooter Game")
+pygame.display.set_caption("Snorcy: Galactic Shooter Game")
 icon = pygame.image.load('images/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
 font = pygame.font.Font('assets/Pixeltype.ttf', 120)
-title_surface = font.render('The Return of Thanos', False, (219, 13, 13))
+title_surface = font.render('Invaders of Snorcy', False, (219, 13, 13))
 title_rect = title_surface.get_rect(midtop=(400, 110))
 
 # Text Tutorial (Rob)

@@ -8,7 +8,7 @@ pygame.init()
 # Background Music (Rhandell)
 pygame.mixer.music.load("assets/bgm.mp3")
 pygame.mixer.music.play(-1)
-pygame.mixer.music.set_volume(0.6)
+pygame.mixer.music.set_volume(0.2)
 
 # Screen
 SCREEN_WIDTH = 800
@@ -73,7 +73,7 @@ tutorial6_rect = tutorial6.get_rect(center=(400, 520))
 # Images Tutorial
 arrowkeys_image = pygame.image.load("images/arrows2.png").convert_alpha()
 arrowkeys_rect = arrowkeys_image.get_rect(center=(400, 300))
-spacebar_image = pygame.image.load("images/spacebar2.png").convert_alpha()
+spacebar_image = pygame.image.load("images/SnorcySpaceButton.png").convert_alpha()
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
 # pause menu (Rob)

@@ -8,6 +8,7 @@ pygame.init()
 # Background Music (Rhandell)
 pygame.mixer.music.load("assets/bgm.mp3")
 pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.6)
 
 # Screen
 SCREEN_WIDTH = 800

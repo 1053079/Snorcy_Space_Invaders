@@ -52,7 +52,7 @@ spacebar_text_surface = font_tutorial_explain.render(
     "To Shoot Lasers Use Your Spacebar", False, (255, 255, 255))
 spacebar_text_rect = spacebar_text_surface.get_rect(center=(400, 375))
 tutorial1 = font_tutorial_explain.render(
-    "In This Game You Have One Minute To Eliminate The Aliens'.", False, (252, 194, 3))
+    "In This Game You Have One Minute To Eliminate The Aliens.", False, (252, 194, 3))
 tutorial1_rect = tutorial1.get_rect(center=(400, 100))
 tutorial2 = font_tutorial_explain.render(
     "If You Have Survived For One Minute, You Have Won!", False, (252, 194, 3))
@@ -61,7 +61,7 @@ tutorial3 = font_tutorial_explain.render(
     "You Only Have Five Lives So Be Careful!", False, (252, 194, 3))
 tutorial3_rect = tutorial3.get_rect(center=(400, 160))
 tutorial4 = font_tutorial_explain.render(
-    "If You Get Hit By An Astroid Or An Alien Gets Through One Life Will Be Earesd.", False, (252, 194, 3))
+    "If You Get Hit By An Astroid Or An Alien Gets Through, One Life Will Be Erased.", False, (252, 194, 3))
 tutorial4_rect = tutorial4.get_rect(center=(400, 190))
 tutorial5 = font_tutorial_explain.render(
     "We Hope You Will Enjoy Our Game!", False, (252, 194, 3))

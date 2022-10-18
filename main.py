@@ -73,7 +73,7 @@ tutorial5_rect = tutorial5.get_rect(center=(400, 490))
 tutorial6 = font_tutorial_explain.render("GOOD LUCK!", False, (252, 194, 3))
 tutorial6_rect = tutorial6.get_rect(center=(400, 520))
 
-# Images Tutorial
+# Images Tutorial 
 arrowkeys_image = pygame.image.load(
     "assets/img/SnorcyArrowButton.png").convert_alpha()
 arrowkeys_rect = arrowkeys_image.get_rect(center=(400, 300))
@@ -81,7 +81,7 @@ spacebar_image = pygame.image.load(
     "assets/img/SnorcySpaceButton.png").convert_alpha()
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
-# Background image
+# Background image (Rhandell)
 background_menu = pygame.image.load("assets/img/SnorcyMenu.png").convert()
 
 # pause menu (Rob)

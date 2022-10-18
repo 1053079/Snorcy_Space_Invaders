@@ -109,6 +109,18 @@ class Game():
         time_label = self.font.render(f"Time: {self.time}", 1, (255, 255, 255))
         screen.blit(time_label, (10, 70))
 
+    def laser_collision(self):
+        if self.player.sprite.lasers:
+            for lasers in self.player.sprite.lasers:
+                if pygame.sprite.spritecollide(lasers, self.asteroidGroup, True):
+                    lasers.kill()
+                # if pygame.sprite.spritecollide(lasers, self.enemies, True):
+                #     lasers.kill()
+                if pygame.sprite.spritecollide(lasers, self.asteroidXYGroup, True):
+                    lasers.kill()
+
+
+
     # Function for what the game needs to run (Niels)
     def run(self):
         self.moving_background()
@@ -129,6 +141,7 @@ class Game():
 
         self.player.draw(screen)
         self.player.update()
+        self.laser_collision()
         self.hud()
 
         # for asteroid in self.asteroidGroup:

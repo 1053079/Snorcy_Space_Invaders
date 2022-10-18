@@ -81,8 +81,8 @@ spacebar_image = pygame.image.load(
     "assets/img/SnorcySpaceButton.png").convert_alpha()
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
-#Background image
-background_menu = pygame.image.load("assets/img/SnorcyMenuBG.png").convert()
+# Background image
+background_menu = pygame.image.load("assets/img/SnorcyMenu.png").convert()
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/font/Pixeltype.ttf', 30)
@@ -121,8 +121,8 @@ screens = Screen()
 
 while running:
 
-    if start_menu == True:
-        screen.blit(background_menu,(0,0))
+    if start_menu:
+        screen.blit(background_menu, (0, 0))
         if start_menu_main == "main":
             screen.blit(title_surface, title_rect)
             if exit_button.draw(screen):
@@ -146,6 +146,7 @@ while running:
             screen.blit(tutorial6, tutorial6_rect)
             if back_button.draw(screen):
                 start_menu_main = "main"
+
     if game_start:
 
         game.run()
@@ -184,11 +185,11 @@ while running:
             game.time = 60
             game.lives = 5
             game.points = 0
-            game_finish = False
+            game_lose = False
         if exit_button.draw(screen):
             print('also')
             running = False
-        # screens.losing_screen(game_start, game_won, running)
+        # screens.losing_screen(game_start, game_lose, running)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

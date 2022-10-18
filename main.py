@@ -82,7 +82,7 @@ spacebar_image = pygame.image.load(
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
 # Background image (Rhandell)
-background_menu = pygame.image.load("assets/img/SnorcyMenu.png").convert()
+background_menu = pygame.image.load("assets/img/SnorcyMenuBG.png").convert()
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/font/Pixeltype.ttf', 30)

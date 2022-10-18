@@ -19,12 +19,19 @@ class Player(pygame.sprite.Sprite):
         # self.rect.y = SCREEN_HEIGHT - 10
         # self.mask = pygame.mask.from_surface(self.ship_img)
         # self.cool_down_counter = 0
+        self.ready = True
+        self.laser_time = 0
+        self.laser_cooldown = 600
+
+        self.lasers = pygame.sprite.Group()
 
     def shoot(self):
-        if self.cool_down_counter == 0:
-            laser = Laser(self.x-20, self.y, self.laser_img)
-            self.lasers.append(laser)
-            self.cool_down_counter = 1
+        self.lasers.add(Laser(self.rect.center))
+        print("shoot laser")
+        # if self.cool_down_counter == 0:
+        #     laser = Laser(self.x-20, self.y, self.laser_img)
+        #     self.lasers.append(laser)
+        #     self.cool_down_counter = 1
 
     def movement(self):
         keys = pygame.key.get_pressed()
@@ -41,8 +48,17 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_s]:
             self.rect.y += self.vel
         # Shoot
-        if keys[pygame.K_SPACE]:
-            Player.shoot()
+        if keys[pygame.K_SPACE] and self.ready:
+            self.shoot()
+            self.ready = False
+            self.laser_time = pygame.time.get_ticks()
+    
+    def recharge(self):
+        if not self.ready:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.laser_time >= self.laser_cooldown:
+                self.ready = True
+            
 
     def constraint(self):
         # Constraint left
@@ -62,6 +78,8 @@ class Player(pygame.sprite.Sprite):
         # screen.blit(self.image, SCREEN_WIDTH/2)
         self.constraint()
         self.movement()
+        self.recharge()
+        self.lasers.update()
 
         # screen.blit(self.ship_img, (self.x, self.y))
 

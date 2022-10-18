@@ -111,6 +111,7 @@ class Game():
     # Function for what the game needs to run (Niels)
     def run(self):
         self.moving_background()
+        self.player.sprite.lasers.draw(screen)
 
         # Loops through the enemies list and renders the enemies (Niels)
         for enemies in self.enemies:

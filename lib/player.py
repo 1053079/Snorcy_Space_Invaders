@@ -12,7 +12,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("assets/playership.png")
+        self.image = pygame.image.load("assets/img/playership.png")
         self.rect = self.image.get_rect(midbottom=pos)
         self.vel = 7
         # self.rect.centerx = SCREEN_WIDTH/2
@@ -52,13 +52,12 @@ class Player(pygame.sprite.Sprite):
             self.shoot()
             self.ready = False
             self.laser_time = pygame.time.get_ticks()
-    
+
     def recharge(self):
         if not self.ready:
             current_time = pygame.time.get_ticks()
             if current_time - self.laser_time >= self.laser_cooldown:
                 self.ready = True
-            
 
     def constraint(self):
         # Constraint left

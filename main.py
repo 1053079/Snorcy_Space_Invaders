@@ -23,16 +23,18 @@ start_menu = True
 start_menu_main = "main"
 
 # Load button images (Rob)
-start_img = pygame.image.load('assets/SnorcyStartButton.png').convert_alpha()
-exit_img = pygame.image.load('assets/SnorcyExitButton.png').convert_alpha()
+start_img = pygame.image.load(
+    'assets/img/SnorcyStartButton.png').convert_alpha()
+exit_img = pygame.image.load('assets/img/SnorcyExitButton.png').convert_alpha()
 tutorial_image = pygame.image.load(
-    "assets/SnorcyTutorialButton.png").convert_alpha()
-back_image = pygame.image.load("assets/SnorcyBackButton.png").convert_alpha()
-arrowkeys_image = pygame.image.load("assets/arrows.png").convert_alpha()
+    "assets/img/SnorcyTutorialButton.png").convert_alpha()
+back_image = pygame.image.load(
+    "assets/img/SnorcyBackButton.png").convert_alpha()
+arrowkeys_image = pygame.image.load("assets/img/arrows.png").convert_alpha()
 
 # Caption and icon (Rob)
 pygame.display.set_caption("Snorcy: Galactic Shooter Game")
-icon = pygame.image.load('assets/Snow1.png').convert()
+icon = pygame.image.load('assets/img/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
@@ -41,11 +43,11 @@ title_surface = font.render('Invaders of Snorcy', False, (219, 13, 13))
 title_rect = title_surface.get_rect(midtop=(400, 110))
 
 # Text Tutorial (Rob)
-font_tutorial = pygame.font.Font('assets/Pixeltype.ttf', 60)
+font_tutorial = pygame.font.Font('assets/font/Pixeltype.ttf', 60)
 tutorial_text_surface = font_tutorial.render(
     "Welcome To Our Game.", False, (252, 194, 3))
 tutorial_rect = tutorial_text_surface.get_rect(center=(400, 60))
-font_tutorial_explain = pygame.font.Font('assets/Pixeltype.ttf', 35)
+font_tutorial_explain = pygame.font.Font('assets/font/Pixeltype.ttf', 35)
 arrow_text_surface = font_tutorial_explain.render(
     "To Move Around Use The Arrowkeys Or W.A.S.D.", False, (255, 255, 255))
 arrow_rect = arrow_text_surface.get_rect(center=(400, 240))
@@ -72,14 +74,14 @@ tutorial6_rect = tutorial6.get_rect(center=(400, 520))
 
 # Images Tutorial
 arrowkeys_image = pygame.image.load(
-    "assets/SnorcyArrowButton.png").convert_alpha()
+    "assets/img/SnorcyArrowButton.png").convert_alpha()
 arrowkeys_rect = arrowkeys_image.get_rect(center=(400, 300))
 spacebar_image = pygame.image.load(
-    "assets/SnorcySpaceButton.png").convert_alpha()
+    "assets/img/SnorcySpaceButton.png").convert_alpha()
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
 # pause menu (Rob)
-font_pause = pygame.font.Font('assets/Pixeltype.ttf', 30)
+font_pause = pygame.font.Font('assets/font/Pixeltype.ttf', 30)
 pause_text_surface = font_pause.render(
     "Press Esc to pause", False, (252, 194, 3))
 pause_rect = pause_text_surface.get_rect(

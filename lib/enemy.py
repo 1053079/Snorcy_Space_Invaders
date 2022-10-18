@@ -12,7 +12,7 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, alien, obstacles):
         super().__init__()
         # Initializing enmey (Niels)
-        self.image = pygame.image.load(f'assets/{alien}.png')
+        self.image = pygame.image.load(f'assets/img/{alien}.png')
 
         # Initial placement
         self.pos = [random.randint(

@@ -15,18 +15,21 @@ framesPerSec = pygame.time.Clock()
 window = pygame.display.set_mode((sw, sh))
 
 # This controls the asteroid movement / speed and where they spawn. (Yong Pok)
+
+
 class Asteroid(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("assets/asteroid32.png")
+        self.image = pygame.image.load("assets/img/asteroid32.png")
         self.surf = pygame.Surface((32, 32))
         self.rect = self.surf.get_rect(
             center=(random.randint(32, 600), (random.randint(-100, 0))))
 
     def move(self):  # score, destroyed):
-        self.rect.move_ip(0, random.randint(3,5))
+        self.rect.move_ip(0, random.randint(3, 5))
         if (self.rect.bottom > 620):  # or destroyed == True:
-            self.rect.center = (random.randint(32, 600),(random.randint(-100, 0)))
+            self.rect.center = (random.randint(32, 600),
+                                (random.randint(-100, 0)))
             # score += 1
 
         # return score
@@ -35,10 +38,12 @@ class Asteroid(pygame.sprite.Sprite):
         surface.blit(self.image, self.rect)
 
 # diagonal Asteroid
+
+
 class AsteroidXY(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("assets/asteroid64.png")
+        self.image = pygame.image.load("assets/img/asteroid64.png")
         self.surf = pygame.Surface((64, 64))
         self.rect = self.surf.get_rect(
             center=((random.randint(32, 600)), (random.randint(-100, 0))))

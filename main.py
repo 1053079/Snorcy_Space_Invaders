@@ -50,7 +50,7 @@ tutorial_text_surface = font_tutorial.render(
 tutorial_rect = tutorial_text_surface.get_rect(center=(400, 60))
 font_tutorial_explain = pygame.font.Font('assets/font/Pixeltype.ttf', 35)
 arrow_text_surface = font_tutorial_explain.render(
-    "To Move Around Use The Arrowkeys Or W.A.S.D.", False, (255, 255, 255))
+    "To Move Around Use W.A.S.D.", False, (255, 255, 255))
 arrow_rect = arrow_text_surface.get_rect(center=(400, 240))
 spacebar_text_surface = font_tutorial_explain.render(
     "To Shoot Lasers Use Your Spacebar", False, (255, 255, 255))

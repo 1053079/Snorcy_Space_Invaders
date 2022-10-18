@@ -42,12 +42,12 @@ class Game():
 
         # Display Background Image (Shaq)
         self.background = pygame.image.load(
-            'Tryout Shaq/Images/Galaxy2-800x600.png')
+            'images/SnorcyGameBackground.png')
         self.overlap = pygame.image.load(
-            'Tryout Shaq/Images/Galaxy2-800x600.png')
+            'images/SnorcyGameBackground.png')
         # Rotate The Image With Degrees (Shaq)
-        self.background = pygame.transform.rotate(self.background, 90)
-        self.overlap = pygame.transform.rotate(self.overlap, 90)
+        # self.background = pygame.transform.rotate(self.background, 90)
+        # self.overlap = pygame.transform.rotate(self.overlap, 90)
         # Position 1st And 2nd Background Image (Shaq)
         self.b_pos = 0
         self.o_pos = -600

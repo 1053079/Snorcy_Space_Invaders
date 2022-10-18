@@ -21,13 +21,13 @@ class Player(pygame.sprite.Sprite):
         # self.cool_down_counter = 0
         self.ready = True
         self.laser_time = 0
-        self.laser_cooldown = 600
+        self.laser_cooldown = 300
 
         self.lasers = pygame.sprite.Group()
 
     def shoot(self):
         self.lasers.add(Laser(self.rect.center))
-        print("shoot laser")
+        #print("shoot laser")
         # if self.cool_down_counter == 0:
         #     laser = Laser(self.x-20, self.y, self.laser_img)
         #     self.lasers.append(laser)

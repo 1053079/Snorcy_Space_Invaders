@@ -23,16 +23,16 @@ start_menu = True
 start_menu_main = "main"
 
 # Load button images (Rob)
-start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
-exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
+start_img = pygame.image.load('assets/SnorcyStartButton.png').convert_alpha()
+exit_img = pygame.image.load('assets/SnorcyExitButton.png').convert_alpha()
 tutorial_image = pygame.image.load(
-    "images/SnorcyTutorialButton.png").convert_alpha()
-back_image = pygame.image.load("images/SnorcyBackButton.png").convert_alpha()
-arrowkeys_image = pygame.image.load("images/arrows.png").convert_alpha()
+    "assets/SnorcyTutorialButton.png").convert_alpha()
+back_image = pygame.image.load("assets/SnorcyBackButton.png").convert_alpha()
+arrowkeys_image = pygame.image.load("assets/arrows.png").convert_alpha()
 
 # Caption and icon (Rob)
 pygame.display.set_caption("Snorcy: Galactic Shooter Game")
-icon = pygame.image.load('images/Snow1.png').convert()
+icon = pygame.image.load('assets/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
@@ -71,9 +71,11 @@ tutorial6 = font_tutorial_explain.render("GOOD LUCK!", False, (252, 194, 3))
 tutorial6_rect = tutorial6.get_rect(center=(400, 520))
 
 # Images Tutorial
-arrowkeys_image = pygame.image.load("images/SnorcyArrowButton.png").convert_alpha()
+arrowkeys_image = pygame.image.load(
+    "assets/SnorcyArrowButton.png").convert_alpha()
 arrowkeys_rect = arrowkeys_image.get_rect(center=(400, 300))
-spacebar_image = pygame.image.load("images/SnorcySpaceButton.png").convert_alpha()
+spacebar_image = pygame.image.load(
+    "assets/SnorcySpaceButton.png").convert_alpha()
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
 # pause menu (Rob)

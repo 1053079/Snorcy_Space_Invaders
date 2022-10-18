@@ -83,6 +83,7 @@ spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
 # Background image (Rhandell)
 background_menu = pygame.image.load("assets/img/SnorcyMenuBG.png").convert()
+tutorial_menu = pygame.image.load("assets/img/SnorcyGameBackground.png").convert()
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/font/Pixeltype.ttf', 30)
@@ -133,6 +134,7 @@ while running:
                 start_menu = False
                 game_start = True
         if start_menu_main == "tutorial":
+            screen.blit(tutorial_menu, (0, 0))
             screen.blit(arrowkeys_image, arrowkeys_rect)
             screen.blit(tutorial_text_surface, tutorial_rect)
             screen.blit(arrow_text_surface, arrow_rect)

@@ -30,7 +30,8 @@ tutorial_image = pygame.image.load(
     "assets/img/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load(
     "assets/img/SnorcyBackButton.png").convert_alpha()
-arrowkeys_image = pygame.image.load("assets/img/arrows.png").convert_alpha()
+arrowkeys_image = pygame.image.load(
+    "assets/img/SnorcyArrowButton.png").convert_alpha()
 
 # Caption and icon (Rob)
 pygame.display.set_caption("Snorcy: Galactic Shooter Game")
@@ -38,7 +39,7 @@ icon = pygame.image.load('assets/img/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
-font = pygame.font.Font('assets/Pixeltype.ttf', 120)
+font = pygame.font.Font('assets/font/Pixeltype.ttf', 120)
 title_surface = font.render('Invaders of Snorcy', False, (219, 13, 13))
 title_rect = title_surface.get_rect(midtop=(400, 110))
 

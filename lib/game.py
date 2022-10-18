@@ -42,9 +42,9 @@ class Game():
 
         # Display Background Image (Shaq)
         self.background = pygame.image.load(
-            'assets/SnorcyGameBackground.png')
+            'assets/img/SnorcyGameBackground.png')
         self.overlap = pygame.image.load(
-            'assets/SnorcyGameBackground.png')
+            'assets/img/SnorcyGameBackground.png')
         # Rotate The Image With Degrees (Shaq)
         # self.background = pygame.transform.rotate(self.background, 90)
         # self.overlap = pygame.transform.rotate(self.overlap, 90)

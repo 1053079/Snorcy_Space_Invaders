@@ -25,8 +25,8 @@ title_lose_2 = font.render('Try Again', False, (219, 13, 13))
 title_lose_2_rect = title_surface.get_rect(center=(650, 215))
 
 # Load button images (Rob)
-start_img = pygame.image.load('images/SnorcyStartButton.png').convert_alpha()
-exit_img = pygame.image.load('images/SnorcyExitButton.png').convert_alpha()
+start_img = pygame.image.load('assets/SnorcyStartButton.png').convert_alpha()
+exit_img = pygame.image.load('assets/SnorcyExitButton.png').convert_alpha()
 
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)

@@ -40,7 +40,7 @@ pygame.display.set_icon(icon)
 
 # Title Game (Rob)
 font = pygame.font.Font('assets/font/Monocraft.otf', 64)
-title_surface = font.render('Invaders of Snorcy', False, (219, 13, 13))
+title_surface = font.render('', False, (219, 13, 13))
 title_rect = title_surface.get_rect(midtop=(400, 110))
 
 # Text Tutorial (Rob)
@@ -82,7 +82,7 @@ spacebar_image = pygame.image.load(
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
 #Background image
-background_menu = pygame.image.load("assets/img/SnorcyMenu.png").convert()
+background_menu = pygame.image.load("assets/img/SnorcyMenuBG.png").convert()
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/font/Pixeltype.ttf', 30)

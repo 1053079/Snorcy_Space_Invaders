@@ -39,7 +39,7 @@ icon = pygame.image.load('assets/img/Snow1.png').convert()
 pygame.display.set_icon(icon)
 
 # Title Game (Rob)
-font = pygame.font.Font('assets/font/Pixeltype.ttf', 120)
+font = pygame.font.Font('assets/font/Monocraft.otf', 64)
 title_surface = font.render('Invaders of Snorcy', False, (219, 13, 13))
 title_rect = title_surface.get_rect(midtop=(400, 110))
 

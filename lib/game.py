@@ -78,11 +78,11 @@ class Game():
         num_of_enemies_2 = num_enemy_2
         num_of_enemies_3 = num_enemy_3
         for num in range(num_of_enemies_1):
-            self.enemies.append(Enemy('alien1', self.enemies))
+            self.enemies.append(Enemy('alien4', self.enemies))
         for num in range(num_of_enemies_2):
-            self.enemies.append(Enemy('alien2', self.enemies))
+            self.enemies.append(Enemy('alien5', self.enemies))
         for num in range(num_of_enemies_3):
-            self.enemies.append(Enemy('alien3', self.enemies))
+            self.enemies.append(Enemy('alien6', self.enemies))
 
     # Function for the moving background
     def moving_background(self):

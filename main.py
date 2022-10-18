@@ -81,6 +81,9 @@ spacebar_image = pygame.image.load(
     "assets/img/SnorcySpaceButton.png").convert_alpha()
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
 
+#Background image
+background_menu = pygame.image.load("assets/img/SnorcyMenu.png").convert()
+
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/font/Pixeltype.ttf', 30)
 pause_text_surface = font_pause.render(
@@ -119,7 +122,7 @@ screens = Screen()
 while running:
 
     if start_menu == True:
-        screen.fill((83, 41, 42))
+        screen.blit(background_menu,(0,0))
         if start_menu_main == "main":
             screen.blit(title_surface, title_rect)
             if exit_button.draw(screen):

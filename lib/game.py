@@ -48,6 +48,7 @@ class Game():
         # Rotate The Image With Degrees (Shaq)
         # self.background = pygame.transform.rotate(self.background, 90)
         # self.overlap = pygame.transform.rotate(self.overlap, 90)
+
         # Position 1st And 2nd Background Image (Shaq)
         self.b_pos = 0
         self.o_pos = -600

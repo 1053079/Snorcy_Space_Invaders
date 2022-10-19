@@ -94,14 +94,14 @@ pause_rect = pause_text_surface.get_rect(
 
 # Title game won (Niels)
 title_win_1 = font.render('You Have Won!', False, (219, 13, 13))
-title_win_1_rect = title_surface.get_rect(center=(550, 120))
+title_win_1_rect = title_surface.get_rect(center=(125, 120))
 title_win_2 = font.render('Congratulations!', False, (219, 13, 13))
-title_win_2_rect = title_surface.get_rect(center=(500, 225))
+title_win_2_rect = title_surface.get_rect(center=(75, 225))
 # Title game lost (Niels)
 title_lose_1 = font.render('You Have Lost!', False, (219, 13, 13))
-title_lose_1_rect = title_surface.get_rect(center=(525, 130))
+title_lose_1_rect = title_surface.get_rect(center=(100, 130))
 title_lose_2 = font.render('Try Again', False, (219, 13, 13))
-title_lose_2_rect = title_surface.get_rect(center=(630, 215))
+title_lose_2_rect = title_surface.get_rect(center=(205, 215))
 
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)

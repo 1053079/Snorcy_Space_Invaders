@@ -129,14 +129,14 @@ class Game():
 
     def player_ast_col(self):
         for asteroid in self.asteroidGroup:
-            if pygame.sprite.groupcollide(self.asteroidGroup, self.player, True, False):
+            if pygame.sprite.collide_rect(asteroid, self.player.sprites()[0]):
                 damage = pygame.mixer.Sound('assets/sounds/thud.wav')
                 damage.play()
                 self.lives -= 1
                 asteroid.destroyed = True
 
         for asteroidXY in self.asteroidXYGroup:
-            if pygame.sprite.groupcollide(self.asteroidXYGroup, self.player, True, False):
+            if pygame.sprite.collide_rect(asteroidXY, self.player.sprites()[0]):
                 damage = pygame.mixer.Sound('assets/sounds/thud.wav')
                 damage.play()
                 self.lives -= 1

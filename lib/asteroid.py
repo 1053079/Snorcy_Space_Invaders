@@ -31,6 +31,7 @@ class Asteroid(pygame.sprite.Sprite):
         if (self.rect.bottom > 620) or self.destroyed == True:
             self.rect.center = (random.randint(32, 600),
                                 (random.randint(-100, 0)))
+            self.destroyed = False
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
@@ -52,6 +53,7 @@ class AsteroidXY(pygame.sprite.Sprite):
         self.rect.move_ip(1, 2)
         if (self.rect.bottom > 664) or self.destroyed == True:
             self.rect.center = (random.randint(0, 0), (random.randint(-50, 0)))
+            self.destroyed = False
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)

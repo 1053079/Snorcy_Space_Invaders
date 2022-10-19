@@ -167,7 +167,7 @@ while running:
         screen.blit(title_win_2, title_win_2_rect)
         if restart_button.draw(screen):
             game_start = True
-            # print('yes', game_start)
+            # print('yes')
             game.time = 60
             game.lives = 5
             game.points = 0

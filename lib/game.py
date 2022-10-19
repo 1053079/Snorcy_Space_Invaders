@@ -151,7 +151,7 @@ class Game():
         for asteroid in self.asteroidGroup:
           if pygame.sprite.groupcollide(self.asteroidGroup, self.player,False, False):
              damage = pygame.mixer.Sound('assets/sounds/thud.wav')
-             damage.set_volume(0.1)
+             damage.set_volume(0.3)
              damage.play()
              self.lives -= 1
              
@@ -160,7 +160,7 @@ class Game():
         for asteroid in self.asteroidGroup:
            if pygame.sprite.groupcollide(self.asteroidGroup, self.player,False , False):
             explosion = pygame.mixer.Sound('assets/sounds/explosion2.wav')
-            explosion.set_volume(0.1)
+            explosion.set_volume(0.3)
             explosion.play()
             destroyed = True
             self.points = self.points + 1
@@ -177,14 +177,14 @@ class Game():
         for asteroidXY in self.asteroidXYGroup:
             if pygame.sprite.groupcollide(self.asteroidXYGroup,self.player,False, False):
              damage = pygame.mixer.Sound('assets/sounds/thud.wav')
-             damage.set_volume(0.1)
+             damage.set_volume(0.3)
              damage.play()
              pygame.display.update()
 
         for asteroidXY in self.asteroidXYGroup:
             if pygame.sprite.groupcollide(self.asteroidXYGroup,self.player,False, False):
               explosion = pygame.mixer.Sound('assets/sounds/explosion2.wav')
-              explosion.set_volume(0.1)
+              explosion.set_volume(0.3)
               explosion.play()
               destroyed = True
               self.points = self.points + 1

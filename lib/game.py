@@ -46,13 +46,11 @@ class Game():
             'assets/img/SnorcyGameBackground.png')
         self.overlap = pygame.image.load(
             'assets/img/SnorcyGameBackground.png')
-        # Rotate The Image With Degrees (Shaq)
-        # self.background = pygame.transform.rotate(self.background, 90)
-        # self.overlap = pygame.transform.rotate(self.overlap, 90)
 
         # Position 1st And 2nd Background Image (Shaq)
         self.b_pos = 0
         self.o_pos = -600
+
         # Speed Automatic Scroller (Shaq)
         self.speed = 1
 
@@ -71,7 +69,6 @@ class Game():
             f"Points: {self.points}", 1, (255, 255, 255))
 
     # Function to spawn multiple enemies(Niels)
-
     def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
         # Push as many enemies 1 in a list (Niels)
         self.enemies = []
@@ -151,16 +148,12 @@ class Game():
         for enemies in self.enemies:
             enemies.render()
 
-        # Draws the asteroids on screen (Yong Pok)
-        score = 0
-        destroyed = False
-
         for asteroid in self.asteroidGroup:
-            score = asteroid.move(score)
+            score = asteroid.move()
             asteroid.draw(screen)
 
         for asteroidXY in self.asteroidXYGroup:
-            score = asteroidXY.move(score)
+            score = asteroidXY.move()
             asteroidXY.draw(screen)
 
         self.player.draw(screen)

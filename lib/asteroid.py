@@ -8,8 +8,6 @@ from pygame import mixer
 sw = 800
 sh = 600
 speed = 5
-FPS = 60
-framesPerSec = pygame.time.Clock()
 
 # screen
 window = pygame.display.set_mode((sw, sh))
@@ -26,7 +24,7 @@ class Asteroid(pygame.sprite.Sprite):
             center=(random.randint(32, 600), (random.randint(-100, 0))))
         self.destroyed = False
 
-    def move(self, score):
+    def move(self):
         self.rect.move_ip(0, random.randint(3, 5))
         if (self.rect.bottom > 620) or self.destroyed == True:
             self.rect.center = (random.randint(32, 600),
@@ -49,7 +47,7 @@ class AsteroidXY(pygame.sprite.Sprite):
 
         self.destroyed = False
 
-    def move(self, score):
+    def move(self):
         self.rect.move_ip(1, 2)
         if (self.rect.bottom > 664) or self.destroyed == True:
             self.rect.center = (random.randint(0, 0), (random.randint(-50, 0)))
@@ -57,7 +55,3 @@ class AsteroidXY(pygame.sprite.Sprite):
 
     def draw(self, surface):
         surface.blit(self.image, self.rect)
-
-
-pygame.display.update()
-framesPerSec.tick(FPS)

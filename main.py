@@ -203,6 +203,8 @@ while running:
             time_label = font.render(f"Time: {game.time}", 1, (255, 255, 255))
             game.time -= 1
 
+   
+
     # Puts game on 60fps (Niels)
     clock.tick(60)
 

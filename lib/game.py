@@ -3,6 +3,7 @@ from lib.asteroid import Asteroid, AsteroidXY
 from lib.enemy import Enemy
 from lib.player import Player
 
+
 FPS = 60
 FramesPerSec = pygame.time.Clock()
 
@@ -146,12 +147,13 @@ class Game():
         self.player.update()
         self.laser_collision()
         self.hud()
-
+        # Asteroid Collision + soundFX (Yong Pok)
         for asteroid in self.asteroidGroup:
           if pygame.sprite.groupcollide(self.asteroidGroup, self.player,False, False):
              damage = pygame.mixer.Sound('assets/sounds/thud.wav')
              damage.play()
-
+             self.lives -= 1
+             
              pygame.display.update()
 
         for asteroid in self.asteroidGroup:
@@ -160,17 +162,17 @@ class Game():
             explosion.set_volume(0.5)
             explosion.play()
             destroyed = True
-            #score = score + 5
+            self.points = self.points + 1
             asteroid.move(score, destroyed)
             screen.blit(asteroid.image, asteroid.rect)
 
             destroyed = False
 
         for asteroid in self.asteroidGroup:
-         score = asteroid.move(score, destroyed)
+         self.score = asteroid.move(score, destroyed)
          asteroid.draw(screen)
 
-     #Diagnoal Asteroids
+       # Diagonal Asteroids collision + SoundFX (Yong Pok)
         for asteroidXY in self.asteroidXYGroup:
             if pygame.sprite.groupcollide(self.asteroidXYGroup,self.player,False, False):
              damage = pygame.mixer.Sound('assets/sounds/thud.wav')
@@ -183,13 +185,13 @@ class Game():
               explosion.set_volume(0.5)
               explosion.play()
               destroyed = True
-              #score = score + 5
+              self.points = self.points + 1
               asteroidXY.move(score, destroyed)
               screen.blit(asteroidXY.image, asteroidXY.rect)
               destroyed = False
 
         for asteroidXY in self.asteroidXYGroup:
-         score = asteroidXY.move(score, destroyed)
+         self.score = asteroidXY.move(score, destroyed)
          asteroidXY.draw(screen)
 
     # Enemy mechanics

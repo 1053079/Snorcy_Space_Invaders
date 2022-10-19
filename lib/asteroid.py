@@ -31,7 +31,6 @@ class Asteroid(pygame.sprite.Sprite):
             self.rect.center = (random.randint(32, 600),
                                 (random.randint(-100, 0)))
 
-
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 

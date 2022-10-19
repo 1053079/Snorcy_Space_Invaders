@@ -82,7 +82,7 @@ class Game():
         for num in range(num_of_enemies_1):
             self.enemies.append(Enemy('alien4', self.enemies))
         for num in range(num_of_enemies_2):
-            self.enemies.append(Enemy('alien5', self.enemies))
+            self.enemies.append(Enemy('alien7', self.enemies))
         for num in range(num_of_enemies_3):
             self.enemies.append(Enemy('alien6', self.enemies))
 

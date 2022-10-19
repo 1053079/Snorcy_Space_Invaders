@@ -114,15 +114,19 @@ class Game():
     def laser_collision(self):
         if self.player.sprite.lasers:
             for lasers in self.player.sprite.lasers:
-                if pygame.sprite.spritecollide(lasers, self.asteroidGroup, True):
-                    lasers.kill()
-                    self.points += 1
-                    print(self.points)
+                for asteroid in self.asteroidGroup:
+                    if pygame.sprite.collide_rect(lasers, asteroid):
+                        lasers.kill()
+                        self.points += 1
+                        asteroid.destroyed = True
+
+                for asteroid in self.asteroidXYGroup:
+                    if pygame.sprite.collide_rect(lasers, asteroid):
+                        lasers.kill()
+                        self.points += 1
+                        asteroid.destroyed = True
                 # if pygame.sprite.spritecollide(lasers, self.enemies, True):
                 #     lasers.kill()
-                if pygame.sprite.spritecollide(lasers, self.asteroidXYGroup, True):
-                    lasers.kill()
-                    self.points += 1
 
     def player_ast_col(self):
         for asteroid in self.asteroidGroup:

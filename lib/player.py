@@ -14,11 +14,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("assets/img/playership.png")
         self.rect = self.image.get_rect(midbottom=pos)
-        self.vel = 5
-        # self.rect.centerx = SCREEN_WIDTH/2
-        # self.rect.y = SCREEN_HEIGHT - 10
-        # self.mask = pygame.mask.from_surface(self.ship_img)
-        # self.cool_down_counter = 0
+        self.vel = 7.5
         self.ready = True
         self.laser_time = 0
         self.laser_cooldown = 300
@@ -79,17 +75,3 @@ class Player(pygame.sprite.Sprite):
         self.movement()
         self.recharge()
         self.lasers.update()
-
-        # screen.blit(self.ship_img, (self.x, self.y))
-
-    # def cooldown(self):
-    #     if self.cool_down_counter >= self.COOLDOWN:
-    #         self.cool_down_counter = 0
-    #     elif self.cool_down_counter > 0:
-    #         self.cool_down_counter += 1
-
-#   def shoot(self):
-#      if self.cool_down_counter == 0:
-#            laser = Laser(x, y, self.laser_img)
-#            self.lasers.append(laser)
-#            self.cool_down_counter = 1

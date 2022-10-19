@@ -2,7 +2,7 @@ import pygame
 
 pygame.init()
 
-white = (0, 0, 0,)
+red = (0, 0, 255,)
 class Laser(pygame.sprite.Sprite):
     def __init__(self, pos, speed = -8):
         super().__init__()

@@ -14,7 +14,7 @@ class Player(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("assets/img/playership.png")
         self.rect = self.image.get_rect(midbottom=pos)
-        self.vel = 7.5
+        self.vel = 5
         # self.rect.centerx = SCREEN_WIDTH/2
         # self.rect.y = SCREEN_HEIGHT - 10
         # self.mask = pygame.mask.from_surface(self.ship_img)

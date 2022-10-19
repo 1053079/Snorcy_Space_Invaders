@@ -1,7 +1,6 @@
 import pygame
 from lib.button import Button
 from lib.game import Game
-from lib.screens import Screen
 
 pygame.init()
 
@@ -119,7 +118,6 @@ game_won = False
 game_lose = False
 
 game = Game()
-screens = Screen()
 
 while running:
 
@@ -167,32 +165,26 @@ while running:
         screen.blit(title_win_2, title_win_2_rect)
         if restart_button.draw(screen):
             game_start = True
-            # print('yes')
             game.time = 60
             game.lives = 5
             game.points = 0
             game_won = False
         if exit_button.draw(screen):
-            print('also')
             running = False
 
-    # screens.winning_screen(game_start, game_won, running)
     if game_lose:
         screen.fill((83, 41, 42))
         screen.blit(title_lose_1, title_lose_1_rect)
         screen.blit(title_lose_2, title_lose_2_rect)
 
         if restart_button.draw(screen):
-            print('yes')
             game_start = True
             game.time = 60
             game.lives = 5
             game.points = 0
             game_lose = False
         if exit_button.draw(screen):
-            print('also')
             running = False
-        # screens.losing_screen(game_start, game_lose, running)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

@@ -24,6 +24,8 @@ start_menu_main = "main"
 # Load button images (Rob)
 start_img = pygame.image.load(
     'assets/img/SnorcyStartButton.png').convert_alpha()
+restart_img = pygame.image.load(
+    'assets/img/SnorcyRestartButton.png').convert_alpha()
 exit_img = pygame.image.load('assets/img/SnorcyExitButton.png').convert_alpha()
 tutorial_image = pygame.image.load(
     "assets/img/SnorcyTutorialButton.png").convert_alpha()
@@ -106,7 +108,7 @@ title_lose_2_rect = title_surface.get_rect(center=(205, 215))
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
 exit_button = Button(SCREEN_WIDTH/2, 280, exit_img, 1)
-restart_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
+restart_button = Button(SCREEN_WIDTH / 8, 280, restart_img, 1)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(795 - 105, 595 - 62, back_image, 0.8)
 
@@ -195,8 +197,6 @@ while running:
         if event.type == pygame.USEREVENT and start_menu == False:
             time_label = font.render(f"Time: {game.time}", 1, (255, 255, 255))
             game.time -= 1
-
-   
 
     # Puts game on 60fps (Niels)
     clock.tick(60)

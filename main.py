@@ -1,6 +1,7 @@
 import pygame
 from lib.button import Button
 from lib.game import Game
+from lib.pause import Pause
 
 pygame.init()
 
@@ -113,14 +114,13 @@ resume_button = Button(400 - 95.5, 155, resume_image, 1)
 quit_button = Button(400 - 95.5, 355, quit_image, 1)
 
 
+destroyed = False
 running = True
 game_start = False
 game_won = False
 game_lose = False
 start_menu = True
 start_menu_main = "main"
-game_paused = False
-
 
 game = Game()
 
@@ -159,23 +159,12 @@ while running:
         game.run()
         screen.blit(pause_text_surface,pause_rect)
                 
-    if game_paused:
-        if resume_button.draw(screen):
-            game_start = True
-            game_paused = False
-        if quit_button.draw(screen):
-            start_menu = True
-            game.time = 60
-            game.lives = 5
-            game.points = 0
-
-
         if game.time == 0:
             game_start = False
             game_won = True
         if game.lives == 0:
             game_start = False
-            game_lose = True
+            game_lose =True
 
     if game_won:
         screen.fill((83, 41, 42))
@@ -207,8 +196,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                game_start = not game_start
-                game_paused = not game_paused
+                Pause() 
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.USEREVENT+1:

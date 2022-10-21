@@ -1,10 +1,7 @@
 import pygame
-import time
-from pygame.locals import *
 import random
-from pygame import mixer
 
-# Width and Height , speed/ frames per second (Yong Pok)
+# Width and Height, speed(Yong Pok)
 sw = 800
 sh = 600
 speed = 5
@@ -12,10 +9,9 @@ speed = 5
 # screen
 window = pygame.display.set_mode((sw, sh))
 
-# This controls the asteroid movement / speed and where they spawn. (Yong Pok)
-
 
 class Asteroid(pygame.sprite.Sprite):
+    # This controls the asteroid movement / speed and where they spawn. (Yong Pok)
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("assets/img/asteroid32.png")
@@ -34,10 +30,9 @@ class Asteroid(pygame.sprite.Sprite):
     def draw(self, surface):
         surface.blit(self.image, self.rect)
 
-# diagonal Asteroid
-
 
 class AsteroidXY(pygame.sprite.Sprite):
+    # diagonal Asteroid
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("assets/img/asteroid64.png")

@@ -5,7 +5,6 @@ import random
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-clock = pygame.time.Clock
 
 
 class Enemy(pygame.sprite.Sprite):
@@ -31,8 +30,8 @@ class Enemy(pygame.sprite.Sprite):
         self.TRIGGER = pygame.USEREVENT + 1
         pygame.time.set_timer(self.TRIGGER, 7500)
 
-    # Function for random movement of enemies (Niels)
     def move(self):
+        # Function for random movement of enemies (Niels)
         # Movement speed randomizer (Niels)
         self.vel = random.randint(3, 10) / 2
 
@@ -52,8 +51,8 @@ class Enemy(pygame.sprite.Sprite):
             self.pos[0] -= self.vel
             self.pos[1] += self.vel
 
-    # Function for collision (Niels)
-    def collision(self, direction='horizontal'):
+    def collision(self):
+        # Function for collision (Niels)
         collision_sprite = pygame.sprite.spritecollide(
             self, self.obstacles_without_self, False)
 
@@ -62,16 +61,12 @@ class Enemy(pygame.sprite.Sprite):
                 -10, (SCREEN_WIDTH - 60)), random.randint(-250, -100)]
             self.move()
 
-    # Function to respawns enemy back to top screen if not killed (Niels)
-
     def respawn(self):
-        if self.pos[1] > SCREEN_HEIGHT:
-            # self.trigger()
-            self.pos[0] = random.randint(0, SCREEN_WIDTH)
-            self.pos[1] = random.randint(-50, 0)
+        # Function to respawns enemy back to top screen if not killed (Niels)
+        pass
 
-    # Function that draws everything on the screen (Niels)
     def render(self):
+        # Function that draws everything on the screen (Niels)
         screen.blit(self.image, (self.pos))
         self.move()
         self.collision()

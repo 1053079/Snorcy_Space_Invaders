@@ -112,8 +112,6 @@ restart_button = Button(SCREEN_WIDTH / 8, 280, restart_img, 1)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(795 - 105, 595 - 62, back_image, 0.8)
 
-destroyed = False
-
 running = True
 game_start = False
 game_won = False

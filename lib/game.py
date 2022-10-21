@@ -62,6 +62,7 @@ class Game():
 
         TIMER = pygame.USEREVENT
         pygame.time.set_timer(TIMER, 1000)
+
         # Font for text (Shaq)
         self.font = pygame.font.SysFont("Showcard Gothic", 30)
         # Draw Text (Shaq)
@@ -143,23 +144,26 @@ class Game():
                 self.lives -= 1
                 asteroidXY.destroyed = True
 
-    # Function for what the game needs to run (Niels)
-    def run(self):
-        self.moving_background()
-        self.player.sprite.lasers.draw(screen)
-
+    def draw_enemies(self):
         # Loops through the enemies list and renders the enemies (Niels)
         for enemies in self.enemies:
             enemies.render()
 
+    def draw_asteroids(self):
         for asteroid in self.asteroidGroup:
-            score = asteroid.move()
+            asteroid.move()
             asteroid.draw(screen)
 
         for asteroidXY in self.asteroidXYGroup:
-            score = asteroidXY.move()
+            asteroidXY.move()
             asteroidXY.draw(screen)
 
+    def run(self):
+        # Function for what the game needs to run (Niels)
+        self.moving_background()
+        self.player.sprite.lasers.draw(screen)
+        self.draw_asteroids()
+        self.draw_enemies()
         self.player.draw(screen)
         self.player.update()
         self.laser_collision()

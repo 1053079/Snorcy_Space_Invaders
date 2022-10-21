@@ -196,7 +196,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                Pause() 
+                Pause(screen,Button) 
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.USEREVENT+1:

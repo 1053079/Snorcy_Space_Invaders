@@ -17,8 +17,6 @@ tutorial_image = pygame.image.load(
     "assets/img/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load(
     "assets/img/SnorcyBackButton.png").convert_alpha()
-arrowkeys_image = pygame.image.load(
-    "assets/img/SnorcyArrowButton.png").convert_alpha()
 
 # Create button instances (Rob)
 start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)

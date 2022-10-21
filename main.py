@@ -28,8 +28,6 @@ tutorial_image = pygame.image.load(
     "assets/img/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load(
     "assets/img/SnorcyBackButton.png").convert_alpha()
-resume_image = pygame.image.load("assets/img/button_resume.png").convert_alpha()
-quit_image = pygame.image.load("assets/img/button_quit.png").convert_alpha()
 
 
 # Caption and icon (Rob)
@@ -108,8 +106,6 @@ exit_button = Button(400, 280, exit_img, 1)
 restart_button = Button(100, 280, restart_img, 1)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(795 - 105, 595 - 62, back_image, 0.8)
-resume_button = Button(400 - 95.5, 155, resume_image, 1)
-quit_button = Button(400 - 95.5, 355, quit_image, 1)
 
 
 destroyed = False

@@ -1,6 +1,7 @@
 import pygame
 from lib.button import Button
 from lib.game import Game
+from lib.pause import Pause
 
 pygame.init()
 
@@ -17,10 +18,6 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # Clock
 clock = pygame.time.Clock()
 
-# game variables Start menu (Rob)
-start_menu = True
-start_menu_main = "main"
-
 # Load button images (Rob)
 start_img = pygame.image.load(
     'assets/img/SnorcyStartButton.png').convert_alpha()
@@ -31,8 +28,6 @@ tutorial_image = pygame.image.load(
     "assets/img/SnorcyTutorialButton.png").convert_alpha()
 back_image = pygame.image.load(
     "assets/img/SnorcyBackButton.png").convert_alpha()
-arrowkeys_image = pygame.image.load(
-    "assets/img/SnorcyArrowButton.png").convert_alpha()
 
 # Caption and icon (Rob)
 pygame.display.set_caption("Snorcy: Galactic Shooter Game")
@@ -81,6 +76,8 @@ arrowkeys_rect = arrowkeys_image.get_rect(center=(400, 300))
 spacebar_image = pygame.image.load(
     "assets/img/SnorcySpaceButton.png").convert_alpha()
 spacebar_rect = spacebar_image.get_rect(center=(400, 420))
+arrowkeys_image = pygame.image.load(
+    "assets/img/SnorcyArrowButton.png").convert_alpha()
 
 # Background image (Rhandell)
 background_menu = pygame.image.load("assets/img/SnorcyMenuBG.png").convert()
@@ -91,8 +88,7 @@ tutorial_menu = pygame.image.load(
 font_pause = pygame.font.Font('assets/font/Pixeltype.ttf', 30)
 pause_text_surface = font_pause.render(
     "Press Esc to pause", False, (252, 194, 3))
-pause_rect = pause_text_surface.get_rect(
-    center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/4))
+pause_rect = pause_text_surface.get_rect(center=(400, 20))
 
 # Title game won (Niels)
 title_win_1 = font.render('You Have Won!', False, (219, 13, 13))
@@ -106,9 +102,9 @@ title_lose_2 = font.render('Try Again', False, (219, 13, 13))
 title_lose_2_rect = title_surface.get_rect(center=(205, 215))
 
 # Create button instances (Rob)
-start_button = Button(SCREEN_WIDTH / 8, 280, start_img, 1)
-exit_button = Button(SCREEN_WIDTH/2, 280, exit_img, 1)
-restart_button = Button(SCREEN_WIDTH / 8, 280, restart_img, 1)
+start_button = Button(100, 280, start_img, 1)
+exit_button = Button(400, 280, exit_img, 1)
+restart_button = Button(100, 280, restart_img, 1)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(795 - 105, 595 - 62, back_image, 0.8)
 
@@ -116,6 +112,8 @@ running = True
 game_start = False
 game_won = False
 game_lose = False
+start_menu = True
+start_menu_main = "main"
 
 game = Game()
 
@@ -149,8 +147,8 @@ while running:
                 start_menu_main = "main"
 
     if game_start:
-
         game.run()
+        screen.blit(pause_text_surface,pause_rect)
 
         if game.time == 0:
             game_start = False
@@ -187,6 +185,9 @@ while running:
             running = False
 
     for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                Pause(screen,Button) 
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.USEREVENT+1:

@@ -28,7 +28,7 @@ class Enemy(pygame.sprite.Sprite):
 
         # Makes the enemies wait for so many seconds until respawn (Niels)
         self.TRIGGER = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.TRIGGER, 7500)
+        pygame.time.set_timer(self.TRIGGER, 8500)
 
     def move(self):
         # Function for random movement of enemies (Niels)
@@ -60,10 +60,6 @@ class Enemy(pygame.sprite.Sprite):
             self.pos = [random.randint(
                 -10, (SCREEN_WIDTH - 60)), random.randint(-250, -100)]
             self.move()
-
-    def respawn(self):
-        # Function to respawns enemy back to top screen if not killed (Niels)
-        pass
 
     def render(self):
         # Function that draws everything on the screen (Niels)

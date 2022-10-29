@@ -83,6 +83,8 @@ arrowkeys_image = pygame.image.load(
 background_menu = pygame.image.load("assets/img/SnorcyMenuBG.png").convert()
 tutorial_menu = pygame.image.load(
     "assets/img/SnorcyGameBackground.png").convert()
+background_win = pygame.image.load("assets/img/SnorcyWinScreen.png").convert()
+background_lose = pygame.image.load("assets/img/SnorcyLoseScreen.png").convert()
 
 # pause menu (Rob)
 font_pause = pygame.font.Font('assets/font/Pixeltype.ttf', 30)
@@ -104,7 +106,9 @@ title_lose_2_rect = title_surface.get_rect(center=(205, 215))
 # Create button instances (Rob)
 start_button = Button(100, 280, start_img, 1)
 exit_button = Button(400, 280, exit_img, 1)
+exit_button_2 = Button(620, 8, exit_img, 0.6)
 restart_button = Button(100, 280, restart_img, 1)
+restart_button_2 = Button(10, 8, restart_img, 0.6)
 tutorial_button = Button(-2, 5, tutorial_image, 1)
 back_button = Button(795 - 105, 595 - 62, back_image, 0.8)
 
@@ -158,9 +162,7 @@ while running:
             game_lose = True
 
     if game_won:
-        screen.fill((83, 41, 42))
-        screen.blit(title_win_1, title_win_1_rect)
-        screen.blit(title_win_2, title_win_2_rect)
+        screen.blit(background_win,(0,0))
         if restart_button.draw(screen):
             game_start = True
             game.time = 60
@@ -171,17 +173,15 @@ while running:
             running = False
 
     if game_lose:
-        screen.fill((83, 41, 42))
-        screen.blit(title_lose_1, title_lose_1_rect)
-        screen.blit(title_lose_2, title_lose_2_rect)
+        screen.blit(background_lose,(0,0))
 
-        if restart_button.draw(screen):
+        if restart_button_2.draw(screen):
             game_start = True
             game.time = 60
             game.lives = 5
             game.points = 0
             game_lose = False
-        if exit_button.draw(screen):
+        if exit_button_2.draw(screen):
             running = False
 
     for event in pygame.event.get():

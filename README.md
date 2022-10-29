@@ -1,14 +1,18 @@
-# Werkplaats 1: PyGame
-Je vindt de presentatie met de opdrachtomschrijving op Teams in de "Bestanden" van Werkplaats 1. 
+<!-- (Niels) -->
 
-Gebruik dit bestand om te omschrijven hoe jouw code gestart kan worden. Ga er in jouw instructie van uit dat de gebruiker de benodigde bibliotheken nog niet heeft geïnstalleerd.
+# 1 Instaleer pygame
 
+Instaleer via pycharm of vscode pygame
 
-# Pygame installatie
+# 2 Run het spel
 
-Installeer pygame met pip:
-    
-```python
-pip install -r requirements.txt
-```
+Druk op run
 
+# 3 Lees de tutorial in game of via readme
+
+OP het start scherm van het spel staat een tutorial button voor de uitleg van het spel.
+In het kort kan je bewegen met 'WASD' en schiet je met spatiebalk.
+Probeer voor een minuut te overleven en de aliens en astroïden kapot te schieten.
+Hier krijg je punten voor.
+Probeer zo veel mogelijk punten te krijgen voor de tijd is afgelopen of je levens op zijn.
+Veel succes!

@@ -2,7 +2,7 @@ import pygame
 from lib.asteroid import Asteroid, AsteroidXY
 from lib.enemy import Enemy
 from lib.player import Player
-
+import random
 
 FPS = 60
 FramesPerSec = pygame.time.Clock()
@@ -11,6 +11,8 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+enemy = []
+enemy_list = enemy
 
 class Game():
     def __init__(self):
@@ -21,13 +23,14 @@ class Game():
         A2 = Asteroid()
         A3 = Asteroid()
         A4 = Asteroid()
-        E1 = Enemy()
-        E2 = Enemy()
-        E3 = Enemy()
-        E4 = Enemy()
-        E5 = Enemy()
-        E6 = Enemy()
+        E1 = Enemy(1)
+        E2 = Enemy(1)
+        E3 = Enemy(2)
+        E4 = Enemy(2)
+        E5 = Enemy(3)
+        E6 = Enemy(3)
         AXY1 = AsteroidXY()
+        
 
         # Initializing player
         player = Player((SCREEN_WIDTH/2, SCREEN_HEIGHT))
@@ -50,10 +53,9 @@ class Game():
         self.enemyGroup.add (E4)
         self.enemyGroup.add (E5)
         self.enemyGroup.add (E6)
-
-
-
-
+ 
+        #ran = random.choice([1,2,3,4])
+        #enemy.append(Enemy(ran))   
 
 
         # Display Background Image (Shaq)
@@ -132,18 +134,24 @@ class Game():
             for lasers in self.player.sprite.lasers:
                 for asteroid in self.asteroidGroup:
                     if pygame.sprite.collide_rect(lasers, asteroid):
+                        explosion = pygame.mixer.Sound("assets/sounds/explosion2.wav")
+                        explosion.play()
                         lasers.kill()
                         self.points += 1
                         asteroid.destroyed = True
 
                 for asteroid in self.asteroidXYGroup:
                     if pygame.sprite.collide_rect(lasers, asteroid):
+                        explosion = pygame.mixer.Sound("assets/sounds/explosion2.wav")
+                        explosion.play()
                         lasers.kill()
                         self.points += 1
                         asteroid.destroyed = True
 
                 for enemy in self.enemyGroup:
                     if pygame.sprite.collide_rect(lasers, enemy):
+                        explosion = pygame.mixer.Sound("assets/sounds/explosion2.wav")
+                        explosion.play()
                         lasers.kill()
                         self.points += 1
                         enemy.destroyed = True        
@@ -165,9 +173,20 @@ class Game():
                 self.lives -= 1
                 asteroidXY.destroyed = True
 
-                
+        for enemy in self.enemyGroup:
+            if pygame.sprite.collide_rect(enemy, self.player.sprites()[0]):
+                damage = pygame.mixer.Sound('assets/sounds/thud.wav')
+                damage.play()
+                self.lives -= 1
+                enemy.destroyed = True
+
+
+        
+
     def draw_enemies(self):
         for enemy in self.enemyGroup:
+            ran = random.choice([1,1,2,2,3,3])
+            enemy_list.append(Enemy(ran))
             enemy.move()
             enemy.draw(screen)
         # Loops through the enemies list and renders the enemies (Niels)

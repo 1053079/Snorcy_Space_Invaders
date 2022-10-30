@@ -15,13 +15,13 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 class Game():
     def __init__(self):
         # Initial enemy spawn (Niels)
-        self.create_multiple_enemies(2, 2, 2)
+        #self.create_multiple_enemies(2, 2, 2)
         # Adds the Asteroids into the game
         A1 = Asteroid()
         A2 = Asteroid()
         A3 = Asteroid()
         A4 = Asteroid()
-        #E1 = Enemy()
+        E1 = Enemy()
         AXY1 = AsteroidXY()
 
         # Initializing player
@@ -39,7 +39,7 @@ class Game():
         self.asteroidXYGroup.add(AXY1)
 
         self.enemyGroup = pygame.sprite.Group()
-        self.enemyGroup.add  # (E1)
+        self.enemyGroup.add (E1)
 
         # Display Background Image (Shaq)
         self.background = pygame.image.load(
@@ -70,18 +70,18 @@ class Game():
             f"Points: {self.points}", 1, (255, 255, 255))
 
     # Function to spawn multiple enemies(Niels)
-    def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
-        # Push as many enemies 1 in a list (Niels)
-        self.enemies = []
-        num_of_enemies_1 = num_enemy_1
-        num_of_enemies_2 = num_enemy_2
-        num_of_enemies_3 = num_enemy_3
-        for num in range(num_of_enemies_1):
-            self.enemies.append(Enemy('alien4', self.enemies))
-        for num in range(num_of_enemies_2):
-            self.enemies.append(Enemy('alien5', self.enemies))
-        for num in range(num_of_enemies_3):
-            self.enemies.append(Enemy('alien6', self.enemies))
+    # def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
+    #     # Push as many enemies 1 in a list (Niels)
+    #     self.enemies = []
+    #     num_of_enemies_1 = num_enemy_1
+    #     num_of_enemies_2 = num_enemy_2
+    #     num_of_enemies_3 = num_enemy_3
+    #     for num in range(num_of_enemies_1):
+    #         self.enemies.append(Enemy('alien4', self.enemies))
+    #     for num in range(num_of_enemies_2):
+    #         self.enemies.append(Enemy('alien5', self.enemies))
+    #     for num in range(num_of_enemies_3):
+    #         self.enemies.append(Enemy('alien6', self.enemies))
 
     # Function for the moving background
     def moving_background(self):
@@ -126,6 +126,12 @@ class Game():
                         lasers.kill()
                         self.points += 1
                         asteroid.destroyed = True
+
+                for enemy in self.enemyGroup:
+                    if pygame.sprite.collide_rect(lasers, enemy):
+                        lasers.kill()
+                        self.points += 1
+                        enemy.destroyed = True        
                 # if pygame.sprite.spritecollide(lasers, self.enemies, True):
                 #     lasers.kill()
 
@@ -144,10 +150,14 @@ class Game():
                 self.lives -= 1
                 asteroidXY.destroyed = True
 
+                
     def draw_enemies(self):
+        for enemy in self.enemyGroup:
+            enemy.move()
+            enemy.draw(screen)
         # Loops through the enemies list and renders the enemies (Niels)
-        for enemies in self.enemies:
-            enemies.render()
+        #for enemies in self.enemies:
+        #    enemies.render()
 
     def draw_asteroids(self):
         for asteroid in self.asteroidGroup:

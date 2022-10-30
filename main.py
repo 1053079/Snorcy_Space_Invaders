@@ -61,7 +61,7 @@ tutorial3 = font_tutorial_explain.render(
     "You Only Have Five Lives So Be Careful!", False, (252, 194, 3))
 tutorial3_rect = tutorial3.get_rect(center=(400, 160))
 tutorial4 = font_tutorial_explain.render(
-    "If You Get Hit By An Asteroid Or An Alien Gets Through, One Life Will Be Erased.", False, (252, 194, 3))
+    "If You Get Hit By An Asteroid Or An Alien, One Life Will Be Erased.", False, (252, 194, 3))
 tutorial4_rect = tutorial4.get_rect(center=(400, 190))
 tutorial5 = font_tutorial_explain.render(
     "Enjoy The Game!", False, (252, 194, 3))

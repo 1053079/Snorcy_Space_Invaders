@@ -119,6 +119,7 @@ game_lose = False
 start_menu = True
 start_menu_main = "main"
 
+# Game Loop
 game = Game()
 
 while running:
@@ -190,10 +191,10 @@ while running:
                 Pause(screen,Button) 
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.USEREVENT+1:
+        #if event.type == pygame.USEREVENT+1:
             # Respawns enemies every 7.5 seconds (Niels)
             # game.draw_enemyGroup()
-            game.create_multiple_enemies(2, 2, 2)
+            
         if event.type == pygame.USEREVENT and start_menu == False:
             time_label = font.render(f"Time: {game.time}", 1, (255, 255, 255))
             game.time -= 1

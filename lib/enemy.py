@@ -5,7 +5,7 @@ import random
 alien4 = pygame.image.load("assets/img/alien4.png")
 alien5 = pygame.image.load("assets/img/alien5.png")
 alien6 = pygame.image.load("assets/img/alien6.png")
-alien7 = pygame.image.load("assets/img/alien7.png")
+
 
 # Screen
 SCREEN_WIDTH = 800
@@ -14,15 +14,18 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self,image):
+    def __init__(self,rank):
         super().__init__()
-        self.image = image
-        if self.image == 1:
+        self.rank = rank
+        if self.rank == 1:
             self.image = alien4
-        if self.image == 2:
+        elif self.rank == 2:
             self.image = alien5
         else:
             self.image = alien6
+        mobs = [alien4,alien5, alien6]
+        random.choice(mobs) 
+           
                   
         self.surf = pygame.Surface((64, 64))
         self.rect = self.surf.get_rect(
@@ -31,7 +34,7 @@ class Enemy(pygame.sprite.Sprite):
 
       
     def move(self):
-        self.rect.move_ip(0, random.randint(1,3 ))
+        self.rect.move_ip(0, random.randint(3,5 ))
         if (self.rect.bottom > 620) or self.destroyed == True:
             self.rect.center = (random.randint(32, 600),
                                 (random.randint(-100, 0)))

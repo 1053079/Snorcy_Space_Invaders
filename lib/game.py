@@ -36,7 +36,7 @@ class Game():
         player = Player((SCREEN_WIDTH/2, SCREEN_HEIGHT))
         self.player = pygame.sprite.GroupSingle(player)
 
-        # def astroids(self):
+        # def asteroids(self):
         self.asteroidGroup = pygame.sprite.Group()
         self.asteroidGroup.add(A1)
         self.asteroidGroup.add(A2)
@@ -53,9 +53,15 @@ class Game():
         self.enemyGroup.add (E4)
         self.enemyGroup.add (E5)
         self.enemyGroup.add (E6)
+
+        # alien4 = pygame.image.load("assets/img/alien4.png")
+        # alien5 = pygame.image.load("assets/img/alien5.png")
+        # alien6 = pygame.image.load("assets/img/alien6.png")
+
+        # mobs = [alien4, alien5, alien6] 
  
-        #ran = random.choice([1,2,3,4])
-        #enemy.append(Enemy(ran))   
+        # ran = random.choice([mobs])
+        # enemy.append(Enemy(ran))   
 
 
         # Display Background Image (Shaq)
@@ -185,8 +191,6 @@ class Game():
 
     def draw_enemies(self):
         for enemy in self.enemyGroup:
-            ran = random.choice([1,1,2,2,3,3])
-            enemy_list.append(Enemy(ran))
             enemy.move()
             enemy.draw(screen)
         # Loops through the enemies list and renders the enemies (Niels)

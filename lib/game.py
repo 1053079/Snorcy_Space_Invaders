@@ -2,7 +2,6 @@ import pygame
 from lib.asteroid import Asteroid, AsteroidXY
 from lib.enemy import Enemy
 from lib.player import Player
-import random
 
 FPS = 60
 FramesPerSec = pygame.time.Clock()
@@ -18,7 +17,7 @@ class Game():
     def __init__(self):
         # Initial enemy spawn (Niels)
         #self.create_multiple_enemies(2, 2, 2)
-        # Adds the Asteroids into the game
+        # Initialize the Asteroids into the game (Yong Pok)
         A1 = Asteroid()
         A2 = Asteroid()
         A3 = Asteroid()
@@ -36,7 +35,7 @@ class Game():
         player = Player((SCREEN_WIDTH/2, SCREEN_HEIGHT))
         self.player = pygame.sprite.GroupSingle(player)
 
-        # def asteroids(self):
+        # Adds the Asteroids and enemies into the game: (Yong Pok)
         self.asteroidGroup = pygame.sprite.Group()
         self.asteroidGroup.add(A1)
         self.asteroidGroup.add(A2)
@@ -54,16 +53,7 @@ class Game():
         self.enemyGroup.add (E5)
         self.enemyGroup.add (E6)
 
-        # alien4 = pygame.image.load("assets/img/alien4.png")
-        # alien5 = pygame.image.load("assets/img/alien5.png")
-        # alien6 = pygame.image.load("assets/img/alien6.png")
-
-        # mobs = [alien4, alien5, alien6] 
- 
-        # ran = random.choice([mobs])
-        # enemy.append(Enemy(ran))   
-
-
+    
         # Display Background Image (Shaq)
         self.background = pygame.image.load(
             'assets/img/SnorcyGameBackground.png')
@@ -92,20 +82,7 @@ class Game():
         self.points_label = self.font.render(
             f"Points: {self.points}", 1, (255, 255, 255))
 
-    # Function to spawn multiple enemies(Niels)
-    # def create_multiple_enemies(self, num_enemy_1, num_enemy_2, num_enemy_3):
-    #     # Push as many enemies 1 in a list (Niels)
-    #     self.enemies = []
-    #     num_of_enemies_1 = num_enemy_1
-    #     num_of_enemies_2 = num_enemy_2
-    #     num_of_enemies_3 = num_enemy_3
-    #     for num in range(num_of_enemies_1):
-    #         self.enemies.append(Enemy('alien4', self.enemies))
-    #     for num in range(num_of_enemies_2):
-    #         self.enemies.append(Enemy('alien5', self.enemies))
-    #     for num in range(num_of_enemies_3):
-    #         self.enemies.append(Enemy('alien6', self.enemies))
-
+   
     # Function for the moving background
     def moving_background(self):
         # Background Slider (Shaq)
@@ -134,7 +111,8 @@ class Game():
 
         time_label = self.font.render(f"Time: {self.time}", 1, (255, 255, 255))
         screen.blit(time_label, (10, 70))
-
+        
+    # Laser collision with Asteroids and Enemies (Yong Pok)
     def laser_collision(self):
         if self.player.sprite.lasers:
             for lasers in self.player.sprite.lasers:
@@ -142,6 +120,7 @@ class Game():
                     if pygame.sprite.collide_rect(lasers, asteroid):
                         explosion = pygame.mixer.Sound("assets/sounds/explosion2.wav")
                         explosion.play()
+                        explosion.set_volume(0.5)
                         lasers.kill()
                         self.points += 1
                         asteroid.destroyed = True
@@ -150,6 +129,7 @@ class Game():
                     if pygame.sprite.collide_rect(lasers, asteroid):
                         explosion = pygame.mixer.Sound("assets/sounds/explosion2.wav")
                         explosion.play()
+                        explosion.set_volume(0.5)
                         lasers.kill()
                         self.points += 1
                         asteroid.destroyed = True
@@ -158,12 +138,12 @@ class Game():
                     if pygame.sprite.collide_rect(lasers, enemy):
                         explosion = pygame.mixer.Sound("assets/sounds/explosion2.wav")
                         explosion.play()
+                        explosion.set_volume(0.5)
                         lasers.kill()
-                        self.points += 1
+                        self.points += 2
                         enemy.destroyed = True        
-                # if pygame.sprite.spritecollide(lasers, self.enemies, True):
-                #     lasers.kill()
-
+              
+    # Player collision with asteroids and enemies
     def player_ast_col(self):
         for asteroid in self.asteroidGroup:
             if pygame.sprite.collide_rect(asteroid, self.player.sprites()[0]):

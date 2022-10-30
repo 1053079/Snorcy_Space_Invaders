@@ -22,6 +22,11 @@ class Game():
         A3 = Asteroid()
         A4 = Asteroid()
         E1 = Enemy()
+        E2 = Enemy()
+        E3 = Enemy()
+        E4 = Enemy()
+        E5 = Enemy()
+        E6 = Enemy()
         AXY1 = AsteroidXY()
 
         # Initializing player
@@ -40,6 +45,16 @@ class Game():
 
         self.enemyGroup = pygame.sprite.Group()
         self.enemyGroup.add (E1)
+        self.enemyGroup.add (E2)
+        self.enemyGroup.add (E3)
+        self.enemyGroup.add (E4)
+        self.enemyGroup.add (E5)
+        self.enemyGroup.add (E6)
+
+
+
+
+
 
         # Display Background Image (Shaq)
         self.background = pygame.image.load(

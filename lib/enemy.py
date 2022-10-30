@@ -12,6 +12,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+# Enemy Class (Yong Pok)
 class Enemy(pygame.sprite.Sprite):
     def __init__(self,rank):
         super().__init__()
@@ -28,12 +29,13 @@ class Enemy(pygame.sprite.Sprite):
             center=(random.randint(32, 600), (random.randint(-100, 0))))
         self.destroyed = False
 
+    # How the enemy moves (Yong Pok)
     def move(self):
         self.rect.move_ip(0, random.randint(3,5))
         if (self.rect.bottom > 620) or self.destroyed == True:
             self.rect.center = (random.randint(32, 600),
                                 (random.randint(-100, 0)))
             self.destroyed = False
-    
+    # Draws the enemies on screen (Yong Pok)
     def draw(self, surface):
         surface.blit(self.image, self.rect)

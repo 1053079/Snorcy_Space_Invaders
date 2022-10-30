@@ -111,7 +111,7 @@ class Game():
 
         time_label = self.font.render(f"Time: {self.time}", 1, (255, 255, 255))
         screen.blit(time_label, (10, 70))
-        
+
     # Laser collision with Asteroids and Enemies (Yong Pok)
     def laser_collision(self):
         if self.player.sprite.lasers:
@@ -143,7 +143,7 @@ class Game():
                         self.points += 2
                         enemy.destroyed = True        
               
-    # Player collision with asteroids and enemies
+    # Player collision with asteroids and enemies (Yong Pok)
     def player_ast_col(self):
         for asteroid in self.asteroidGroup:
             if pygame.sprite.collide_rect(asteroid, self.player.sprites()[0]):
@@ -165,18 +165,12 @@ class Game():
                 damage.play()
                 self.lives -= 1
                 enemy.destroyed = True
-
-
-        
-
+    # Draws the enenmies and asteroids on the screen (Yong Pok)
     def draw_enemies(self):
         for enemy in self.enemyGroup:
             enemy.move()
             enemy.draw(screen)
-        # Loops through the enemies list and renders the enemies (Niels)
-        #for enemies in self.enemies:
-        #    enemies.render()
-
+       
     def draw_asteroids(self):
         for asteroid in self.asteroidGroup:
             asteroid.move()
